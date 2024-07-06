@@ -11,7 +11,7 @@ class UpdateProdukJasaRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class UpdateProdukJasaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nama'=> 'required|string|max:100',
+            'keterangan'=> 'required|string',
+            'harga'=> 'required|decimal:0,999999999',
         ];
     }
 }

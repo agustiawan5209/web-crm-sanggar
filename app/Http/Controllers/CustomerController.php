@@ -19,8 +19,7 @@ class CustomerController extends Controller
         $tableName = 'layanans'; // Ganti dengan nama tabel yang Anda inginkan
         $columns = DB::getSchemaBuilder()->getColumnListing($tableName);
 
-        // dd($columns);
-        return Inertia::render('Admin/Layanan/Index', [
+        return Inertia::render('Admin/Customer/Index', [
             'search' =>  Request::input('search'),
             'table_colums' => array_values(array_diff($columns, ['remember_token', 'password', 'email_verified_at', 'created_at', 'updated_at', 'user_id', 'deskripsi'])),
             'data' => Customer::filter(Request::only('search', 'order'))->paginate(10),

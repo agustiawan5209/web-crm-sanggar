@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Models\ProdukAlat;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Request;
 use App\Http\Requests\StoreProdukAlatRequest;
 use App\Http\Requests\UpdateProdukAlatRequest;
 
@@ -13,7 +16,20 @@ class ProdukAlatController extends Controller
      */
     public function index()
     {
-        //
+        $tableName = 'produk_jasas'; // Ganti dengan nama tabel yang Anda inginkan
+        $columns = DB::getSchemaBuilder()->getColumnListing($tableName);
+
+        return Inertia::render('Admin/Alat/Index', [
+            'search' =>  Request::input('search'),
+            'table_colums' => array_values(array_diff($columns, ['remember_token', 'password', 'email_verified_at', 'created_at', 'updated_at', 'user_id', 'deskripsi'])),
+            'data' => ProdukAlat::filter(Request::only('search', 'order'))->paginate(10),
+            'can' => [
+                'add' => true,
+                'edit' => true,
+                'show' => false,
+                'delete' => true,
+            ]
+        ]);
     }
 
     /**
@@ -21,7 +37,7 @@ class ProdukAlatController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Admin/Alat/Form', []);
     }
 
     /**
@@ -29,7 +45,9 @@ class ProdukAlatController extends Controller
      */
     public function store(StoreProdukAlatRequest $request)
     {
-        //
+        $produk = ProdukAlat::create($request->all());
+
+        return redirect()->route('Produk.Alat.index')->with('message', 'Data Produk Alat Berhasil Di Tambah!!');
     }
 
     /**
@@ -37,7 +55,9 @@ class ProdukAlatController extends Controller
      */
     public function show(ProdukAlat $produkAlat)
     {
-        //
+        return Inertia::render('Admin/Alat/Show', [
+            'jasa'=> ProdukAlat::with(['image'])->find(Request::input('slug')),
+        ]);
     }
 
     /**
@@ -45,7 +65,9 @@ class ProdukAlatController extends Controller
      */
     public function edit(ProdukAlat $produkAlat)
     {
-        //
+        return Inertia::render('Admin/Alat/Edit', [
+            'jasa'=> ProdukAlat::with(['image'])->find(Request::input('slug')),
+        ]);
     }
 
     /**
@@ -53,7 +75,9 @@ class ProdukAlatController extends Controller
      */
     public function update(UpdateProdukAlatRequest $request, ProdukAlat $produkAlat)
     {
-        //
+        $produk = ProdukAlat::find($request->slug)->update($request->all());
+
+        return redirect()->route('Produk.Alat.index')->with('message', 'Data Produk Alat Berhasil Di Ubah!!');
     }
 
     /**
@@ -61,6 +85,16 @@ class ProdukAlatController extends Controller
      */
     public function destroy(ProdukAlat $produkAlat)
     {
-        //
+        $produk = ProdukAlat::find(Request::input('slug'));
+        $produk->delete();
+
+        return redirect()->route('Produk.Alat.index')->with('message', 'Data Produk Alat Berhasil Di Hapus!!');
+    }
+
+    public function updateStatus($status){
+        $produk = ProdukAlat::find(Request::input('slug'));
+        $produk->update(['status'=> $status]);
+
+        return redirect()->route('Produk.Alat.index')->with('message', 'Data Status Produk Alat Berhasil Di Ubah!!');
     }
 }
