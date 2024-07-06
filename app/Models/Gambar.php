@@ -36,4 +36,13 @@ class Gambar extends Model
             $query->orderBy('id', $order);
         });
     }
+
+    public function scopeDefault($query){
+        $query->where('status', '1');
+    }
+
+    public function getPhotoAttribute($value)
+    {
+        return url('storage/produk/' . $value);
+    }
 }
