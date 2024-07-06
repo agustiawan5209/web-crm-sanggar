@@ -20,6 +20,9 @@ class ProdukAlat extends Model
     ];
 
 
+    public function image(){
+        return $this->hasMany(Gambar::class, 'alat_id', 'id');
+    }
     public function scopeFilter($query, $filter)
     {
         $query->when($filter['search'] ?? null, function ($query, $search) {

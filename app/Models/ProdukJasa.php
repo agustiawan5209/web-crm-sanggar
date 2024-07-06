@@ -18,6 +18,9 @@ class ProdukJasa extends Model
         'status'
     ];
 
+    public function image(){
+        return $this->hasMany(Gambar::class, 'jasa_id', 'id');
+    }
 
     public function scopeFilter($query, $filter)
     {
