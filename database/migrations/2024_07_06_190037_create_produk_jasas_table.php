@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('customers', function (Blueprint $table) {
+        Schema::create('produk_jasas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->string('no_telpon',50);
-            $table->string('alamat',100);
-            $table->enum('status',['0','1','2'])->comment('0 = Pelanggan Baru, 1=Pelanggan Aktif, 2 = Pelanggan Lama');
+            $table->string('nama', 50);
+            $table->decimal('harga', 10,2);
+            $table->text('keterangan');
+            $table->enum('status', ['0','1'])->comment('0 = tersedia, 1=tidak tersedia');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('customers');
+        Schema::dropIfExists('produk_jasas');
     }
 };
