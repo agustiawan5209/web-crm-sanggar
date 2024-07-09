@@ -15,52 +15,20 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        $role = Role::create(['name' => 'Kepala']);
-        $orangtua = Role::create(['name' => 'Orang Tua']);
-        $staff = Role::create(['name' => 'Kader']);
+        $role = Role::create(['name' => 'Admin']);
+        $pengguna = Role::create(['name' => 'Pengguna']);
 
 
 
         $user = User::factory()->create([
-            'name' => 'kepala',
-            'username' => 'kepala',
-            'email' => 'kepala@gmail.com',
+            'name' => 'admin',
+            'username' => 'admin',
+            'email' => 'admin@gmail.com',
             'password' => bcrypt('12345678'),
         ]);
 
         $user->assignRole($role);
-        $user->givePermissionTo([
-            // 'add riwayat',
-            // 'edit riwayat',
-            // 'delete riwayat',
-            'show riwayat',
-            // Balita
-            // 'add balita',
-            // 'edit balita',
-            // 'delete balita',
-            'show balita',
-            // orang tua
-            // 'add orangtua',
-            // 'edit orangtua',
-            // 'delete orangtua',
-            'show orangtua',
-            // jadwal
-            // 'add jadwal',
-            // 'edit jadwal',
-            // 'delete jadwal',
-            'show jadwal',
-            // staff
-            'add staff',
-            'edit staff',
-            'delete staff',
-            'show staff',
-            'reset staff',
-            // Sertifikat
-            'add sertifikat',
-            'edit sertifikat',
-            'delete sertifikat',
-            'show sertifikat',
-        ]);
+
 
     }
 }
