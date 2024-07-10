@@ -1,20 +1,25 @@
 <script setup>
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import { Link } from '@inertiajs/vue3';
+import HomeLayout from '@/Layouts/HomeLayout.vue';
+
 </script>
 
 <template>
-    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-        <div>
-            <Link href="/">
-                <ApplicationLogo class="w-20 h-20 fill-current text-gray-500" />
-            </Link>
-        </div>
+    <HomeLayout>
 
-        <div
-            class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg"
-        >
-            <slot />
+        <div class="bg-gray-100">
+            <section class="cover bg-blue-teal-gradient relative bg-blue-600 px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64 overflow-hidden py-48 flex
+      items-center min-h-screen justify-center">
+                <div class="w-full h-full absolute top-0 left-0 z-0">
+                    <img src="images/cover-bg.jpg" alt="" class="w-full h-full object-cover opacity-20">
+                </div>
+
+                <div class="bg-white w-full md:w-[600px] p-4 rounded-lg z-50">
+                <slot/>
+
+                </div>
+            </section>
         </div>
-    </div>
+    </HomeLayout>
 </template>
