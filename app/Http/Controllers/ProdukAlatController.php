@@ -16,17 +16,17 @@ class ProdukAlatController extends Controller
      */
     public function index()
     {
-        $tableName = 'produk_jasas'; // Ganti dengan nama tabel yang Anda inginkan
+        $tableName = 'produk_alats'; // Ganti dengan nama tabel yang Anda inginkan
         $columns = DB::getSchemaBuilder()->getColumnListing($tableName);
 
         return Inertia::render('Admin/Alat/Index', [
             'search' =>  Request::input('search'),
-            'table_colums' => array_values(array_diff($columns, ['remember_token', 'password', 'email_verified_at', 'created_at', 'updated_at', 'user_id', 'deskripsi'])),
+            'table_colums' => array_values(array_diff($columns, ['remember_token', 'keterangan', 'password', 'email_verified_at', 'created_at', 'updated_at', 'user_id', 'deskripsi'])),
             'data' => ProdukAlat::filter(Request::only('search', 'order'))->paginate(10),
             'can' => [
                 'add' => true,
                 'edit' => true,
-                'show' => false,
+                'show' => true,
                 'delete' => true,
             ]
         ]);
@@ -56,7 +56,7 @@ class ProdukAlatController extends Controller
     public function show(ProdukAlat $produkAlat)
     {
         return Inertia::render('Admin/Alat/Show', [
-            'jasa'=> ProdukAlat::with(['image'])->find(Request::input('slug')),
+            'alat'=> ProdukAlat::with(['image'])->find(Request::input('slug')),
         ]);
     }
 
@@ -66,7 +66,7 @@ class ProdukAlatController extends Controller
     public function edit(ProdukAlat $produkAlat)
     {
         return Inertia::render('Admin/Alat/Edit', [
-            'jasa'=> ProdukAlat::with(['image'])->find(Request::input('slug')),
+            'alat'=> ProdukAlat::with(['image'])->find(Request::input('slug')),
         ]);
     }
 

@@ -60,8 +60,8 @@ function submit() {
                                 <InputError :message="Form.errors.nama" />
                             </div>
                             <div class="col-span-full ">
-                                <label for="harga" class="text-base">Harga</label>
-                                <TextInput id="harga" type="number" placeholder="Harga" v-model="Form.harga"
+                                <label for="harga" class="text-base">Harga Sewa</label>
+                                <TextInput id="harga" type="number" placeholder="Harga Sewa" v-model="Form.harga"
                                     class="w-full text-gray-900" />
                                 <InputError :message="Form.errors.harga" />
                             </div>

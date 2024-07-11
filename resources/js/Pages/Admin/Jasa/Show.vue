@@ -58,7 +58,7 @@ const props = defineProps({
                                         <td class="text-sm border-b text-gray-800"> {{ jasa.nama }} </td>
                                     </tr>
                                     <tr class="">
-                                        <td class="text-sm border-b py-2 font-bold capitalize">Harga</td>
+                                        <td class="text-sm border-b py-2 font-bold capitalize">Harga Sewa</td>
                                         <td>:</td>
                                         <td class="text-sm border-b text-gray-800"> {{ jasa.harga }} </td>
                                     </tr>

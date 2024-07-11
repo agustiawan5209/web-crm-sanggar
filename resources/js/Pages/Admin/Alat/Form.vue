@@ -11,7 +11,7 @@ import TextInput from '@/Components/TextInput.vue';
 import { ref, defineProps } from 'vue';
 
 const props = defineProps({
-    jasa: {
+    alat: {
         type: Object,
         default: () => ({})
     },
@@ -20,11 +20,12 @@ const Form = useForm({
     nama: '',
     keterangan: '',
     harga: '',
+    stok: '',
     status: '0',
 })
 
 function submit() {
-    Form.post(route('Produk.Jasa.store'), {
+    Form.post(route('Produk.Alat.store'), {
         onError: (err) => {
             console.log(err)
         }
@@ -36,20 +37,20 @@ function submit() {
 
 <template>
 
-    <Head title="JASA" />
+    <Head title="ALAT" />
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Form Tambah JASA</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Form Tambah ALAT</h2>
         </template>
 
-        <div class="py-4 relative box-content">
+        <div class="py-4 relative box-content group">
             <section class="p-6 bg-gray-100 group-hover:bg-gradient-to-br group-hover:from-purple-400 group-hover:via-blue-400 group-hover:to-blue-500 text-gray-900">
                 <form @submit.prevent="submit()" novalidate="" action=""
                     class="container flex flex-col mx-auto space-y-12">
                     <div class="space-y-2 col-span-full lg:col-span-1 group-hover:text-white">
-                        <p class="font-medium text-white">Data Informasi PRODUK JASA</p>
-                        <p class="text-xs">Tambahkan data PRODUK JASA</p>
+                        <p class="font-medium">Data Informasi PRODUK ALAT</p>
+                        <p class="text-xs">Tambahkan data PRODUK ALAT</p>
                     </div>
                     <fieldset class="grid grid-cols-3 gap-6 p-6 rounded-md shadow-sm bg-gray-50">
                         <div class="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
@@ -60,10 +61,16 @@ function submit() {
                                 <InputError :message="Form.errors.nama" />
                             </div>
                             <div class="col-span-full ">
-                                <label for="harga" class="text-base">Harga</label>
-                                <TextInput id="harga" type="number" placeholder="Harga" v-model="Form.harga"
+                                <label for="harga" class="text-base">Harga Sewa</label>
+                                <TextInput id="harga" type="number" placeholder="Harga Sewa" v-model="Form.harga"
                                     class="w-full text-gray-900" />
                                 <InputError :message="Form.errors.harga" />
+                            </div>
+                            <div class="col-span-full ">
+                                <label for="stok" class="text-base">Stok</label>
+                                <TextInput id="stok" type="number" placeholder="Stok" v-model="Form.stok"
+                                    class="w-full text-gray-900" />
+                                <InputError :message="Form.errors.stok" />
                             </div>
                             <div class="col-span-full">
                                 <label for="status" class="text-base w-full">Status</label>

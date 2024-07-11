@@ -62,9 +62,9 @@ const toggleDropdown = () => {
                     </NavLink>
                   </div>
                   <div class="flex items-center justify-between mb-2">
-                    <NavLink :href="route('Customer.index')" :active="route().current('Customer.index')">
+                    <NavLink :href="route('Produk.Alat.index')" :active="route().current('Produk.Alat.index')">
                         <font-awesome-icon :icon="['fas', 'users']" />
-                        <span class="ml-4">Customer</span>
+                        <span class="ml-4">Alat</span>
                     </NavLink>
                   </div>
                 </div>

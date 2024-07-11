@@ -205,17 +205,17 @@ function truncateText(text) {
                     </div>
                     <div class="w-full overflow-x-auto">
                         <table class="w-full table overflow-x-auto">
-                            <thead class="bg-gray-50">
-                                <tr class="text-xs font-semibold tracking-wide text-left uppercase border-b border-gray-700  text-gray-400 bg-gray-100">
+                            <thead class="bg-blue-500">
+                                <tr class="text-xs md:text-base font-semibold tracking-wide text-left uppercase border-b border-gray-700  text-white ">
                                     <th scope="col" v-for="item in columsReplace"
-                                        class="px-2 py-1 md:px-6 md:py-3 text-nowrap text-start text-xs font-medium text-gray-500 capitalize">
+                                        class="px-2 py-1 md:px-6 md:py-3 text-nowrap text-start font-medium capitalize">
                                         <span v-if="item == 'id' || item == 'slug'">
                                             No.
                                         </span>
                                         <span v-else>{{ item }}</span>
                                     </th>
                                     <th scope="col" v-if="cekAksi()"
-                                        class=" px-2 py-1 md:px-3 md:py-3 text-xs text-center font-medium text-gray-500 uppercase">Aksi
+                                        class=" px-2 py-1 md:px-3 md:py-3 text-center font-medium uppercase">Aksi
                                     </th>
                                 </tr>
                             </thead>

@@ -11,7 +11,7 @@ class StoreProdukAlatRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,6 +26,7 @@ class StoreProdukAlatRequest extends FormRequest
             'keterangan'=> 'required|string',
             'harga'=> 'required|decimal:0,999999999',
             'stok'=> 'required|numeric',
+            'status'=> 'required|in:0,1',
         ];
     }
 }

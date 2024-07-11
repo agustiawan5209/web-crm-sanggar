@@ -11,22 +11,23 @@ import TextInput from '@/Components/TextInput.vue';
 import { ref, defineProps } from 'vue';
 
 const props = defineProps({
-    jasa: {
+    alat: {
         type: Object,
         default: () => ({})
     },
 })
 
 const Form = useForm({
-    slug: props.jasa.id,
-    nama: props.jasa.nama,
-    keterangan: props.jasa.keterangan,
-    harga: props.jasa.harga,
-    status: props.jasa.status,
+    slug: props.alat.id,
+    nama: props.alat.nama,
+    keterangan: props.alat.keterangan,
+    harga: props.alat.harga,
+    stok: props.alat.stok,
+    status: props.alat.status,
 })
 
 function submit() {
-    Form.put(route('Produk.Jasa.update'), {
+    Form.put(route('Produk.Alat.update'), {
         onError: (err) => {
             console.log(err)
         }
@@ -62,10 +63,16 @@ function submit() {
                                 <InputError :message="Form.errors.nama" />
                             </div>
                             <div class="col-span-full ">
-                                <label for="harga" class="text-base">Harga</label>
-                                <TextInput id="harga" type="number" placeholder="Harga" v-model="Form.harga"
+                                <label for="harga" class="text-base">Harga Sewa</label>
+                                <TextInput id="harga" type="number" placeholder="Harga Sewa" v-model="Form.harga"
                                     class="w-full text-gray-900" />
                                 <InputError :message="Form.errors.harga" />
+                            </div>
+                            <div class="col-span-full ">
+                                <label for="stok" class="text-base">Stok</label>
+                                <TextInput id="stok" type="number" placeholder="Stok Barang" v-model="Form.stok"
+                                    class="w-full text-gray-900" />
+                                <InputError :message="Form.errors.stok" />
                             </div>
                             <div class="col-span-full">
                                 <label for="status" class="text-base w-full">Status</label>

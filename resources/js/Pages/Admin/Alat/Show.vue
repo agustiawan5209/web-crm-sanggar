@@ -13,7 +13,7 @@ import { ref, defineProps, watch, onMounted } from 'vue';
 
 const page = usePage();
 const props = defineProps({
-    jasa: {
+    alat: {
         type: Object,
         default: () => ({})
     }
@@ -23,19 +23,19 @@ const props = defineProps({
 
 <template>
 
-    <Head title="Produk Jasa" />
+    <Head title="Produk Alat" />
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Show Detail Produk Jasa</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Show Detail Produk Alat</h2>
         </template>
 
         <div class="md:py-4 relative box-content">
             <section class=" py-2 px-0 md:px-6  md:py-6 bg-gray-100 text-gray-900">
                 <form novalidate="" action="" class="container flex flex-col mx-auto space-y-12">
                     <div class="space-y-2 col-span-full lg:col-span-1 px-3 md:px-0">
-                        <p class="font-medium">Detail Informasi Produk Jasa</p>
-                        <p class="text-xs">Detail data Produk Jasa</p>
+                        <p class="font-medium">Detail Informasi Produk Alat</p>
+                        <p class="text-xs">Detail data Produk Alat</p>
                     </div>
                     <fieldset class="grid grid-cols-3 gap-6 p-6 rounded-md shadow-sm bg-gray-50">
                         <div class="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
@@ -55,22 +55,27 @@ const props = defineProps({
                                     <tr class="">
                                         <td class="text-sm border-b py-2 font-bold capitalize">Nama Produk</td>
                                         <td>:</td>
-                                        <td class="text-sm border-b text-gray-800"> {{ jasa.nama }} </td>
+                                        <td class="text-sm border-b text-gray-800"> {{ alat.nama }} </td>
                                     </tr>
                                     <tr class="">
-                                        <td class="text-sm border-b py-2 font-bold capitalize">Harga</td>
+                                        <td class="text-sm border-b py-2 font-bold capitalize">Harga Sewa</td>
                                         <td>:</td>
-                                        <td class="text-sm border-b text-gray-800"> {{ jasa.harga }} </td>
+                                        <td class="text-sm border-b text-gray-800"> {{ alat.harga }} </td>
+                                    </tr>
+                                    <tr class="">
+                                        <td class="text-sm border-b py-2 font-bold capitalize">Stok</td>
+                                        <td>:</td>
+                                        <td class="text-sm border-b text-gray-800"> {{ alat.stok }} </td>
                                     </tr>
                                     <tr class="">
                                         <td class="text-sm border-b py-2 font-bold capitalize">keterangan</td>
                                         <td>:</td>
-                                        <td class="text-sm border-b text-gray-800 text-left" v-html="jasa.keterangan"> </td>
+                                        <td class="text-sm border-b text-gray-800 text-left" v-html="alat.keterangan"> </td>
                                     </tr>
                                     <tr class="">
                                         <td class="text-sm border-b py-2 font-bold capitalize">Status</td>
                                         <td>:</td>
-                                        <td class="text-sm border-b text-gray-600 text-left"> {{ jasa.status }} </td>
+                                        <td class="text-sm border-b text-gray-600 text-left"> {{ alat.status }} </td>
                                     </tr>
                                 </table>
                             </div>

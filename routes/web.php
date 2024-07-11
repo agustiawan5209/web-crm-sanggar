@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\ProdukJasaController;
-use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ProdukAlatController;
+use App\Http\Controllers\ProdukJasaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,7 +63,7 @@ Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
         });
     });
 
-    // Router Produk Jasa
+    // Router Produk Alat
     Route::group(['prefix' => 'jasa', 'as' => "Produk.Jasa."], function () {
         Route::controller(ProdukJasaController::class)->group(function () {
             Route::get('/', 'index')->name('index');
@@ -72,6 +73,18 @@ Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
             Route::get('/detail-jasa', 'show')->name('show');
             Route::put('/update-data-jasa', 'update')->name('update');
             Route::delete('/hapus-data-jasa', 'destroy')->name('destroy');
+        });
+    });
+    // Router Produk Alat
+    Route::group(['prefix' => 'alat', 'as' => "Produk.Alat."], function () {
+        Route::controller(ProdukAlatController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/tambah-data-alat', 'create')->name('create');
+            Route::get('/edit-data-alat', 'edit')   ->name('edit');
+            Route::post('/store-data-alat', 'store')->name('store');
+            Route::get('/detail-alat', 'show')->name('show');
+            Route::put('/update-data-alat', 'update')->name('update');
+            Route::delete('/hapus-data-alat', 'destroy')->name('destroy');
         });
     });
 

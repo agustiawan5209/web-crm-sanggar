@@ -22,10 +22,13 @@ class UpdateProdukAlatRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'slug' => 'required|exists:produk_alats,id',
             'nama' => 'required|string|max:100',
             'keterangan' => 'required|string',
             'harga' => 'required|decimal:0,999999999',
             'stok' => 'required|numeric',
+            'status'=> 'required|in:0,1',
+
         ];
     }
 }
