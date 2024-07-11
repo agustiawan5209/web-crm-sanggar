@@ -91,7 +91,7 @@ Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
     Route::group(['prefix' => 'galeri', 'as' => "Galeri."], function () {
         Route::controller(GambarController::class)->group(function () {
             Route::get('/alat', 'alat_index')->name('alat_index');
-            Route::get('/alat', 'jasa_index')->name('jasa_index');
+            Route::get('/jasa', 'jasa_index')->name('jasa_index');
             Route::post('/store_alat', 'store_alat')->name('alat_store');
             Route::post('/store_jasa', 'store_jasa')->name('jasa_store');
             Route::put('update/{id}', 'update')->name('edit');

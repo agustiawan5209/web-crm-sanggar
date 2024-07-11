@@ -233,6 +233,9 @@ function truncateText(text) {
                                         <span v-else-if="col == 'jasa_galeri'" class="p-2 bg-orange-500 text-white rounded-lg w-1/2">
                                             <Link :href="route('Galeri.jasa_index', {slug: item.id})">Galeri</Link>
                                         </span>
+                                        <span v-else-if="col == 'alat_galeri'" class="p-2 bg-orange-500 text-white rounded-lg w-1/2">
+                                            <Link :href="route('Galeri.alat_index', {slug: item.id})">Galeri</Link>
+                                        </span>
                                         <span v-else :class="col == 'tanggal' ? 'whitespace-nowrap' :'' ">{{ item[col] }}</span>
                                     </td>
                                     <td class="px-2 py-1 md:px-4 md:py-3  text-xs font-medium text-gray-800 border relative"

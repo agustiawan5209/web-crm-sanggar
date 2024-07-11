@@ -17,7 +17,13 @@ class ProdukAlatController extends Controller
     public function index()
     {
         $tableName = 'produk_alats'; // Ganti dengan nama tabel yang Anda inginkan
-        $columns = DB::getSchemaBuilder()->getColumnListing($tableName);
+
+        $columns[]= 'id';
+        $columns[]= 'alat_galeri';
+        $columns[]= 'nama';
+        $columns[]= 'harga';
+        $columns[]= 'stok';
+        $columns[]= 'status';
 
         return Inertia::render('Admin/Alat/Index', [
             'search' =>  Request::input('search'),
