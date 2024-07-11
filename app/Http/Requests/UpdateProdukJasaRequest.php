@@ -25,6 +25,7 @@ class UpdateProdukJasaRequest extends FormRequest
             'nama'=> 'required|string|max:100',
             'keterangan'=> 'required|string',
             'harga'=> 'required|decimal:0,999999999',
+            'status'=> 'required|in:0,1'
         ];
     }
 }

@@ -21,7 +21,7 @@ class ProdukJasaController extends Controller
 
         return Inertia::render('Admin/Jasa/Index', [
             'search' =>  Request::input('search'),
-            'table_colums' => array_values(array_diff($columns, ['remember_token', 'password', 'email_verified_at', 'created_at', 'updated_at', 'user_id', 'deskripsi'])),
+            'table_colums' => array_values(array_diff($columns, ['remember_token', 'keterangan', 'password', 'email_verified_at', 'created_at', 'updated_at', 'user_id', 'deskripsi'])),
             'data' => ProdukJasa::filter(Request::only('search', 'order'))->paginate(10),
             'can' => [
                 'add' => true,

@@ -34,7 +34,6 @@ const crud = ref({
     edit: props.can.edit,
     show: props.can.show,
     delete: props.can.delete,
-    reset_password: props.can.reset,
 
 })
 
@@ -42,15 +41,15 @@ const crud = ref({
 
 <template>
 
-    <Head title="Layanan" />
+    <Head title="Produk Jasa" />
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Data Layanan</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Data Produk Jasa</h2>
         </template>
 
         <div class="py-4 relative box-content">
-            <CardTable @update:search="search = $event" @update:order="order" :slug="null" path="Layanan" :TableData="data" :tableColums="table_colums" :crud="crud" />
+            <CardTable @update:search="search = $event" @update:order="order" :slug="null" path="Produk.Jasa" :TableData="data" :tableColums="table_colums" :crud="crud" />
         </div>
     </AuthenticatedLayout>
 </template>

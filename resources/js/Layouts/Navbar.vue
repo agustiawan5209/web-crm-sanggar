@@ -40,7 +40,7 @@ const toggleDropdown = () => {
             </NavLink>
         </li>
         <li>
-            <div class="mb-4 group ">
+            <div class="mb-4 group px-3">
                 <button @click="toggleDropdown" class="flex items-center justify-between w-full text-white ">
                   <span class="flex items-center">
                     <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -56,9 +56,9 @@ const toggleDropdown = () => {
               <transition name="fade">
                 <div v-if="isDropdownOpen" class="pl-6">
                   <div class="flex items-center justify-between mb-2">
-                    <NavLink :href="route('Customer.index')" :active="route().current('Customer.index')">
+                    <NavLink :href="route('Produk.Jasa.index')" :active="route().current('Produk.Jasa.index')">
                         <font-awesome-icon :icon="['fas', 'users']" />
-                        <span class="ml-4">Customer</span>
+                        <span class="ml-4">Jasa</span>
                     </NavLink>
                   </div>
                   <div class="flex items-center justify-between mb-2">

@@ -215,7 +215,7 @@ function truncateText(text) {
                                         <span v-else>{{ item }}</span>
                                     </th>
                                     <th scope="col" v-if="cekAksi()"
-                                        class=" px-2 py-1 md:px-3 md:py-3 text-end text-xs font-medium text-gray-500 uppercase">Aksi
+                                        class=" px-2 py-1 md:px-3 md:py-3 text-xs text-center font-medium text-gray-500 uppercase">Aksi
                                     </th>
                                 </tr>
                             </thead>

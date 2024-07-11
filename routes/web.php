@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ProdukJasaController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -60,5 +61,20 @@ Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
             Route::post('/reset-password-customer', 'resetpasswordUpdate')->name('reset.password');
         });
     });
+
+    // Router Produk Jasa
+    Route::group(['prefix' => 'jasa', 'as' => "Produk.Jasa."], function () {
+        Route::controller(ProdukJasaController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/tambah-data-jasa', 'create')->name('create');
+            Route::get('/edit-data-jasa', 'edit')   ->name('edit');
+            Route::post('/store-data-jasa', 'store')->name('store');
+            Route::get('/detail-jasa', 'show')->name('show');
+            Route::put('/update-data-jasa', 'update')->name('update');
+            Route::delete('/hapus-data-jasa', 'destroy')->name('destroy');
+        });
+    });
+
+
 
 });

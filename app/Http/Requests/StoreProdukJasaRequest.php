@@ -24,7 +24,8 @@ class StoreProdukJasaRequest extends FormRequest
         return [
             'nama'=> 'required|string|max:100',
             'keterangan'=> 'required|string',
-            'harga'=> 'decimal:0,999999999',
+            'harga'=> 'required|decimal:0,999999999',
+            'status'=> 'required|in:0,1'
         ];
     }
 }
