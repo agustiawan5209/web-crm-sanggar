@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('jasa_id')->nullable();
             $table->foreignId('alat_id')->nullable();
             $table->string('image');
-            $table->enum('status', ['0', '1'])->default('0')->comment('0 = not, 1 =default');
+            $table->boolean('status');
             $table->timestamps();
         });
     }

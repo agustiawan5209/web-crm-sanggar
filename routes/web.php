@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\GambarController;
 use App\Http\Controllers\ProdukAlatController;
 use App\Http\Controllers\ProdukJasaController;
 
@@ -87,6 +88,18 @@ Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
             Route::delete('/hapus-data-alat', 'destroy')->name('destroy');
         });
     });
+    Route::group(['prefix' => 'galeri', 'as' => "Galeri."], function () {
+        Route::controller(GambarController::class)->group(function () {
+            Route::get('/alat', 'alat_index')->name('alat_index');
+            Route::get('/alat', 'jasa_index')->name('jasa_index');
+            Route::post('/store_alat', 'store_alat')->name('alat_store');
+            Route::post('/store_jasa', 'store_jasa')->name('jasa_store');
+            Route::put('update/{id}', 'update')->name('edit');
+            Route::delete('delete/{id}', 'destroy')->name('Delete');
+        });
+    });
+
+
 
 
 

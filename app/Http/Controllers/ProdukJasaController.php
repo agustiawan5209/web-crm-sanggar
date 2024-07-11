@@ -17,7 +17,12 @@ class ProdukJasaController extends Controller
     public function index()
     {
         $tableName = 'produk_jasas'; // Ganti dengan nama tabel yang Anda inginkan
-        $columns = DB::getSchemaBuilder()->getColumnListing($tableName);
+        // $columns = DB::getSchemaBuilder()->getColumnListing($tableName);
+        $columns[]= 'id';
+        $columns[]= 'jasa_galeri';
+        $columns[]= 'nama';
+        $columns[]= 'harga';
+        $columns[]= 'status';
 
         return Inertia::render('Admin/Jasa/Index', [
             'search' =>  Request::input('search'),

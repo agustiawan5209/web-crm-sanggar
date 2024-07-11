@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,8 +16,19 @@ class Gambar extends Model
         'jasa_id',
         'alat_id',
         'image',
-        'status'
+        'status',
     ];
+
+    protected $appends = [
+        'image_url',
+    ];
+
+    public function imageUrl(): Attribute
+    {
+        return new Attribute(
+            get: fn()=> asset('storage/produk/'. $this->image),
+        );
+    }
 
     public function jasa(){
         return $this->hasOne(ProdukJasa::class, 'id','jasa_id');
