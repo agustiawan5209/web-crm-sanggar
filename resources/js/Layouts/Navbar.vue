@@ -25,7 +25,7 @@ const toggleDropdown = () => {
 </script>
 <template>
     <ul class="mt-6 space-y-6 overflow-hidden" v-if="roleToCheck('Admin')">
-        <li>
+        <li class="relative">
 
             <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                 <font-awesome-icon :icon="['fas', 'house']" />
@@ -39,7 +39,7 @@ const toggleDropdown = () => {
                 <span class="ml-4">Customer</span>
             </NavLink>
         </li>
-        <li>
+        <li class="relative py-3">
             <div class="mb-4 group px-3">
                 <button @click="toggleDropdown" class="flex items-center justify-between w-full text-white ">
                   <span class="flex items-center">
