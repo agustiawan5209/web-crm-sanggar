@@ -16,17 +16,15 @@ const props = defineProps({
         default: () => ({})
     },
 })
-
 const Form = useForm({
-    slug: props.jasa.id,
-    nama: props.jasa.nama,
-    keterangan: props.jasa.keterangan,
-    harga: props.jasa.harga,
-    status: props.jasa.status,
+    nama: '',
+    keterangan: '',
+    harga: '',
+    status: '0',
 })
 
 function submit() {
-    Form.put(route('Produk.Jasa.update'), {
+    Form.post(route('Produk.Jasa.store'), {
         onError: (err) => {
             console.log(err)
         }
@@ -46,11 +44,11 @@ function submit() {
         </template>
 
         <div class="py-4 relative box-content">
-            <section class="p-6 group bg-gray-100 hover:bg-gradient-to-br hover:from-purple-400 hover:via-blue-400 hover:to-blue-500 text-gray-900">
+            <section class="p-6 bg-gray-100 group-hover:bg-gradient-to-br group-hover:from-purple-400 group-hover:via-blue-400 group-hover:to-blue-500 text-gray-900">
                 <form @submit.prevent="submit()" novalidate="" action=""
                     class="container flex flex-col mx-auto space-y-12">
                     <div class="space-y-2 col-span-full lg:col-span-1 group-hover:text-white">
-                        <p class="font-medium">Data Informasi PRODUK JASA</p>
+                        <p class="font-medium text-white">Data Informasi PRODUK JASA</p>
                         <p class="text-xs">Tambahkan data PRODUK JASA</p>
                     </div>
                     <fieldset class="grid grid-cols-3 gap-6 p-6 rounded-md shadow-sm bg-gray-50">

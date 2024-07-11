@@ -26,7 +26,7 @@ class ProdukJasaController extends Controller
             'can' => [
                 'add' => true,
                 'edit' => true,
-                'show' => false,
+                'show' => true,
                 'delete' => true,
             ]
         ]);
