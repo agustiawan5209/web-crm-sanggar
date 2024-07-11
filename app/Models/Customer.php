@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Customer extends Model
 {
@@ -17,6 +18,17 @@ class Customer extends Model
         'alamat',
         'status'
     ];
+
+    protected $appends = [
+        'nama_customer',
+    ];
+
+    public function namaCustomer(): Attribute
+    {
+        return new Attribute(
+            get: fn () => $this->user()->first()->name,
+        );
+    }
 
     public function user()
     {

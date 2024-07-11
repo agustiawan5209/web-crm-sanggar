@@ -32,7 +32,7 @@ const Form = useForm({
 })
 
 function submit() {
-    Form.post(route('Pegawai.store'), {
+    Form.post(route('Customer.store'), {
         onError: (err) => {
             console.log(err)
         }
@@ -44,20 +44,16 @@ function submit() {
 
 <template>
 
-    <Head title="Pegawai" />
+    <Head title="Customer" />
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Form Tambah Pegawai</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Form Tambah Customer</h2>
         </template>
 
         <div class="py-4 relative box-content">
-            <section class="p-6 bg-gray-100 text-gray-900">
+            <section class="p-6 bg-gray-100 hover:bg-gradient-to-br hover:from-purple-400 hover:via-blue-400 hover:to-blue-500 transition-all duration-500 hover:shadow-2xl group text-gray-900">
                 <form @submit.prevent="submit()" novalidate="" action="" class="container flex flex-col mx-auto space-y-12">
-                    <div class="space-y-2 col-span-full lg:col-span-1">
-                        <p class="font-medium">Data Informasi Pegawai</p>
-                        <p class="text-xs">Tambahkan data pegawai/staff dari puskesmas</p>
-                    </div>
                     <fieldset class="grid grid-cols-3 gap-6 p-6 rounded-md shadow-sm bg-gray-50">
                         <div class="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
                             <div class="col-span-full sm:col-span-3">
@@ -71,24 +67,7 @@ function submit() {
                                 <InputError :message="Form.errors.no_telpon"/>
 
                             </div>
-                            <div class="col-span-full sm:col-span-3">
-                                <label for="posyandus_id" class="text-sm">Posyandu</label>
-                                <select name="posyandus_id" id="posyandus_id" v-model="Form.posyandus_id" class="border-gray-300 focus:border-primary focus:ring-primary rounded-md shadow-sm w-full text-gray-900">
-                                    <option value="">-----</option>
-                                    <option v-for="pos in posyandus" :value="pos.id" >{{pos.nama}}</option>
-                                </select>
-                                <InputError :message="Form.errors.posyandus_id"/>
 
-                            </div>
-                            <div class="col-span-full sm:col-span-3">
-                                <label for="jabatan" class="text-sm">Jabatan</label>
-                                <select name="jabatan" id="jabatan" v-model="Form.jabatan" class="border-gray-300 focus:border-primary focus:ring-primary rounded-md shadow-sm w-full text-gray-900">
-                                    <option value="">-----</option>
-                                    <option v-for="jab in jabatan" :value="jab.name" >{{jab.name}}</option>
-                                </select>
-                                <InputError :message="Form.errors.jabatan"/>
-
-                            </div>
                             <div class="col-span-full">
                                 <label for="alamat" class="text-sm">Alamat</label>
                                 <TextInput id="alamat" type="text" v-model="Form.alamat" placeholder="" class="w-full text-gray-900"  />

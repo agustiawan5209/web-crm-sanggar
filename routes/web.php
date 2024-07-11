@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -36,3 +37,28 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+
+
+Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
+
+
+    // Router Pegawai
+    Route::group(['prefix' => 'customer', 'as' => "Customer."], function () {
+        Route::controller(CustomerController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/tambah-data-customer', 'create')->name('create');
+            Route::get('/edit-data-customer', 'edit')->middleware(['auth', 'password.confirm'])->name('edit');
+            Route::post('/store-data-customer', 'store')->name('store');
+            Route::get('/detail-customer', 'show')->name('show');
+            Route::put('/update-data-customer', 'update')->name('update');
+            Route::delete('/hapus-data-customer', 'destroy')->name('destroy');
+
+            // reset password
+
+            Route::get('/reset-password-customer', 'resetpassword')->middleware(['auth', 'password.confirm'])->name('reset.password');
+            Route::post('/reset-password-customer', 'resetpasswordUpdate')->name('reset.password');
+        });
+    });
+
+});

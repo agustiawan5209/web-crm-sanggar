@@ -42,6 +42,13 @@ function ArrayToString(){
                 <span class="ml-4">Dashboard</span>
             </NavLink>
         </li>
+        <li class="relative px-6 py-3">
+
+            <NavLink :href="route('Customer.index')" :active="route().current('Customer.index')">
+                <font-awesome-icon :icon="['fas', 'users']"/>
+                <span class="ml-4">Customer</span>
+            </NavLink>
+        </li>
 
     </ul>
 </template>
