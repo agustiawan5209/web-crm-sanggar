@@ -8,47 +8,77 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link, usePage } from '@inertiajs/vue3';
 import Sidebar from '@/Components/Sidebar/Sidebar.vue';
 
-const showingNavigationDropdown = ref(false);
 const Page = usePage().props.auth;
 const Roles = Page.role;
 function roleToCheck(role) {
     if (Array.isArray(Roles)) {
         return Roles.includes(role)
-    }else{
+    } else {
         return false;
     }
 }
 
-function ArrayToString(){
-    if (Array.isArray(Roles)) {
-        return Roles.reduce((a,b)=>{
-
-            return String(a+ ','+b).toString();
-        })
-    }
+const isDropdownOpen = ref(false)
+const toggleDropdown = () => {
+    isDropdownOpen.value = !isDropdownOpen.value
 }
 </script>
 <template>
-    <ul class="mt-6" v-if="roleToCheck('Admin')">
-        <li class="relative px-6 py-3">
+    <ul class="mt-6 space-y-6 overflow-hidden" v-if="roleToCheck('Admin')">
+        <li>
 
             <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
-                    stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                    <path
-                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
-                    </path>
-                </svg>
+                <font-awesome-icon :icon="['fas', 'house']" />
                 <span class="ml-4">Dashboard</span>
             </NavLink>
         </li>
-        <li class="relative px-6 py-3">
+        <li class="relative">
 
             <NavLink :href="route('Customer.index')" :active="route().current('Customer.index')">
-                <font-awesome-icon :icon="['fas', 'users']"/>
+                <font-awesome-icon :icon="['fas', 'users']" />
                 <span class="ml-4">Customer</span>
             </NavLink>
+        </li>
+        <li>
+            <div class="mb-4 group ">
+                <button @click="toggleDropdown" class="flex items-center justify-between w-full text-white ">
+                  <span class="flex items-center">
+                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12h18m-6-6h6m-6 6h6m-6 6h6"></path>
+                    </svg>
+                    Produk
+                  </span>
+                  <svg :class="{'transform rotate-180': isDropdownOpen}" class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </button>
+              </div>
+              <transition name="fade">
+                <div v-if="isDropdownOpen" class="pl-6">
+                  <div class="flex items-center justify-between mb-2">
+                    <NavLink :href="route('Customer.index')" :active="route().current('Customer.index')">
+                        <font-awesome-icon :icon="['fas', 'users']" />
+                        <span class="ml-4">Customer</span>
+                    </NavLink>
+                  </div>
+                  <div class="flex items-center justify-between mb-2">
+                    <NavLink :href="route('Customer.index')" :active="route().current('Customer.index')">
+                        <font-awesome-icon :icon="['fas', 'users']" />
+                        <span class="ml-4">Customer</span>
+                    </NavLink>
+                  </div>
+                </div>
+              </transition>
         </li>
 
     </ul>
 </template>
+
+<style scoped>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+  opacity: 0;
+}
+</style>

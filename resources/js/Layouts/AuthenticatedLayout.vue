@@ -97,7 +97,7 @@ function closeModal() {
         <div class="flex flex-col flex-1 w-[72%]">
             <header class="z-10 py-4 px-4 bg-white shadow-md">
                 <div
-                    class="container flex items-center justify-between h-full mx-auto text-purple-600 text-purple-300">
+                    class="container flex items-center justify-between h-full mx-auto text-purple-600 ">
                     <!-- Mobile hamburger -->
                     <button class="p-1 pr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-purple"
                         @click="toggleSideMenu" aria-label="Menu">
@@ -118,7 +118,7 @@ function closeModal() {
                                 </svg>
                             </div>
                             <input
-                                class="w-full pl-8 pr-2 text-sm text-gray-700  bg-gray-100 border-0 rounded-md placeholder-gray-500 focus:shadow-outline-gray focus:placeholder-gray-600 text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                                class="w-full pl-8 pr-2 text-sm text-gray-700  bg-gray-100 border-0 rounded-md placeholder-gray-500 focus:shadow-outline-gray focus:placeholder-gray-600  focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                                 type="text" placeholder="Search for projects" aria-label="Search" />
                         </div>
                     </div>
@@ -132,7 +132,7 @@ function closeModal() {
                                     <template #trigger>
                                         <span class="inline-flex h-full rounded-lg">
                                             <button type="button"
-                                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-lg text-gray-50 bg-gray-700 hover:text-gray-100 focus:outline-none transition ease-in-out duration-150">
+                                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-lg text-gray-50 bg-gray-700 hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
                                                 {{ $page.props.auth.user.name }}
 
                                                 <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
