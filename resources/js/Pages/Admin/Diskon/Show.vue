@@ -13,7 +13,7 @@ import { ref, defineProps, watch, onMounted } from 'vue';
 
 const page = usePage();
 const props = defineProps({
-    jasa: {
+    diskon: {
         type: Object,
         default: () => ({})
     }
@@ -23,19 +23,19 @@ const props = defineProps({
 
 <template>
 
-    <Head title="Produk Jasa" />
+    <Head title="Diskon" />
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Show Detail Produk Jasa</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Show Detail Diskon</h2>
         </template>
 
         <div class="md:py-4 relative box-content">
             <section class=" py-2 px-0 md:px-6  md:py-6 bg-gray-100 text-gray-900">
                 <form novalidate="" action="" class="container flex flex-col mx-auto space-y-12">
                     <div class="space-y-2 col-span-full lg:col-span-1 px-3 md:px-0">
-                        <p class="font-medium">Detail Informasi Produk Jasa</p>
-                        <p class="text-xs">Detail data Produk Jasa</p>
+                        <p class="font-medium">Detail Informasi Diskon</p>
+                        <p class="text-xs">Detail data Diskon</p>
                     </div>
                     <fieldset class="grid grid-cols-3 gap-6 p-6 rounded-md shadow-sm bg-gray-50">
                         <div class="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
@@ -53,24 +53,34 @@ const props = defineProps({
                                     <col>
                                     </colgroup>
                                     <tr class="">
-                                        <td class="text-sm border-b py-2 font-bold capitalize">Nama Produk</td>
+                                        <td class="text-sm border-b py-2 font-bold capitalize">Nama Dikson</td>
                                         <td>:</td>
-                                        <td class="text-sm border-b text-gray-800"> {{ jasa.nama }} </td>
+                                        <td class="text-sm border-b text-gray-800"> {{ diskon.nama }} </td>
                                     </tr>
                                     <tr class="">
-                                        <td class="text-sm border-b py-2 font-bold capitalize">Harga Sewa</td>
+                                        <td class="text-sm border-b py-2 font-bold capitalize">Jumlah Diskon</td>
                                         <td>:</td>
-                                        <td class="text-sm border-b text-gray-800"> {{ jasa.harga }} </td>
+                                        <td class="text-sm border-b text-gray-800"> {{ diskon.jumlah }} </td>
                                     </tr>
                                     <tr class="">
                                         <td class="text-sm border-b py-2 font-bold capitalize">keterangan</td>
                                         <td>:</td>
-                                        <td class="text-sm border-b text-gray-800 text-left" v-html="jasa.keterangan"> </td>
+                                        <td class="text-sm border-b text-gray-800 text-left" v-html="diskon.keterangan"> </td>
                                     </tr>
                                     <tr class="">
-                                        <td class="text-sm border-b py-2 font-bold capitalize">Status</td>
+                                        <td class="text-sm border-b py-2 font-bold capitalize">Jenis Diskon</td>
                                         <td>:</td>
-                                        <td class="text-sm border-b text-gray-600 text-left"> {{ jasa.status }} </td>
+                                        <td class="text-sm border-b text-gray-600 text-left"> {{ diskon.jenis }} </td>
+                                    </tr>
+                                    <tr class="" v-if="diskon.jenis == 'Get'">
+                                        <td class="text-sm border-b py-2 font-bold capitalize">Jumlah Penyewaan</td>
+                                        <td>:</td>
+                                        <td class="text-sm border-b text-gray-600 text-left"> {{ diskon.getdiskon.min_quantity }} </td>
+                                    </tr>
+                                    <tr class="" v-if="diskon.jenis == 'Keep'">
+                                        <td class="text-sm border-b py-2 font-bold capitalize">Frekuensi Penyewaan</td>
+                                        <td>:</td>
+                                        <td class="text-sm border-b text-gray-600 text-left"> {{ diskon.keepdiskon.min_frequency }} </td>
                                     </tr>
                                 </table>
                             </div>

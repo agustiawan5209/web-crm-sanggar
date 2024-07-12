@@ -15,8 +15,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        GetDiskon::create(['min_quantity'=> '10']);
-        KeepDiskon::create(['min_frequency'=> '3']);
+        // GetDiskon::create(['min_quantity'=> '10']);
+        // KeepDiskon::create(['min_frequency'=> '3']);
         $this->call([
             PermissionSeeder::class,
             RoleSeeder::class,

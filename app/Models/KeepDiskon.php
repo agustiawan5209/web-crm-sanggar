@@ -9,5 +9,5 @@ class KeepDiskon extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['min_frequency'];
+    protected $fillable = ['diskon_id','min_frequency'];
 }

@@ -77,9 +77,9 @@ watch(order, (value) => {
 })
 
 const columsReplace = props.tableColums.map(element => {
-    if(element == 'org_tua_id'){
+    if (element == 'org_tua_id') {
         return 'Pasien'
-    }else{
+    } else {
         return element.replace(/_|\b_id\b/g, ' ');
     }
 });
@@ -165,7 +165,8 @@ function truncateText(text) {
     <div class="flex flex-col w-full">
         <div class="-m-1.5">
             <div class="p-1.5 min-w-full">
-                <div class="border divide-y divide-gray-200 max-w-7xl mb-8 overflow-hidden rounded-lg shadow-xs bg-white">
+                <div
+                    class="border divide-y divide-gray-200 max-w-7xl mb-8 overflow-hidden rounded-lg shadow-xs bg-white">
                     <div class="py-3 px-4" v-if="crud.tambah">
                         <div class="relative max-w-xs">
                             <Link :href="route(props.path + '.create')">
@@ -205,11 +206,19 @@ function truncateText(text) {
                     </div>
                     <div class="w-full overflow-x-auto">
                         <table class="w-full table overflow-x-auto">
+                            <colgroup>
+                                <template  v-for="(item, index) in columsReplace">
+                                    <col v-if="index == 0" class="w-10">
+                                    <col v-else >
+                                </template>
+                                <col>
+                            </colgroup>
                             <thead class="bg-blue-500">
-                                <tr class="text-xs md:text-base font-semibold tracking-wide text-left uppercase border-b border-gray-700  text-white ">
+                                <tr
+                                    class="text-xs md:text-base font-semibold tracking-wide text-left uppercase border-b border-gray-700  text-white ">
                                     <th scope="col" v-for="item in columsReplace"
                                         class="px-2 py-1 md:px-6 md:py-3 text-nowrap text-start font-medium capitalize">
-                                        <span v-if="item == 'id' || item == 'slug'">
+                                        <span v-if="item == 'id' || item == 'slug'" class="w-10">
                                             No.
                                         </span>
                                         <span v-else>{{ item }}</span>
@@ -220,23 +229,28 @@ function truncateText(text) {
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y " v-if="TableData.data.length > 0">
-                                <tr v-for="(item, index) in TableData.data" :key="item.id" class="text-gray-700 dark:text-gray-400" :class="{ 'opacity-75 blur-sm': Form.processing }">
+                                <tr v-for="(item, index) in TableData.data" :key="item.id"
+                                    class="text-gray-700 dark:text-gray-400"
+                                    :class="{ 'opacity-75 blur-sm': Form.processing }">
                                     <td class="px-2 py-1 md:px-4 md:py-3  text-xs font-medium text-gray-800 border"
                                         v-for="col in tableColums">
 
                                         <span v-if="col == 'id' || col == 'slug'">
                                             {{ (TableData.current_page - 1) * TableData.per_page + index + 1 }}
                                         </span>
-                                        <span v-else-if="col == 'deskripsi' || col == 'keterangan'" >
-                                           <p v-html="truncateText(item[col])"></p>
+                                        <span v-else-if="col == 'deskripsi' || col == 'keterangan'">
+                                            <p v-html="truncateText(item[col])"></p>
                                         </span>
-                                        <span v-else-if="col == 'jasa_galeri'" class="p-2 bg-orange-500 text-white rounded-lg w-1/2">
-                                            <Link :href="route('Galeri.jasa_index', {slug: item.id})">Galeri</Link>
+                                        <span v-else-if="col == 'jasa_galeri'"
+                                            class="p-2 bg-orange-500 text-white rounded-lg w-1/2">
+                                            <Link :href="route('Galeri.jasa_index', { slug: item.id })">Galeri</Link>
                                         </span>
-                                        <span v-else-if="col == 'alat_galeri'" class="p-2 bg-orange-500 text-white rounded-lg w-1/2">
-                                            <Link :href="route('Galeri.alat_index', {slug: item.id})">Galeri</Link>
+                                        <span v-else-if="col == 'alat_galeri'"
+                                            class="p-2 bg-orange-500 text-white rounded-lg w-1/2">
+                                            <Link :href="route('Galeri.alat_index', { slug: item.id })">Galeri</Link>
                                         </span>
-                                        <span v-else :class="col == 'tanggal' ? 'whitespace-nowrap' :'' ">{{ item[col] }}</span>
+                                        <span v-else :class="col == 'tanggal' ? 'whitespace-nowrap' : ''">{{ item[col]
+                                            }}</span>
                                     </td>
                                     <td class="px-2 py-1 md:px-4 md:py-3  text-xs font-medium text-gray-800 border relative"
                                         v-if="cekAksi()">
@@ -296,7 +310,8 @@ function truncateText(text) {
                             </tbody>
                             <tbody v-else>
                                 <tr>
-                                    <td :colspan="tableColums.length" class="p-5 text-gray-400 text-center" >Data Kosong</td>
+                                    <td :colspan="tableColums.length" class="p-5 text-gray-400 text-center">Data Kosong
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

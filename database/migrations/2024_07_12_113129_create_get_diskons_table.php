@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('get_diskons', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('diskon_id')->constrained('diskons')->onDelete('cascade');
             $table->decimal('min_quantity');
             $table->timestamps();
         });

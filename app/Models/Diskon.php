@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Diskon extends Model
 {
@@ -29,5 +30,14 @@ class Diskon extends Model
         })->when($filter['order'] ?? null, function ($query, $order) {
             $query->orderBy('id', $order);
         });
+    }
+
+    public function getdiskon(): HasOne
+    {
+        return $this->hasOne(GetDiskon::class,'diskon_id','id');
+    }
+    public function keepdiskon(): HasOne
+    {
+        return $this->hasOne(KeepDiskon::class,'diskon_id','id');
     }
 }

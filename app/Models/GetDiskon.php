@@ -9,6 +9,6 @@ class GetDiskon extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['min_quantity'];
+    protected $fillable = ['diskon_id','min_quantity'];
 
 }

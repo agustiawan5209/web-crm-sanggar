@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Inertia\Inertia;
 use App\Models\Diskon;
+use App\Models\GetDiskon;
 use Illuminate\Support\Facades\Request;
 use App\Http\Requests\StoreDiskonRequest;
 use App\Http\Requests\UpdateDiskonRequest;
+use App\Models\KeepDiskon;
 
 class DiskonController extends Controller
 {
@@ -21,7 +23,7 @@ class DiskonController extends Controller
         $columns[] = 'nama';
         $columns[] = 'jenis';
         $columns[] = 'jumlah';
-        $columns[] = 'kadaluarsa';
+        // $columns[] = 'kadaluarsa';
 
         return Inertia::render('Admin/Diskon/Index', [
             'search' =>  Request::input('search'),
@@ -51,6 +53,18 @@ class DiskonController extends Controller
     public function store(StoreDiskonRequest $request)
     {
         $diskon = Diskon::create($request->all());
+        if($diskon->jenis == 'Get'){
+            GetDiskon::create([
+                'diskon_id'=> $diskon->id,
+                'min_quantity'=> $request->min_quantity,
+            ]);
+        }
+        if($diskon->jenis == 'Keep'){
+            KeepDiskon::create([
+                'diskon_id'=> $diskon->id,
+                'min_frequency'=> $request->min_frequency,
+            ]);
+        }
 
         return redirect()->route('Diskon.index')->with('message', 'Data Diskon Berhasil Di tambah!!');
     }
@@ -61,7 +75,7 @@ class DiskonController extends Controller
     public function show(Diskon $diskon)
     {
         return Inertia::render('Admin/Diskon/Show', [
-            'diskon' => $diskon->find(Request::input('slug'))
+            'diskon' => $diskon->with(['getdiskon','keepdiskon'])->find(Request::input('slug'))
         ]);
     }
 
@@ -71,7 +85,7 @@ class DiskonController extends Controller
     public function edit(Diskon $diskon)
     {
         return Inertia::render('Admin/Diskon/Edit', [
-            'diskon' => $diskon->find(Request::input('slug'))
+            'diskon' => $diskon->with(['getdiskon','keepdiskon'])->find(Request::input('slug'))
         ]);
     }
 
@@ -80,7 +94,18 @@ class DiskonController extends Controller
      */
     public function update(UpdateDiskonRequest $request, Diskon $diskon)
     {
-        $diskon = Diskon::find($request->slug)->update($request->all());
+        $diskon = Diskon::find($request->slug);
+        $diskon->update($request->all());
+        if($diskon->jenis == 'Get'){
+            GetDiskon::where('diskon_id', $diskon->id)->update([
+                'min_quantity'=> $request->min_quantity,
+            ]);
+        }
+        if($diskon->jenis == 'Keep'){
+            KeepDiskon::where('diskon_id', $diskon->id)->update([
+                'min_frequency'=> $request->min_frequency,
+            ]);
+        }
 
         return redirect()->route('Diskon.index')->with('message', 'Data Diskon Berhasil Di Ubah!!');
     }

@@ -26,8 +26,8 @@ class StoreDiskonRequest extends FormRequest
             'keterangan'=> 'required|string|max:255',
             'jasa_id'=> 'nullable',
             'alat_id'=> 'nullable',
-            'jenis'=> 'required|in:quality,frequency',
-            'jumlah'=> 'required|decimal:0,100',
+            'jenis'=> 'required|in:Get,Keep',
+            'jumlah'=> 'required|numeric|between:0,100',
             'kadaluarsa'=> 'nullable|date',
         ];
     }

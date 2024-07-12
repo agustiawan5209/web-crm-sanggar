@@ -11,22 +11,27 @@ import TextInput from '@/Components/TextInput.vue';
 import { ref, defineProps } from 'vue';
 
 const props = defineProps({
-    jasa: {
+    diskon: {
         type: Object,
         default: () => ({})
     },
 })
-
 const Form = useForm({
-    slug: props.jasa.id,
-    nama: props.jasa.nama,
-    keterangan: props.jasa.keterangan,
-    harga: props.jasa.harga,
-    status: props.jasa.status,
+    slug: props.diskon.id,
+    nama: props.diskon.nama,
+    keterangan: props.diskon.keterangan,
+    jumlah: props.diskon.jumlah,
+    jenis: props.diskon.jenis,
+    min_quantity: props.diskon.jenis == 'Get' ?  props.diskon.getdiskon.min_quantity : '',
+    min_frequency: props.diskon.jenis == 'Keep' ?  props.diskon.keepdiskon.min_frequency : '',
 })
 
+const TypeDiscount = ref('');
+
+
+
 function submit() {
-    Form.put(route('Produk.Jasa.update'), {
+    Form.put(route('Diskon.update'), {
         onError: (err) => {
             console.log(err)
         }
@@ -45,8 +50,8 @@ function submit() {
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Form Tambah JASA</h2>
         </template>
 
-        <div class="py-4 relative box-content">
-            <section class="p-6 group bg-gray-100 hover:bg-gradient-to-br hover:from-purple-400 hover:via-blue-400 hover:to-blue-500 text-gray-900">
+        <div class="py-4 relative box-content group">
+            <section class="p-6 bg-gray-100 group-hover:bg-gradient-to-br group-hover:from-purple-400 group-hover:via-blue-400 group-hover:to-blue-500 text-gray-900">
                 <form @submit.prevent="submit()" novalidate="" action=""
                     class="container flex flex-col mx-auto space-y-12">
                     <div class="space-y-2 col-span-full lg:col-span-1 group-hover:text-white">
@@ -56,28 +61,42 @@ function submit() {
                     <fieldset class="grid grid-cols-3 gap-6 p-6 rounded-md shadow-sm bg-gray-50">
                         <div class="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
                             <div class="col-span-full ">
-                                <label for="nama" class="text-base">Nama Produk</label>
-                                <TextInput id="nama" type="text" placeholder="nama Produk" v-model="Form.nama"
+                                <label for="nama" class="text-base">Nama diskon</label>
+                                <TextInput id="nama" type="text" placeholder="nama Diskon" v-model="Form.nama"
                                     class="w-full text-gray-900" />
                                 <InputError :message="Form.errors.nama" />
                             </div>
                             <div class="col-span-full ">
-                                <label for="harga" class="text-base">Harga Sewa</label>
-                                <TextInput id="harga" type="number" placeholder="Harga Sewa" v-model="Form.harga"
+                                <label for="jumlah" class="text-base">jumlah</label>
+                                <TextInput id="jumlah" type="number" placeholder="Jumlah Diskon" v-model="Form.jumlah"
                                     class="w-full text-gray-900" />
-                                <InputError :message="Form.errors.harga" />
+                                <InputError :message="Form.errors.jumlah" />
                             </div>
+
                             <div class="col-span-full">
-                                <label for="status" class="text-base w-full">Status</label>
+                                <label for="jenis" class="text-base w-full">Jenis</label>
                                 <div class="flex items-center gap-4">
-                                    <input id="tersedia" type="radio" value="0" v-model="Form.status" class="text-gray-900" />
-                                    <label for="tersedia" class="text-sm w-full">Tersedia</label>
+                                    <input id="get" type="radio" value="Get" v-model="Form.jenis" class="text-gray-900" />
+                                    <label for="get" class="text-sm w-full">Get</label>
                                 </div>
                                 <div class="flex items-center gap-4">
-                                    <input id="tidak_tersedia" type="radio" value="1" v-model="Form.status" class="text-gray-900" />
-                                    <label for="tidak_tersedia" class="text-sm w-full">Tidak Tersedia</label>
+                                    <input id="Keep" type="radio" value="Keep" v-model="Form.jenis" class="text-gray-900" />
+                                    <label for="Keep" class="text-sm w-full">Keep</label>
                                 </div>
-                                <InputError :message="Form.errors.status" />
+                                <InputError :message="Form.errors.jenis" />
+                            </div>
+
+                            <div class="col-span-full " v-if="Form.jenis == 'Get'">
+                                <label for="min_quantity" class="text-base">Jumlah Penyewaan Kostum</label>
+                                <TextInput id="min_quantity" type="number" placeholder="Jumlah Penyewaan Kustom" v-model="Form.min_quantity"
+                                    class="w-full text-gray-900" />
+                                <InputError :message="Form.errors.min_quantity" />
+                            </div>
+                            <div class="col-span-full " v-if="Form.jenis == 'Keep'">
+                                <label for="Frekuensi" class="text-base">Frekuensi Penyewaan</label>
+                                <TextInput id="Frekuensi" type="number" placeholder="Frekuensi Penyewaan Dalam Sebulan" v-model="Form.min_frequency"
+                                    class="w-full text-gray-900" />
+                                <InputError :message="Form.errors.min_frequency" />
                             </div>
                             <div class="col-span-full">
                                 <label for="keterangan" class="text-base w-full mb-2">Keterangan</label>
