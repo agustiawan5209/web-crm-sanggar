@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DiskonController;
 use App\Http\Controllers\GambarController;
 use App\Http\Controllers\ProdukAlatController;
 use App\Http\Controllers\ProdukJasaController;
@@ -101,7 +102,7 @@ Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
 
     // Router Diskon
     Route::group(['prefix' => 'diskon', 'as' => "Diskon."], function () {
-        Route::controller(ProdukAlatController::class)->group(function () {
+        Route::controller(DiskonController::class)->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/tambah-data-diskon', 'create')->name('create');
             Route::get('/edit-data-diskon', 'edit')   ->name('edit');
