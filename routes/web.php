@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DiskonController;
 use App\Http\Controllers\GambarController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProdukAlatController;
 use App\Http\Controllers\ProdukJasaController;
 
@@ -21,14 +22,7 @@ use App\Http\Controllers\ProdukJasaController;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::get('/', [HomeController::class, 'welcome'])->name('home');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

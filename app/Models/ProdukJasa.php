@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ProdukJasa extends Model
 {
@@ -20,6 +21,17 @@ class ProdukJasa extends Model
 
     public function image(){
         return $this->hasMany(Gambar::class, 'jasa_id', 'id');
+    }
+
+    protected $appends = [
+        'rupiah',
+    ];
+
+    public function rupiah(): Attribute
+    {
+        return new Attribute(
+            get: fn()=> "Rp.".number_format($this->harga, 0,2),
+        );
     }
 
     public function scopeFilter($query, $filter)
