@@ -207,9 +207,9 @@ function truncateText(text) {
                     <div class="w-full overflow-x-auto">
                         <table class="w-full table overflow-x-auto">
                             <colgroup>
-                                <template  v-for="(item, index) in columsReplace">
+                                <template v-for="(item, index) in columsReplace">
                                     <col v-if="index == 0" class="w-10">
-                                    <col v-else >
+                                    <col v-else>
                                 </template>
                                 <col>
                             </colgroup>
@@ -240,6 +240,18 @@ function truncateText(text) {
                                         </span>
                                         <span v-else-if="col == 'deskripsi' || col == 'keterangan'">
                                             <p v-html="truncateText(item[col])"></p>
+                                        </span>
+                                        <span v-else-if="col == 'status'">
+                                            <span v-if="item.status == 0 || item.status == '0'"
+                                                class="inline-flex items-center justify-center rounded-full bg-green-100 px-2.5 py-0.5 text-green-700">
+
+                                                <p class="whitespace-nowrap text-sm">Tersedia</p>
+                                            </span>
+                                            <span v-if="item.status == 1 || item.status == '1'"
+                                                class="inline-flex items-center justify-center rounded-full bg-amber-100 px-2.5 py-0.5 text-amber-700">
+
+                                                <p class="whitespace-nowrap text-sm">Tidak Tersedia</p>
+                                            </span>
                                         </span>
                                         <span v-else-if="col == 'jasa_galeri'"
                                             class="p-2 bg-orange-500 text-white rounded-lg w-1/2">

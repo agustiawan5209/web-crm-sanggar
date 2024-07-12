@@ -87,11 +87,7 @@ const User = usePage().props.auth.user;
                             <div class="flex justify-center md:justify-start xl:flex-col flex-col md:space-x-6 lg:space-x-8 xl:space-x-0 space-y-4 xl:space-y-12 md:space-y-0 md:flex-row items-center md:items-start">
                                 <div class="flex justify-center md:justify-start items-center md:items-start flex-col space-y-4 xl:mt-8">
                                     <p class="text-base text-white font-semibold leading-4 text-center md:text-left">Shipping Address</p>
-                                    <p class="w-48 lg:w-full text-gray-300 xl:w-48 text-center md:text-left text-sm leading-5 ">180 North King Street, Northhampton MA 1060</p>
-                                </div>
-                                <div class="flex justify-center md:justify-start items-center md:items-start flex-col space-y-4">
-                                    <p class="text-base text-white font-semibold leading-4 text-center md:text-left">Billing Address</p>
-                                    <p class="w-48 lg:w-full text-gray-300 xl:w-48 text-center md:text-left text-sm leading-5">180 North King Street, Northhampton MA 1060</p>
+                                    <p class="w-48 lg:w-full text-gray-300 xl:w-48 text-center md:text-left text-sm leading-5 ">{{ User.customer.alamat }}</p>
                                 </div>
                             </div>
                             <div class="flex w-full justify-center items-center md:justify-start md:items-start">

@@ -25,9 +25,17 @@ class ProdukJasa extends Model
 
     protected $appends = [
         'rupiah',
+        'harga_jasa',
+
     ];
 
     public function rupiah(): Attribute
+    {
+        return new Attribute(
+            get: fn()=> "Rp.".number_format($this->harga, 0,2),
+        );
+    }
+    public function hargaJasa(): Attribute
     {
         return new Attribute(
             get: fn()=> "Rp.".number_format($this->harga, 0,2),

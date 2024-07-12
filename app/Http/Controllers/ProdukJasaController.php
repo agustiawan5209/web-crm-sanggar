@@ -21,7 +21,7 @@ class ProdukJasaController extends Controller
         $columns[]= 'id';
         $columns[]= 'jasa_galeri';
         $columns[]= 'nama';
-        $columns[]= 'harga';
+        $columns[]= 'harga_jasa';
         $columns[]= 'status';
 
         return Inertia::render('Admin/Jasa/Index', [
