@@ -58,8 +58,7 @@
                                 <header class="flex items-center justify-between p-4">
                                     <span class="text-sm text-gray-100"> 0 Selected </span>
 
-                                    <button type="button"
-                                        class="text-sm text-gray-200 underline underline-offset-4">
+                                    <button type="button" class="text-sm text-gray-200 underline underline-offset-4">
                                         Reset
                                     </button>
                                 </header>
@@ -115,8 +114,7 @@
                                 <header class="flex items-center justify-between p-4">
                                     <span class="text-sm text-gray-100"> The highest price is $600 </span>
 
-                                    <button type="button"
-                                        class="text-sm text-gray-200 underline underline-offset-4">
+                                    <button type="button" class="text-sm text-gray-200 underline underline-offset-4">
                                         Reset
                                     </button>
                                 </header>
@@ -160,8 +158,7 @@
                                 <header class="flex items-center justify-between p-4">
                                     <span class="text-sm text-gray-100"> 0 Selected </span>
 
-                                    <button type="button"
-                                        class="text-sm text-gray-200 underline underline-offset-4">
+                                    <button type="button" class="text-sm text-gray-200 underline underline-offset-4">
                                         Reset
                                     </button>
                                 </header>
@@ -236,8 +233,7 @@
                                 class="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]" />
 
                             <div class="relative bg-gray-700 pt-3">
-                                <h3
-                                    class="text-xs text-gray-100 group-hover:underline group-hover:underline-offset-4">
+                                <h3 class="text-xs text-gray-100 group-hover:underline group-hover:underline-offset-4">
                                     Basic Tee
                                 </h3>
 
@@ -257,8 +253,7 @@
                                 class="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]" />
 
                             <div class="relative bg-gray-700 pt-3">
-                                <h3
-                                    class="text-xs text-gray-100 group-hover:underline group-hover:underline-offset-4">
+                                <h3 class="text-xs text-gray-100 group-hover:underline group-hover:underline-offset-4">
                                     Basic Tee
                                 </h3>
 
@@ -278,8 +273,7 @@
                                 class="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]" />
 
                             <div class="relative bg-gray-700 pt-3">
-                                <h3
-                                    class="text-xs text-gray-100 group-hover:underline group-hover:underline-offset-4">
+                                <h3 class="text-xs text-gray-100 group-hover:underline group-hover:underline-offset-4">
                                     Basic Tee
                                 </h3>
 
@@ -292,6 +286,11 @@
                         </a>
                     </li>
                 </ul>
+                <div class="w-full mt-4">
+                    <a href="#" class="w-full border-b border-gray-300 text-white">
+                        <span>Load More........</span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

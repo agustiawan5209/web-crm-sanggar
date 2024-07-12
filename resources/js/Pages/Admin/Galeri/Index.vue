@@ -251,8 +251,8 @@ function parseJSON(value) {
                         <PrimaryButton @click="deleteModalShow(item.id)" type="button"
                             class=" bg-red-600 hover:bg-red-700">
                             Hapus</PrimaryButton>
-                        <Link type="button" :href="route('Galeri.edit', { id: item.id })">
-                        <PrimaryButton>Defaut</PrimaryButton>
+                        <Link  :href="route('Galeri.edit', { id: item.id })">
+                        <PrimaryButton type="button">Defaut</PrimaryButton>
                         </Link>
                     </div>
                 </td>

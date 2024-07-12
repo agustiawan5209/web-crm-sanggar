@@ -1,7 +1,7 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
 import HomeLayout from '@/Layouts/HomeLayout.vue';
-import Pricing from '@/Components/Pricing.vue'
+import Pricing from '@/Components/Product/Pricing.vue'
 import ProductCollection from '@/Components/ProductCollection.vue'
 import { defineProps } from 'vue';
 

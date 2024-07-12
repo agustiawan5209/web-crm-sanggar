@@ -13,4 +13,5 @@ class HomeController extends Controller
             'jasa' => ProdukJasa::paginate(3),
         ]);
     }
+
 }

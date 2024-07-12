@@ -136,9 +136,10 @@ class GambarController extends Controller
     public function edit($id)
     {
         $item = Gambar::findOrFail($id);
+        dd($item);
         if ($item) {
-            $item->update(['is_default' => '1']);
-            Gambar::whereNot('id', $id)->where('products_id', $item->products_id)->update(['is_default' => '0']);
+            $item->update(['status' => true]);
+            Gambar::whereNot('id', $id)->where('products_id', $item->products_id)->update(['status' => false]);
             return redirect()->route('Galeri.Index', ['products_id' => $item->products_id])->with('success', 'Foto Produk Berhasil Di Jadikan Default');
         } else {
             return redirect()->route('Galeri.Index', ['products_id' => $item->products_id])->with('error', 'Foto Produk Gagal Di Jadikan Default');
@@ -148,10 +149,10 @@ class GambarController extends Controller
     {
         $item = Gambar::findOrFail($id);
         if ($item) {
-            $item->update(['is_default' => '1']);
-            return redirect()->back();
+            $item->update(['status' => '1']);
+            return redirect()->back()->with('success', 'Foto Produk Berhasil Di Jadikan Default');;
         } else {
-            return redirect()->back();
+            return redirect()->back()->with('error', 'Foto Produk Gagal Di Jadikan Default');;
         }
     }
 

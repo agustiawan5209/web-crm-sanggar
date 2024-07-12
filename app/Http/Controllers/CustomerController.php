@@ -61,7 +61,7 @@ class CustomerController extends Controller
             'password' => Hash::make($request->password),
             'remember_token' => Str::random(60),
         ]);
-        $role = Role::findByName('pengguna');
+        $role = Role::findByName('Customer');
         if ($role) {
             $user->assignRole($role); // Assign 'user' role to the user
             // $user->givePermissionTo([
