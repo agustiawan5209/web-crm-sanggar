@@ -99,6 +99,19 @@ Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
         });
     });
 
+    // Router Diskon
+    Route::group(['prefix' => 'diskon', 'as' => "Diskon."], function () {
+        Route::controller(ProdukAlatController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/tambah-data-diskon', 'create')->name('create');
+            Route::get('/edit-data-diskon', 'edit')   ->name('edit');
+            Route::post('/store-data-diskon', 'store')->name('store');
+            Route::get('/detail-diskon', 'show')->name('show');
+            Route::put('/update-data-diskon', 'update')->name('update');
+            Route::delete('/hapus-data-diskon', 'destroy')->name('destroy');
+        });
+    });
+
 
 
 
