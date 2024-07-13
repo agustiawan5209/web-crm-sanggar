@@ -76,6 +76,12 @@ const toggleDropdown = () => {
                 <span class="ml-4">Diskon</span>
             </NavLink>
         </li>
+        <li class="relative">
+            <NavLink :href="route('Penyewaan.index')" :active="route().current('Penyewaan.index')">
+                <font-awesome-icon :icon="['fas', 'users']" />
+                <span class="ml-4">Penyewaan</span>
+            </NavLink>
+        </li>
 
     </ul>
 </template>

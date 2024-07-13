@@ -15,6 +15,7 @@ class Pembayaran extends Model
         'bukti',
         'penyewaan_id',
         'total',
+        'jenis_bayar',
         'tgl',
         'status',
     ];

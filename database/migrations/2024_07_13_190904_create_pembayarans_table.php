@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('bukti');
             $table->foreignId('penyewaan_id')->constrained('penyewaans')->onDelete('cascade');
             $table->decimal('total', 10,2);
+            $table->string('jenis_bayar');
             $table->date('tgl');
             $table->enum('status', ['PENDING','SELESAI',"DIBATALKAN"])->default('PENDING');
             $table->timestamps();

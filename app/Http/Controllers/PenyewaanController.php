@@ -2,14 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Inertia\Inertia;
 use App\Models\Penyewaan;
+use App\Models\Pembayaran;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use App\Http\Requests\StorePenyewaanRequest;
 use App\Http\Requests\UpdatePenyewaanRequest;
 
 class PenyewaanController extends Controller
 {
+    public function success(){
+        return Inertia::render("Home/Success", []);
+    }
     /**
      * Display a listing of the resource.
      */
@@ -29,11 +35,11 @@ class PenyewaanController extends Controller
             'table_colums' => array_values(array_diff($columns, ['remember_token', 'password', 'email_verified_at', 'created_at', 'updated_at', 'user_id', 'deskripsi'])),
             'data' => Penyewaan::with(['customer'])->filter(Request::only('search', 'order'))->paginate(10),
             'can' => [
-                'add' => true,
-                'edit' => true,
-                'show' => true,
-                'delete' => true,
-                'reset_password' => true,
+                'add' => false,
+                'edit' => false,
+                'show' => false,
+                'delete' => false,
+                'reset_password' => false,
             ]
         ]);
     }
@@ -51,7 +57,33 @@ class PenyewaanController extends Controller
      */
     public function store(StorePenyewaanRequest $request)
     {
-        //
+        // dd($request->all());
+        $user = User::with(['customer'])->find(Auth::user()->id);
+        $penyewaan = Penyewaan::create([
+            'customer_id' => $user->customer->id,
+            'jenis' => $request->jenis,
+            'produk' => $request->produk['nama'],
+            'tgl_pengambilan' => $request->tgl_pengambilan,
+            'tgl_pengembalian' => $request->tgl_pengembalian,
+            'status' => "PENDING",
+        ]);
+        $photo = $request->bukti;
+        $name_photo = $photo->getClientOriginalName();
+        $random_name_photo = md5($name_photo);
+
+        $photo->storeAs('public/bukti_bayar', $random_name_photo);
+        Pembayaran::create([
+            'bukti'=> $random_name_photo,
+            'penyewaan_id'=> $penyewaan->id,
+            'total'=> $request->jumlah_bayar,
+            'jenis_bayar'=> $request->jenis_bayar,
+            'tgl'=> $request->tgl_pembayaran,
+            'status'=> "PENDING",
+        ]);
+
+        return redirect()->route('payment.success');
+
+
     }
 
     /**

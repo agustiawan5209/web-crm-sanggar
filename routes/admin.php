@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DiskonController;
 use App\Http\Controllers\GambarController;
+use App\Http\Controllers\PenyewaanController;
 use App\Http\Controllers\ProdukAlatController;
 use App\Http\Controllers\ProdukJasaController;
 
@@ -74,6 +75,11 @@ Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
             Route::get('/detail-diskon', 'show')->name('show');
             Route::put('/update-data-diskon', 'update')->name('update');
             Route::delete('/hapus-data-diskon', 'destroy')->name('destroy');
+        });
+    });
+    Route::group(['prefix' => 'penyewaan', 'as' => "Penyewaan."], function () {
+        Route::controller(PenyewaanController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
         });
     });
 });

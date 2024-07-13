@@ -10,7 +10,11 @@ const props = defineProps({
     produk: {
         type: Object,
         default: () => ({}),
-    }
+    },
+    tipe: {
+        type: String,
+        default:'jasa',
+    },
 })
 
 
@@ -30,7 +34,7 @@ const closeModal = () => {
 <template>
 
     <Head title="Checkout" />
-    <ModalPayment :show="showModal" :produk="produk" maxWidth="2xl">
+    <ModalPayment :show="showModal" :produk="produk" :jenisproduk="tipe" maxWidth="2xl">
 
     </ModalPayment>
     <HomeLayout>

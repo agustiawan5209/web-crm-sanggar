@@ -11,7 +11,7 @@ class StorePenyewaanRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,12 @@ class StorePenyewaanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "bukti"=> "required|image",
+            'jenis_bayar'=> 'required|in:DP,Lunas',
+            'jumlah_bayar'=> 'required|numeric',
+            'tgl_pembayaran'=> 'required|date',
+            'tgl_pengambilan'=> 'required|date',
+            'tgl_pengembalian'=> 'required|date',
         ];
     }
 }

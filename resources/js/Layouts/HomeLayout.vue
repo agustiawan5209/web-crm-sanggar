@@ -5,7 +5,6 @@ import { ref,defineProps } from 'vue';
 
 const showUserDropdown = ref(false);
 const auth = usePage().props.auth;
-console.log(auth.user)
 </script>
 
 <template>

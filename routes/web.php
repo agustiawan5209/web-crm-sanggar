@@ -10,6 +10,7 @@ use App\Http\Controllers\GambarController;
 use App\Http\Controllers\Home\ProdukController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Payment\PembayaranController;
+use App\Http\Controllers\PenyewaanController;
 use App\Http\Controllers\ProdukAlatController;
 use App\Http\Controllers\ProdukJasaController;
 
@@ -34,7 +35,11 @@ Route::controller(ProdukController::class)->group(function () {
 Route::middleware(['auth', 'verified', 'role:Customer'])->group(function () {
     Route::controller(PembayaranController::class)->group(function () {
         Route::get('/checkout-penyewaan', 'index')->name('payment.checkout');
+        Route::get('/success-penyewaan', 'success')->name('payment.success');
     });
+
+    // Buat Data Penyewaan
+    Route::post('store-penyewaan', [PenyewaanController::class, 'store'])->name('Penyewaan.Store');
 });
 
 

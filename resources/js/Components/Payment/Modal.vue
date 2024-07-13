@@ -25,20 +25,39 @@ const props = defineProps({
     diskon: {
         type: Object,
         default: () => ({}),
-    }
+    },
+    jenisproduk: {
+        type: String,
+        default: '',
+    },
 });
 
 const JumlahDp = ref(props.produk.harga / 2);
 const Form = useForm({
     dp: JumlahDp.value,
     jenis_bayar: '',
+    jenis: props.jenisproduk,
     jumlah_bayar: props.produk.harga,
     bukti: '',
     tgl_pembayaran: '',
     tgl_pengambilan: '',
     tgl_pengembalian: '',
-
+    produk: props.produk,
 })
+
+// Jumlah Bayar
+const statusBayar = ref(null);
+
+watch(statusBayar, (value)=>{
+    Form.jenis_bayar = value;
+    if(value == 'DP'){
+        Form.jumlah_bayar = JumlahDp.value;
+    }
+    if(value == 'Lunas'){
+        Form.jumlah_bayar = props.produk.harga;
+    }
+})
+// Data bukti Bayar || Gambar
 const imageUrl = ref(null);
 function swalShow(icon, message) {
     swal({
@@ -51,7 +70,7 @@ function swalShow(icon, message) {
 }
 function onFileChange(event) {
     const file = event.target.files[0];
-
+    Form.bukti = file;
     if (!file) {
         imageUrl.value = null;
         return;
@@ -75,8 +94,15 @@ function onFileChange(event) {
     imageUrl.value = URL.createObjectURL(file);
 }
 
+//
+// Submit Penyewaan
 function submit(){
-
+    Form.post(route('Penyewaan.Store'),{
+        preserveState:true,
+        onError:(err)=>{
+            console.log(err);
+        }
+    })
 }
 </script>
 
@@ -188,37 +214,29 @@ function submit(){
                                     <label for="jenis_bayar" class="text-base w-full">Jenis Pembayaran</label>
                                     <div class="flex gap-7">
                                         <div class="flex items-center gap-4">
-                                            <input id="tersedia" type="radio" value="DP" v-model="Form.jenis_bayar"
+                                            <input id="tersedia" type="radio" value="DP" v-model="statusBayar"
                                                 class="text-gray-900" />
                                             <label for="tersedia" class="text-sm w-full">DP</label>
                                         </div>
                                         <div class="flex items-center gap-4">
                                             <input id="tidak_tersedia" type="radio" value="Lunas"
-                                                v-model="Form.jenis_bayar" class="text-gray-900" />
+                                                v-model="statusBayar" class="text-gray-900" />
                                             <label for="tidak_tersedia" class="text-sm w-full">Lunas</label>
                                         </div>
                                     </div>
                                     <InputError :message="Form.errors.jenis_bayar" />
                                 </div>
                                 <div class="grid grid-cols-2 gap-3">
-                                    <div class="col-span-2" v-if="Form.jenis_bayar == 'DP'">
-                                        <label for="dp" class="block text-sm font-medium text-gray-700 mb-2">Jumlah
-                                            DP</label>
-                                        <input type="number" :readonly="true" v-model="Form.dp" name="dp" id="dp"
-                                            placeholder="Rp. 0000"
-                                            class="w-full py-3 px-4 border border-gray-400 rounded-lg focus:outline-none focus:border-blue-500">
-                                    </div>
-                                    <div class="col-span-2" v-if="Form.jenis_bayar == 'Lunas'">
+
+                                    <div class="col-span-2">
                                         <label for="jumlah_bayar"
                                             class="block text-sm font-medium text-gray-700 mb-2">Jumlah
                                             Pembayaran</label>
                                         <input type="number" :readonly="true" v-model="Form.jumlah_bayar"
                                             name="jumlah_bayar" id="jumlah_bayar" placeholder="Rp. 0000"
                                             class="w-full py-3 px-4 border border-gray-400 rounded-lg focus:outline-none focus:border-blue-500">
-                                    </div>
-                                    <div class="col-span-2">
-                                        <InputError :message="Form.errors.dp" />
                                         <InputError :message="Form.errors.jumlah_bayar" />
+
                                     </div>
                                     <div class="col-span-2">
                                         <label for="tgl_pembayaran"

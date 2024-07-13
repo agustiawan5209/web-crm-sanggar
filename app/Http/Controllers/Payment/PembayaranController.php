@@ -20,6 +20,11 @@ class PembayaranController extends Controller
         }
         return Inertia::render("Home/Penyewaan", [
             'produk'=> ProdukJasa::with(['image'])->find(Request::input('slug')),
+            'tipe'=> 'jasa',
         ]);
+    }
+
+    public function success(){
+        return Inertia::render("Home/Success", []);
     }
 }
