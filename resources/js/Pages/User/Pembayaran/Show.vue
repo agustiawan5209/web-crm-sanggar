@@ -1,5 +1,5 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import UserLayout from '@/Layouts/UserLayout.vue';
 import { Head, useForm, usePage } from '@inertiajs/vue3';
 import Dropdown from '@/Components/Dropdown.vue';
 import Checkbox from '@/Components/Checkbox.vue';
@@ -59,7 +59,7 @@ function submitPembayaranUpdate() {
 
 <template>
 
-    <Head title="Detail " />
+    <Head title="Detail" />
 
     <Modal :show="updatePembayaranModal">
         <div class="bg-white p-4">
@@ -89,15 +89,14 @@ function submitPembayaranUpdate() {
             </form>
         </div>
     </Modal>
-    <AuthenticatedLayout>
+    <UserLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Detail Pembayaran</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Detail Pembayaran Sewa</h2>
         </template>
 
         <div class="md:py-4 relative box-content">
             <section class=" py-2 px-0 md:px-6  md:py-6 bg-gray-100 text-gray-900">
                 <form novalidate="" action="" class="container flex flex-col mx-auto space-y-12">
-
                     <fieldset class="grid grid-cols-3 gap-6 p-6 rounded-md shadow-sm bg-gray-50">
                         <div class="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
                             <div class="col-span-full  ">
@@ -116,18 +115,23 @@ function submitPembayaranUpdate() {
                                     <tr class="">
                                         <td class="text-sm border-b py-2 font-bold capitalize">Nama Customer</td>
                                         <td>:</td>
-                                        <td class="text-sm border-b text-gray-800"> {{ pembayaran.penyewaan.customer.nama }} </td>
+                                        <td class="text-sm border-b text-gray-800"> {{
+                                            pembayaran.penyewaan.customer.nama }}
+                                        </td>
                                     </tr>
                                     <tr class="">
                                         <td class="text-sm border-b py-2 font-bold capitalize">No. Telpon</td>
                                         <td>:</td>
-                                        <td class="text-sm border-b text-gray-800"> {{ pembayaran.penyewaan.customer.user.phone }}
+                                        <td class="text-sm border-b text-gray-800"> {{
+                                            pembayaran.penyewaan.customer.user.phone
+                                            }}
                                         </td>
                                     </tr>
                                     <tr class="">
                                         <td class="text-sm border-b py-2 font-bold capitalize">Alamat</td>
                                         <td>:</td>
-                                        <td class="text-sm border-b text-gray-800"> {{ pembayaran.penyewaan.customer.alamat }}
+                                        <td class="text-sm border-b text-gray-800"> {{
+                                            pembayaran.penyewaan.customer.alamat }}
                                         </td>
                                     </tr>
                                 </table>
@@ -194,9 +198,6 @@ function submitPembayaranUpdate() {
                                                     <p class="whitespace-nowrap">{{ pembayaran.status
                                                         }}</p>
                                                 </span>
-                                                <PrimaryButton @click="showPembayaranModal()" type="button">Update
-                                                    Status
-                                                    Pembayaran</PrimaryButton>
                                             </div>
                                         </td>
                                     </tr>
@@ -207,5 +208,5 @@ function submitPembayaranUpdate() {
                 </form>
             </section>
         </div>
-    </AuthenticatedLayout>
+    </UserLayout>
 </template>

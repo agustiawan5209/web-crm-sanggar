@@ -27,6 +27,10 @@ const nonactive = "border-transparent text-gray-900 hover:bg-gray-50 hover:text-
                                     <font-awesome-icon :icon="['fas','credit-card']" class="text-gray-400 group-hover:text-gray-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"/>
                                      <span class="truncate">Data Penyewaan</span>
                                  </Link>
+                                <Link :href="route('Customer.Pembayaran.index')" :class="route().current('Customer.Pembayaran.index') ? active : nonactive">
+                                    <font-awesome-icon :icon="['fas','credit-card']" class="text-gray-400 group-hover:text-gray-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"/>
+                                     <span class="truncate">Data Transaksi</span>
+                                 </Link>
 
                             </nav>
                         </aside>

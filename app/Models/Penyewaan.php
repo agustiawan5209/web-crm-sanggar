@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,7 +25,18 @@ class Penyewaan extends Model
         return $this->hasOne(Customer::class,'id','customer_id');
     }
     public function pembayaran(){
-        return $this->belongsTo(Pembayaran::class,'customer_id','id');
+        return $this->hasOne(Pembayaran::class,'id','customer_id');
+    }
+
+    protected $appends = [
+        'kode_transaksi',
+    ];
+
+    public function kodeTransaksi(): Attribute
+    {
+        return new Attribute(
+            get:fn()=> $this->pembayaran()->first()->kode_transaksi
+        );
     }
 
     public function scopeFilter($query, $filter)

@@ -24,6 +24,7 @@ class PenyewaanController extends Controller
         $tableName = 'penyewaans'; // Ganti dengan nama tabel yang Anda inginkan
         // $columns = DB::getSchemaBuilder()->getColumnListing($tableName);
         $columns[] = 'id';
+        $columns[] = 'kode_transaksi';
         $columns[] = 'customer_id';
         $columns[] = 'jenis';
         $columns[] = 'produk';
@@ -34,7 +35,7 @@ class PenyewaanController extends Controller
         return Inertia::render('Admin/Penyewaan/Index', [
             'search' =>  Request::input('search'),
             'table_colums' => array_values(array_diff($columns, ['remember_token', 'password', 'email_verified_at', 'created_at', 'updated_at', 'user_id', 'deskripsi'])),
-            'data' => Penyewaan::with(['customer'])->filter(Request::only('search', 'order'))->paginate(10),
+            'data' => Penyewaan::with(['customer', 'customer.user'])->filter(Request::only('search', 'order'))->paginate(10),
             'can' => [
                 'add' => false,
                 'edit' => false,

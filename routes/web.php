@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Customer\CustomerController;
+use App\Http\Controllers\Customer\PembayaranController as CustomerPembayaranController;
 use App\Http\Controllers\Customer\PenyewaanController as CustomerPenyewaanController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
@@ -39,9 +40,19 @@ Route::middleware(['auth', 'verified', 'role:Customer'])->group(function () {
         Route::controller(CustomerPenyewaanController::class)->group(function () {
             Route::get('/penyewaan', 'index')->name('penyewaan');
         });
+
+
+        // Data Pembayaran User
+        Route::group(['prefix' => 'pembayaran', 'as' => "Pembayaran."], function () {
+            Route::controller(CustomerPembayaranController::class)->group(function () {
+                Route::get('/', 'index')->name('index');
+                Route::get('/detail-pembayaran', 'show')->name('show');
+            });
+        });
     });
     // End Dashboard
 
+    // Pembayaran COntroller
     Route::controller(PembayaranController::class)->group(function () {
         Route::get('/checkout-penyewaan', 'index')->name('payment.checkout');
         Route::get('/success-penyewaan', 'success')->name('payment.success');

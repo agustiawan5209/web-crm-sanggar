@@ -220,7 +220,7 @@ function truncateText(col) {
                             </colgroup>
                             <thead class="bg-blue-900">
                                 <tr
-                                    class="text-xs md:text-base font-semibold tracking-wide text-left uppercase border-b border-gray-700  text-white ">
+                                    class="text-xs md:text-sm font-semibold tracking-wide text-left uppercase border-b border-gray-700  text-white ">
                                     <th scope="col" v-for="item in columsReplace"
                                         class="px-2 py-1 md:px-6 md:py-3 text-nowrap text-start font-medium capitalize">
                                         <span v-if="item == 'id' || item == 'slug'" class="w-10">
@@ -245,6 +245,12 @@ function truncateText(col) {
                                         </span>
                                         <span v-else-if="col == 'deskripsi' || col == 'keterangan'">
                                             <p v-html="truncateText(item[col])"></p>
+                                        </span>
+                                        <span v-else-if="col == 'customer_id'">
+                                            <ul>
+                                                <li>{{ item.customer.nama }}</li>
+                                                <li v-if="item.customer.user != null">{{ item.customer.user.phone }}</li>
+                                            </ul>
                                         </span>
                                         <span v-else-if="col == 'status'">
                                             <span v-if="item.status == 'PENDING'"
