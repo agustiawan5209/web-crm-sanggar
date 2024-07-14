@@ -64,6 +64,13 @@ const auth = usePage().props.auth;
 
                     <div class="drop-down  w-48 overflow-hidden bg-white rounded-md shadow absolute top-12 right-3" v-if="showUserDropdown">
                         <ul>
+                            <li>
+                                <Link :href="route('User.dashboard')" class="px-3 py-3 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
+                                    <font-awesome-icon :icon="['fas','house']" class="w-5 h-5 text-gray-800"/>
+
+                                    <span> Dashboard </span>
+                                </Link>
+                            </li>
                             <li class="px-3 py-3 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
                                 <font-awesome-icon :icon="['fas','gear']" class="w-5 h-5 text-gray-800"/>
 

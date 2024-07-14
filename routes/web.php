@@ -13,6 +13,7 @@ use App\Http\Controllers\Payment\PembayaranController;
 use App\Http\Controllers\PenyewaanController;
 use App\Http\Controllers\ProdukAlatController;
 use App\Http\Controllers\ProdukJasaController;
+use App\Http\Controllers\User\DashboardController as UserDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,14 @@ Route::controller(ProdukController::class)->group(function () {
 });
 
 Route::middleware(['auth', 'verified', 'role:Customer'])->group(function () {
+    // Dashboard User
+    Route::group(['prefix'=> 'user', 'as'=> 'User.'], function () {
+        Route::controller(UserDashboardController::class)->group(function () {
+            Route::get('/dashboard', 'index')->name('dashboard');
+        });
+    });
+    // End Dashboard
+
     Route::controller(PembayaranController::class)->group(function () {
         Route::get('/checkout-penyewaan', 'index')->name('payment.checkout');
         Route::get('/success-penyewaan', 'success')->name('payment.success');
