@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
+use App\Models\Penyewaan;
 use App\Models\Pembayaran;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Request;
 use App\Http\Requests\StorePembayaranRequest;
 use App\Http\Requests\UpdatePembayaranRequest;
-use App\Models\Penyewaan;
-use Illuminate\Support\Facades\Request;
-use Inertia\Inertia;
 
 class PembayaranController extends Controller
 {
@@ -16,25 +17,27 @@ class PembayaranController extends Controller
      */
     public function index()
     {
-        $tableName = 'penyewaans'; // Ganti dengan nama tabel yang Anda inginkan
+        $tableName = 'pembayarans'; // Ganti dengan nama tabel yang Anda inginkan
         // $columns = DB::getSchemaBuilder()->getColumnListing($tableName);
         $columns[] = 'id';
-        $columns[] = 'customer_id';
+        $columns[] = 'kode_transaksi';
         $columns[] = 'produk';
-        $columns[] = 'tgl_pengambilan';
-        $columns[] = 'tgl_pengembalian';
+        $columns[] = 'jenis_bayar';
+        $columns[] = 'tgl';
+        $columns[] = 'total_transaksi';
         $columns[] = 'status';
+        $columns[] = 'keterangan';
 
-        return Inertia::render('Admin/Penyewaan/Index', [
+        return Inertia::render('Admin/Pembayaran/Index', [
             'search' =>  Request::input('search'),
             'table_colums' => array_values(array_diff($columns, ['remember_token', 'password', 'email_verified_at', 'created_at', 'updated_at', 'user_id', 'deskripsi'])),
-            'data' => Penyewaan::paginate(10),
+            'data' => Pembayaran::paginate(10),
             'can' => [
-                'add' => true,
-                'edit' => true,
-                'show' => true,
-                'delete' => true,
-                'reset_password' => true,
+                'add' => false,
+                'edit' => false,
+                'show' => false,
+                'delete' => false,
+                'reset_password' => false,
             ]
         ]);
     }

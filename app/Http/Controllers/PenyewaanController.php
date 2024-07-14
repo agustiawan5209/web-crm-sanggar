@@ -53,6 +53,14 @@ class PenyewaanController extends Controller
         //
     }
 
+    private function generateKodeTransaksi()
+    {
+        // Mendapatkan ID terakhir
+        $lastId = Pembayaran::max('id') + 1;
+
+        // Membuat kode transaksi dengan format yang diinginkan
+        return 'TRX-' . str_pad($lastId, 8, '0', STR_PAD_LEFT);
+    }
     /**
      * Store a newly created resource in storage.
      */
@@ -74,6 +82,7 @@ class PenyewaanController extends Controller
 
         $photo->storeAs('public/bukti_bayar', $random_name_photo);
         Pembayaran::create([
+            'kode_transaksi'=> $this->generateKodeTransaksi(),
             'bukti'=> $random_name_photo,
             'penyewaan_id'=> $penyewaan->id,
             'total'=> $request->jumlah_bayar,
@@ -94,7 +103,7 @@ class PenyewaanController extends Controller
     {
         Request::validate(['slug'=> 'required|exists:penyewaans,id']);
         return Inertia::render('Admin/Penyewaan/Show', [
-            'penyewaan'=> $penyewaan->with(['customer', 'pembayaran'])->find(Request::input('slug')),
+            'penyewaan'=> $penyewaan->with(['customer', 'customer.user', 'pembayaran'])->find(Request::input('slug')),
         ]);
     }
 

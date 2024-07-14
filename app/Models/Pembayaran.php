@@ -13,6 +13,7 @@ class Pembayaran extends Model
     protected $table = 'pembayarans';
 
     protected $fillable = [
+        'kode_transaksi',
         'bukti',
         'penyewaan_id',
         'total',
@@ -24,10 +25,11 @@ class Pembayaran extends Model
 
     protected $appends = [
         'bukti_url',
-        'rupiah',
+        'total_transaksi',
+        'produk'
     ];
 
-    public function rupiah(): Attribute
+    public function totalTransaksi(): Attribute
     {
         return new Attribute(
             get: fn()=> "Rp.".number_format($this->total, 0,2),
@@ -38,6 +40,18 @@ class Pembayaran extends Model
     {
         return new Attribute(
             get: fn()=> asset('storage/bukti_bayar/'. $this->bukti),
+        );
+    }
+
+    public function penyewaan()
+    {
+        return $this->hasOne(Penyewaan::class,'id','penyewaan_id');
+    }
+
+    public function produk():Attribute
+    {
+        return new Attribute(
+            get: fn()=> $this->penyewaan()->first()->produk,
         );
     }
 }

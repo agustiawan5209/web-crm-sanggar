@@ -124,51 +124,13 @@ function submitPembayaranUpdate() {
                                     <tr class="">
                                         <td class="text-sm border-b py-2 font-bold capitalize">No. Telpon</td>
                                         <td>:</td>
-                                        <td class="text-sm border-b text-gray-800"> {{ penyewaan.customer.user.phone }}
+                                        <td class="text-sm border-b text-gray-800"> {{ penyewaan.customer.no_telpon }}
                                         </td>
                                     </tr>
                                     <tr class="">
                                         <td class="text-sm border-b py-2 font-bold capitalize">Alamat</td>
                                         <td>:</td>
                                         <td class="text-sm border-b text-gray-800"> {{ penyewaan.customer.alamat }}
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <div class="col-span-full  ">
-                                <ul class="flex flex-col space-y-20">
-                                    <li class="flex gap-3 py-2 border-b">
-                                        <span class="text-2xl">Penyewaan</span>
-                                    </li>
-                                </ul>
-
-                                <table class="w-full table">
-                                    <colgroup>
-                                        <col class="md:w-36">
-                                        <col class="w-3">
-                                        <col>
-                                    </colgroup>
-                                    <tr class="">
-                                        <td class="text-sm border-b py-2 font-bold capitalize">Nama Produk</td>
-                                        <td>:</td>
-                                        <td class="text-sm border-b text-gray-800"> {{ penyewaan.produk }} </td>
-                                    </tr>
-                                    <tr class="">
-                                        <td class="text-sm border-b py-2 font-bold capitalize">Jenis</td>
-                                        <td>:</td>
-                                        <td class="text-sm border-b text-gray-800"> {{ penyewaan.jenis }}
-                                        </td>
-                                    </tr>
-                                    <tr class="">
-                                        <td class="text-sm border-b py-2 font-bold capitalize">Tanggal Pengambilan</td>
-                                        <td>:</td>
-                                        <td class="text-sm border-b text-gray-800"> {{ penyewaan.tgl_pengambilan }}
-                                        </td>
-                                    </tr>
-                                    <tr class="">
-                                        <td class="text-sm border-b py-2 font-bold capitalize">Tanggal Pengembalian</td>
-                                        <td>:</td>
-                                        <td class="text-sm border-b text-gray-800"> {{ penyewaan.tgl_pengembalian }}
                                         </td>
                                     </tr>
                                 </table>
@@ -203,7 +165,7 @@ function submitPembayaranUpdate() {
                                     <tr class="">
                                         <td class="text-sm border-b py-2 font-bold capitalize">Total Pembayaran</td>
                                         <td>:</td>
-                                        <td class="text-sm border-b text-gray-800"> {{ penyewaan.pembayaran.total_transaksi }}
+                                        <td class="text-sm border-b text-gray-800"> {{ penyewaan.pembayaran.rupiah }}
                                         </td>
                                     </tr>
                                     <tr class="">

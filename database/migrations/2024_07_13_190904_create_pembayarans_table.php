@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('pembayarans', function (Blueprint $table) {
             $table->id();
+            $table->string('kode_transaksi')->unique();
             $table->string('bukti');
             $table->foreignId('penyewaan_id')->constrained('penyewaans')->onDelete('cascade');
             $table->decimal('total', 10,2);
