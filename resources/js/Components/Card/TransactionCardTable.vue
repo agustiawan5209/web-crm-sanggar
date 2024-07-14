@@ -126,17 +126,22 @@ function cekAksi() {
 }
 
 
-function truncateText(text) {
-    var paragraphs = text
-    var text = '';
-    var paragraph = ''
-    for (var i = 0; i < paragraphs.length; i++) {
-        if (i < 100) {
-            text += paragraphs[i]
+function truncateText(col) {
+    console.log(col == null)
+    if (col == '' || col == null) {
+        return '';
+    } else {
+        var paragraphs = col
+        var text = '';
+        var paragraph = ''
+        for (var i = 0; i < paragraphs.length; i++) {
+            if (i < 100) {
+                text += paragraphs[i]
+            }
         }
+        text += '........'
+        return text;
     }
-    text += '........'
-    return text;
 }
 </script>
 

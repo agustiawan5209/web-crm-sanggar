@@ -35,7 +35,7 @@ class PembayaranController extends Controller
             'can' => [
                 'add' => false,
                 'edit' => false,
-                'show' => false,
+                'show' => true,
                 'delete' => false,
                 'reset_password' => false,
             ]
@@ -63,7 +63,10 @@ class PembayaranController extends Controller
      */
     public function show(Pembayaran $pembayaran)
     {
-        //
+        Request::validate(['slug'=> 'required|exists:pembayarans,id']);
+        return Inertia::render('Admin/Pembayaran/Show', [
+            'pembayaran'=> $pembayaran->with(['penyewaan', 'penyewaan.customer','penyewaan.customer.user'])->find(Request::input('slug')),
+        ]);
     }
 
     /**

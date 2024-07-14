@@ -87,6 +87,8 @@ Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
     Route::group(['prefix' => 'pembayaran', 'as' => "Pembayaran."], function () {
         Route::controller(PembayaranController::class)->group(function () {
             Route::get('/', 'index')->name('index');
+            Route::get('/detail-pembayaran', 'show')->name('show');
+
             Route::put('update-pembayaran', 'update')->name('update');
         });
     });

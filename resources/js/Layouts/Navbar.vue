@@ -57,13 +57,13 @@ const toggleDropdown = () => {
                 <div v-if="isDropdownOpen" class="pl-6">
                   <div class="flex items-center justify-between mb-2">
                     <NavLink :href="route('Produk.Jasa.index')" :active="route().current('Produk.Jasa.index')">
-                        <font-awesome-icon :icon="['fas', 'users']" />
+                        <font-awesome-icon :icon="['fas', 'bag-shopping']" />
                         <span class="ml-4">Jasa</span>
                     </NavLink>
                   </div>
                   <div class="flex items-center justify-between mb-2">
                     <NavLink :href="route('Produk.Alat.index')" :active="route().current('Produk.Alat.index')">
-                        <font-awesome-icon :icon="['fas', 'users']" />
+                        <font-awesome-icon :icon="['fas', 'briefcase']" />
                         <span class="ml-4">Alat</span>
                     </NavLink>
                   </div>
@@ -72,19 +72,19 @@ const toggleDropdown = () => {
         </li>
         <li class="relative">
             <NavLink :href="route('Diskon.index')" :active="route().current('Diskon.index')">
-                <font-awesome-icon :icon="['fas', 'users']" />
+                <font-awesome-icon :icon="['fas', 'tags']" />
                 <span class="ml-4">Diskon</span>
             </NavLink>
         </li>
         <li class="relative">
             <NavLink :href="route('Penyewaan.index')" :active="route().current('Penyewaan.index')">
-                <font-awesome-icon :icon="['fas', 'users']" />
+                <font-awesome-icon :icon="['fas', 'cart-shopping']" />
                 <span class="ml-4">Penyewaan</span>
             </NavLink>
         </li>
         <li class="relative">
             <NavLink :href="route('Pembayaran.index')" :active="route().current('Pembayaran.index')">
-                <font-awesome-icon :icon="['fas', 'users']" />
+                <font-awesome-icon :icon="['fas', 'credit-card']" />
                 <span class="ml-4">Transaksi</span>
             </NavLink>
         </li>

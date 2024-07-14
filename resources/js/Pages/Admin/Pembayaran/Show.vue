@@ -15,14 +15,14 @@ const swal = inject('$swal');
 const page = usePage();
 
 const props = defineProps({
-    penyewaan: {
+    pembayaran: {
         type: Object,
         default: () => ({})
     }
 })
 
 const Form = useForm({
-    slug: props.penyewaan.pembayaran.id,
+    slug: props.pembayaran.id,
     status: '',
     keterangan: '',
 })
@@ -119,18 +119,18 @@ function submitPembayaranUpdate() {
                                     <tr class="">
                                         <td class="text-sm border-b py-2 font-bold capitalize">Nama Customer</td>
                                         <td>:</td>
-                                        <td class="text-sm border-b text-gray-800"> {{ penyewaan.customer.nama }} </td>
+                                        <td class="text-sm border-b text-gray-800"> {{ pembayaran.penyewaan.customer.nama }} </td>
                                     </tr>
                                     <tr class="">
                                         <td class="text-sm border-b py-2 font-bold capitalize">No. Telpon</td>
                                         <td>:</td>
-                                        <td class="text-sm border-b text-gray-800"> {{ penyewaan.customer.no_telpon }}
+                                        <td class="text-sm border-b text-gray-800"> {{ pembayaran.penyewaan.customer.user.phone }}
                                         </td>
                                     </tr>
                                     <tr class="">
                                         <td class="text-sm border-b py-2 font-bold capitalize">Alamat</td>
                                         <td>:</td>
-                                        <td class="text-sm border-b text-gray-800"> {{ penyewaan.customer.alamat }}
+                                        <td class="text-sm border-b text-gray-800"> {{ pembayaran.penyewaan.customer.alamat }}
                                         </td>
                                     </tr>
                                 </table>
@@ -152,26 +152,26 @@ function submitPembayaranUpdate() {
                                         <td class="text-sm border-b py-2 font-bold capitalize">Bukti Bayar</td>
                                         <td>:</td>
                                         <td class="text-sm border-b text-gray-800">
-                                            <img :src="penyewaan.pembayaran.bukti_url" alt="Bukti Bayar"
+                                            <img :src="pembayaran.bukti_url" alt="Bukti Bayar"
                                                 class="w-96 h-96 object-scale-down">
                                         </td>
                                     </tr>
                                     <tr class="">
                                         <td class="text-sm border-b py-2 font-bold capitalize">Jenis Pembayaran</td>
                                         <td>:</td>
-                                        <td class="text-sm border-b text-gray-800"> {{ penyewaan.pembayaran.jenis_bayar
+                                        <td class="text-sm border-b text-gray-800"> {{ pembayaran.jenis_bayar
                                             }} </td>
                                     </tr>
                                     <tr class="">
                                         <td class="text-sm border-b py-2 font-bold capitalize">Total Pembayaran</td>
                                         <td>:</td>
-                                        <td class="text-sm border-b text-gray-800"> {{ penyewaan.pembayaran.rupiah }}
+                                        <td class="text-sm border-b text-gray-800"> {{ pembayaran.total_transaksi }}
                                         </td>
                                     </tr>
                                     <tr class="">
                                         <td class="text-sm border-b py-2 font-bold capitalize">Tanggal Pembayaran</td>
                                         <td>:</td>
-                                        <td class="text-sm border-b text-gray-800"> {{ penyewaan.pembayaran.tgl }}
+                                        <td class="text-sm border-b text-gray-800"> {{ pembayaran.tgl }}
                                         </td>
                                     </tr>
                                     <tr class="">
@@ -179,22 +179,22 @@ function submitPembayaranUpdate() {
                                         <td>:</td>
                                         <td class="text-sm border-b text-gray-800">
                                             <div class="cursor-pointer text-sm flex gap-4">
-                                                <span v-if="penyewaan.pembayaran.status == 'PENDING'"
+                                                <span v-if="pembayaran.status == 'PENDING'"
                                                     class="inline-flex items-center justify-center rounded-full bg-yellow-100 px-2.5 py-0.5 text-yellow-700">
 
-                                                    <p class="whitespace-nowrap">{{ penyewaan.pembayaran.status
+                                                    <p class="whitespace-nowrap">{{ pembayaran.status
                                                         }}</p>
                                                 </span>
-                                                <span v-else-if="penyewaan.pembayaran.status == 'DIBATALKAN'"
+                                                <span v-else-if="pembayaran.status == 'DIBATALKAN'"
                                                     class="inline-flex items-center justify-center rounded-full bg-red-100 px-2.5 py-0.5 text-red-700">
 
-                                                    <p class="whitespace-nowrap">{{ penyewaan.pembayaran.status
+                                                    <p class="whitespace-nowrap">{{ pembayaran.status
                                                         }}</p>
                                                 </span>
                                                 <span v-else
                                                     class="inline-flex items-center justify-center rounded-full bg-green-100 px-2.5 py-0.5 text-green-700">
 
-                                                    <p class="whitespace-nowrap">{{ penyewaan.pembayaran.status
+                                                    <p class="whitespace-nowrap">{{ pembayaran.status
                                                         }}</p>
                                                 </span>
                                                 <PrimaryButton @click="showPembayaranModal()" type="button">Update
