@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Customer\CustomerController;
+use App\Http\Controllers\Customer\PenyewaanController as CustomerPenyewaanController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
@@ -33,7 +34,10 @@ Route::middleware(['auth', 'verified', 'role:Customer'])->group(function () {
         Route::controller(CustomerController::class)->group(function () {
             Route::get('/dashboard', 'index')->name('dashboard');
             Route::get('/profile', 'profile')->name('profile');
-
+        });
+        // Penyewaan Jasa Barang
+        Route::controller(CustomerPenyewaanController::class)->group(function () {
+            Route::get('/penyewaan', 'index')->name('penyewaan');
         });
     });
     // End Dashboard
