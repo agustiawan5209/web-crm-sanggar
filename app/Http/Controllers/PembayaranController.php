@@ -76,7 +76,13 @@ class PembayaranController extends Controller
      */
     public function update(UpdatePembayaranRequest $request, Pembayaran $pembayaran)
     {
-        //
+        $pembayaran = Pembayaran::find($request->slug);
+        $pembayaran->update([
+            'status'=> $request->status,
+            'keterangan'=> $request->keterangan,
+        ]);
+
+        return redirect()->route('Penyewaan.show', ['slug'=> $request->slug])->with('message','Data Pembayaran Berhasil Di Update!!');
     }
 
     /**

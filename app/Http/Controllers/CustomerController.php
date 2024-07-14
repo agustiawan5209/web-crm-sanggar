@@ -24,7 +24,7 @@ class CustomerController extends Controller
         // $columns = DB::getSchemaBuilder()->getColumnListing($tableName);
         $columns[] = 'id';
         $columns[] = 'nama_customer';
-        $columns[] = 'no_telpon';
+        $columns[] = 'phone';
         $columns[] = 'alamat';
 
         return Inertia::render('Admin/Customer/Index', [
@@ -60,6 +60,7 @@ class CustomerController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'remember_token' => Str::random(60),
+            'phone'=> $request->no_telpon,
         ]);
         $role = Role::findByName('Customer');
         if ($role) {
@@ -74,8 +75,8 @@ class CustomerController extends Controller
 
         $customer = new Customer([
             'user_id' => $user->id,
+            'nama'=> $request->name,
             'alamat' => $request->alamat,
-            'no_telpon' => $request->no_telpon,
             'status'=> '0',
         ]);
         $customer->save();

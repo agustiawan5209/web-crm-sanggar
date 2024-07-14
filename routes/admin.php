@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DiskonController;
 use App\Http\Controllers\GambarController;
+use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\PenyewaanController;
 use App\Http\Controllers\ProdukAlatController;
 use App\Http\Controllers\ProdukJasaController;
@@ -80,6 +81,12 @@ Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
     Route::group(['prefix' => 'penyewaan', 'as' => "Penyewaan."], function () {
         Route::controller(PenyewaanController::class)->group(function () {
             Route::get('/', 'index')->name('index');
+            Route::get('/detail-penyewaan', 'show')->name('show');
+        });
+    });
+    Route::group(['prefix' => 'pembayaran', 'as' => "Pembayaran."], function () {
+        Route::controller(PembayaranController::class)->group(function () {
+            Route::put('update-pembayaran', 'update')->name('update');
         });
     });
 });

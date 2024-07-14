@@ -18,7 +18,8 @@ return new class extends Migration
             $table->decimal('total', 10,2);
             $table->string('jenis_bayar');
             $table->date('tgl');
-            $table->enum('status', ['PENDING','SELESAI',"DIBATALKAN"])->default('PENDING');
+            $table->enum('status', ['PENDING','SELESAI', 'DITERIMA','DITOLAK',"DIBATALKAN"])->default('PENDING');
+            $table->string('keterangan')->nullable();
             $table->timestamps();
         });
     }

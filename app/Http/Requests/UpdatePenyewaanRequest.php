@@ -11,7 +11,7 @@ class UpdatePenyewaanRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class UpdatePenyewaanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'slug'=> 'required|exists:penyewaans,id',
+            'status'=> 'required|string|in:DITERIMA,DITOLAK,SELESAI',
+            'keterangan'=> 'nullable|string|max:255',
         ];
     }
 }

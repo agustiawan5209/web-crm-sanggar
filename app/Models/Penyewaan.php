@@ -23,6 +23,9 @@ class Penyewaan extends Model
     public function customer(){
         return $this->hasOne(Customer::class,'id','customer_id');
     }
+    public function pembayaran(){
+        return $this->belongsTo(Pembayaran::class,'customer_id','id');
+    }
 
     public function scopeFilter($query, $filter)
     {

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('produk');
             $table->string('tgl_pengambilan');
             $table->string('tgl_pengembalian');
-            $table->string('status');
+            $table->string('status')->comment('PENDING, DITERIMA, DIBATALKAN');
             $table->timestamps();
         });
     }

@@ -25,6 +25,7 @@ class PenyewaanController extends Controller
         // $columns = DB::getSchemaBuilder()->getColumnListing($tableName);
         $columns[] = 'id';
         $columns[] = 'customer_id';
+        $columns[] = 'jenis';
         $columns[] = 'produk';
         $columns[] = 'tgl_pengambilan';
         $columns[] = 'tgl_pengembalian';
@@ -37,7 +38,7 @@ class PenyewaanController extends Controller
             'can' => [
                 'add' => false,
                 'edit' => false,
-                'show' => false,
+                'show' => true,
                 'delete' => false,
                 'reset_password' => false,
             ]
@@ -65,7 +66,7 @@ class PenyewaanController extends Controller
             'produk' => $request->produk['nama'],
             'tgl_pengambilan' => $request->tgl_pengambilan,
             'tgl_pengembalian' => $request->tgl_pengembalian,
-            'status' => "PENDING",
+            'status' => "Dalam Penyewaan",
         ]);
         $photo = $request->bukti;
         $name_photo = $photo->getClientOriginalName();
@@ -91,7 +92,10 @@ class PenyewaanController extends Controller
      */
     public function show(Penyewaan $penyewaan)
     {
-        //
+        Request::validate(['slug'=> 'required|exists:penyewaans,id']);
+        return Inertia::render('Admin/Penyewaan/Show', [
+            'penyewaan'=> $penyewaan->with(['customer', 'pembayaran'])->find(Request::input('slug')),
+        ]);
     }
 
     /**
@@ -107,7 +111,7 @@ class PenyewaanController extends Controller
      */
     public function update(UpdatePenyewaanRequest $request, Penyewaan $penyewaan)
     {
-        //
+
     }
 
     /**
