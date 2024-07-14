@@ -1,7 +1,7 @@
 <script setup>
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import { Link, usePage } from '@inertiajs/vue3';
-import { ref,defineProps } from 'vue';
+import { ref, defineProps } from 'vue';
 
 const showUserDropdown = ref(false);
 const auth = usePage().props.auth;
@@ -47,8 +47,7 @@ const auth = usePage().props.auth;
                             fill="#0346F2" />
                     </svg>
                 </div>
-                <li
-                    class="font-medium text-sm p-3 hover:bg-slate-800 sm:p-0 sm:hover:bg-transparent text-primary">
+                <li class="font-medium text-sm p-3 hover:bg-slate-800 sm:p-0 sm:hover:bg-transparent text-primary">
                     <Link :href="route('all.produk_jasa')" class="text-white">Jasa Tari & Pelatihan Tari</Link>
                 </li>
                 <li
@@ -57,34 +56,39 @@ const auth = usePage().props.auth;
                 </li>
             </ul>
             <div class="flex gap-3 items-center" v-if="auth.user">
-                <font-awesome-icon :icon="['fas','bag-shopping']" class="w-5 h-5 text-white"/>
+                <font-awesome-icon :icon="['fas', 'bag-shopping']" class="w-5 h-5 text-white" />
 
-                <div
-                    class="h-10 w-10 hover:ring-4 user cursor-pointer relative ring-blue-700/30 rounded-full bg-cover bg-center bg-[url('https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')]" @click="showUserDropdown =! showUserDropdown">
+                <div class="h-10 w-10 hover:ring-4 user cursor-pointer relative ring-blue-700/30 rounded-full bg-cover bg-center bg-[url('https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')]"
+                    @click="showUserDropdown = !showUserDropdown">
 
-                    <div class="drop-down  w-48 overflow-hidden bg-white rounded-md shadow absolute top-12 right-3" v-if="showUserDropdown">
+                    <div class="drop-down  w-48 overflow-hidden bg-white rounded-md shadow absolute top-12 right-3"
+                        v-if="showUserDropdown">
                         <ul>
                             <li>
-                                <Link :href="route('User.dashboard')" class="px-3 py-3 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
-                                    <font-awesome-icon :icon="['fas','house']" class="w-5 h-5 text-gray-800"/>
+                                <Link :href="route('Customer.dashboard')"
+                                    class="px-3 py-3 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
+                                <font-awesome-icon :icon="['fas', 'house']" class="w-5 h-5 text-gray-800" />
 
-                                    <span> Dashboard </span>
+                                <span> Dashboard </span>
                                 </Link>
                             </li>
                             <li class="px-3 py-3 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
-                                <font-awesome-icon :icon="['fas','gear']" class="w-5 h-5 text-gray-800"/>
+                                <font-awesome-icon :icon="['fas', 'gear']" class="w-5 h-5 text-gray-800" />
 
                                 <span> Setting </span>
                             </li>
                             <li class="px-3  py-3  text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
-                                <font-awesome-icon :icon="['fas','heart']" class="w-5 h-5 text-gray-800"/>
+                                <font-awesome-icon :icon="['fas', 'heart']" class="w-5 h-5 text-gray-800" />
 
                                 <span> Wishlist </span>
                             </li>
-                            <li class="px-3  py-3 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
-                                <font-awesome-icon :icon="['fas','right-from-bracket']" class="w-5 h-5 text-gray-800"/>
+                            <li>
+                                <Link :href="route('logout')" method="post" as="button"
+                                    class="px-3  py-3 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
+                                <font-awesome-icon :icon="['fas', 'right-from-bracket']" class="w-5 h-5 text-gray-800" />
 
                                 <span> Logout </span>
+                                </Link>
                             </li>
 
                         </ul>
@@ -100,7 +104,8 @@ const auth = usePage().props.auth;
             </div>
             <div class="flex gap-3 item-center" v-else>
                 <li class="md:ml-6 mt-3 md:mt-0">
-                    <Link class="inline-block font-semibold px-4 py-2 text-white bg-blue-600 md:bg-transparent md:text-white border border-white rounded"
+                    <Link
+                        class="inline-block font-semibold px-4 py-2 text-white bg-blue-600 md:bg-transparent md:text-white border border-white rounded"
                         :href="route('login')">Masuk</Link>
                 </li>
             </div>

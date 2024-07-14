@@ -1,19 +1,13 @@
 <?php
 
+use App\Http\Controllers\Customer\CustomerController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\Application;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\DiskonController;
-use App\Http\Controllers\GambarController;
 use App\Http\Controllers\Home\ProdukController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Payment\PembayaranController;
 use App\Http\Controllers\PenyewaanController;
-use App\Http\Controllers\ProdukAlatController;
-use App\Http\Controllers\ProdukJasaController;
-use App\Http\Controllers\User\DashboardController as UserDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,9 +29,11 @@ Route::controller(ProdukController::class)->group(function () {
 
 Route::middleware(['auth', 'verified', 'role:Customer'])->group(function () {
     // Dashboard User
-    Route::group(['prefix'=> 'user', 'as'=> 'User.'], function () {
-        Route::controller(UserDashboardController::class)->group(function () {
+    Route::group(['prefix'=> 'user', 'as'=> 'Customer.'], function () {
+        Route::controller(CustomerController::class)->group(function () {
             Route::get('/dashboard', 'index')->name('dashboard');
+            Route::get('/profile', 'profile')->name('profile');
+
         });
     });
     // End Dashboard
