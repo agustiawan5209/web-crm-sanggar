@@ -113,7 +113,7 @@ class PenyewaanController extends Controller
      */
     public function edit(Penyewaan $penyewaan)
     {
-        //
+       //
     }
 
     /**
@@ -121,7 +121,13 @@ class PenyewaanController extends Controller
      */
     public function update(UpdatePenyewaanRequest $request, Penyewaan $penyewaan)
     {
+        $penyewaan = Penyewaan::find($request->slug);
+        $penyewaan->update([
+            'status'=> $request->status,
+            'keterangan'=> $request->keterangan,
+        ]);
 
+        return redirect()->route('Penyewaan.show', ['slug'=> $request->slug])->with('message','Data Penyewaan Berhasil Di Update!!');
     }
 
     /**

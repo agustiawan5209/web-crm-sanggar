@@ -82,6 +82,7 @@ Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
         Route::controller(PenyewaanController::class)->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/detail-penyewaan', 'show')->name('show');
+            Route::put('/update-penyewaan', 'update')->name('update');
         });
     });
     Route::group(['prefix' => 'pembayaran', 'as' => "Pembayaran."], function () {

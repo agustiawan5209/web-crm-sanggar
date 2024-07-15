@@ -55,6 +55,36 @@ function submitPembayaranUpdate() {
         }
     })
 }
+
+// Penyewaan
+const updatePenyewaanModal = ref(false);
+function showPenyewaanModal() {
+    updatePenyewaanModal.value = true;
+}
+
+function closePenyewaanModal() {
+    updatePenyewaanModal.value = false;
+}
+
+function submitPenyewaanUpdate() {
+    console.log(Form.keterangan)
+    Form.put(route('Penyewaan.update'), {
+        preserveState: false,
+        onError: (err) => {
+            console.log(err);
+        },
+        onSuccess: () => {
+            closePenyewaanModal()
+            swal({
+                icon: "info",
+                title: 'Berhasil',
+                text: page.props.message,
+                showConfirmButton: true,
+                timer: 2000
+            });
+        }
+    })
+}
 </script>
 
 <template>
@@ -84,6 +114,28 @@ function submitPembayaranUpdate() {
                     <TextInput v-model="Form.keterangan" class="w-full" />
                     <InputError :message="Form.errors.keterangan" />
 
+                </div>
+                <PrimaryButton type="submit">Simpan</PrimaryButton>
+            </form>
+        </div>
+    </Modal>
+    <Modal :show="updatePenyewaanModal">
+        <div class="bg-white p-4">
+            <div class="p-2 mb-3 rounded-md bg-gray-200">
+                <h3 class="text-lg tracking-wide font-semibold">Form Update Status Penyewaan Penyewaan</h3>
+            </div>
+            <form @submit.prevent="submitPenyewaanUpdate()"
+                class="w-full max-w-full flex flex-col space-y-4 justify-center">
+                <div class="relative w-full">
+                    <InputLabel class="w-full" value="Update Status Penyewaan" />
+                    <select id="order" v-model="Form.status"
+                        class="px-2 py-1 md:px-3 md:py-2 placeholder-gray-400 border focus:outline-none w-full sm:text-sm border-gray-200 shadow-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none ">
+                        <option value="">-----</option>
+                        <option value="Dalam Penyewaan">Dalam Penyewaan</option>
+                        <option value="SELESAI">SELESAI (Di Kembalikan)</option>
+                        <option value="Di Batalkan">Di Batalkan</option>
+                    </select>
+                    <InputError :message="Form.errors.status" />
                 </div>
                 <PrimaryButton type="submit">Simpan</PrimaryButton>
             </form>
@@ -165,6 +217,35 @@ function submitPembayaranUpdate() {
                                         <td class="text-sm border-b py-2 font-bold capitalize">Tanggal Pengembalian</td>
                                         <td>:</td>
                                         <td class="text-sm border-b text-gray-800"> {{ penyewaan.tgl_pengembalian }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-sm border-b py-2 font-bold capitalize">Status Penyewaan</td>
+                                        <td>:</td>
+                                        <td class="text-sm border-b text-gray-800">
+                                            <div class="cursor-pointer text-sm flex gap-4">
+                                                <span v-if="penyewaan.status == 'Dalam Penyewaan'"
+                                                    class="inline-flex items-center justify-center rounded-full bg-yellow-100 px-2.5 py-0.5 text-yellow-700">
+
+                                                    <p class="whitespace-nowrap">{{ penyewaan.status
+                                                        }}</p>
+                                                </span>
+                                                <span v-else-if="penyewaan.status == 'DIBATALKAN'"
+                                                    class="inline-flex items-center justify-center rounded-full bg-red-100 px-2.5 py-0.5 text-red-700">
+
+                                                    <p class="whitespace-nowrap">{{ penyewaan.status
+                                                        }}</p>
+                                                </span>
+                                                <span v-else
+                                                    class="inline-flex items-center justify-center rounded-full bg-green-100 px-2.5 py-0.5 text-green-700">
+
+                                                    <p class="whitespace-nowrap">{{ penyewaan.status
+                                                        }}</p>
+                                                </span>
+                                                <PrimaryButton @click="showPenyewaanModal()" type="button">Update
+                                                    Status
+                                                    Penyewaan</PrimaryButton>
+                                            </div>
                                         </td>
                                     </tr>
                                 </table>
