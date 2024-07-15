@@ -101,7 +101,7 @@ class PenyewaanController extends Controller
         $penyewaan = Penyewaan::create([
             'customer_id' => $user->customer->id,
             'jenis' => $request->jenis,
-            'produk_id' => $request->produk['id'],
+            'produk_id' => json_encode($request->produk),
             'produk' => $request->produk['nama'],
             'jumlah'=> $request->quantity,
             'tgl_pengambilan' => $request->tgl_pengambilan,

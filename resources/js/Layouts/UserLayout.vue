@@ -11,11 +11,11 @@ const nonactive = "border-transparent text-gray-900 hover:bg-gray-50 hover:text-
 
 <template>
     <HomeLayout>
-        <main class="relative pt-32 bg-sky-500">
-            <div class="mx-auto max-w-screen-xl px-4 pb-6 sm:px-6 lg:px-4 lg:pb-16">
+        <main class="relative pt-3 bg-sky-500">
+            <div class="mx-auto max-w-full px-4 pb-6 sm:px-6 lg:px-4 ">
                 <div class="overflow-hidden rounded-lg bg-white shadow">
                     <div class="divide-y divide-gray-200 lg:grid lg:grid-cols-12 lg:divide-y-0 lg:divide-x">
-                        <aside class="py-6 lg:col-span-3">
+                        <aside class="py-6 lg:col-span-2">
                             <nav class="space-y-1">
 
                                 <Link :href="route('Customer.profile')" :class="route().current('Customer.profile') ? active : nonactive">
@@ -35,7 +35,7 @@ const nonactive = "border-transparent text-gray-900 hover:bg-gray-50 hover:text-
                             </nav>
                         </aside>
 
-                        <div class="p-2 lg:col-span-9">
+                        <div class="p-2 lg:col-span-10">
                             <slot/>
                         </div>
                     </div>

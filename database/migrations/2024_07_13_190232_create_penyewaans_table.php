@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('customer_id')->constrained('customers');
             $table->string('jenis');
-            $table->foreignId('produk_id')->nullable();
+            $table->json('produk_id')->nullable();
             $table->string('produk');
             $table->string('tgl_pengambilan');
             $table->string('tgl_pengembalian');

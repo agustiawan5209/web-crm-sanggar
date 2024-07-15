@@ -4,6 +4,7 @@ import { Head } from '@inertiajs/vue3';
 import ChartJenisImunisasi from '@/Components/Chart/ChartJenisImunisasi.vue';
 import TransactionCardTable from '@/Components/Card/TransactionCardTable.vue';
 import Dropdown from '@/Components/Dropdown.vue';
+import ProdukCard from '@/Components/Product/ProdukCard.vue';
 
 import { ref, watch, defineProps } from 'vue';
 const props = defineProps({
@@ -49,7 +50,12 @@ const crud = ref({
         </template>
 
         <div class="py-4 relative box-content">
-            <TransactionCardTable @update:search="search = $event" @update:order="order" :slug="null" path="Penyewaan" :TableData="data" :tableColums="table_colums" :crud="crud" />
+            <div class="grid md:grid-cols-3">
+                <template v-for="item in data.data">
+                    <ProdukCard :produk='item'></ProdukCard>
+                </template>
+
+            </div>
         </div>
     </UserLayout>
 </template>
