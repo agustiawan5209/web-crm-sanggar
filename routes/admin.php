@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DiskonController;
 use App\Http\Controllers\GambarController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\PenyewaanController;
 use App\Http\Controllers\ProdukAlatController;
@@ -94,6 +95,13 @@ Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
             Route::get('/detail-pembayaran', 'show')->name('show');
 
             Route::put('update-pembayaran', 'update')->name('update');
+        });
+    });
+
+    Route::group(['prefix' => 'laporan', 'as' => "Laporan."], function () {
+        Route::controller(LaporanController::class)->group(function () {
+            Route::get('/alat', 'laporan_alat')->name('alat');
+            Route::get('/jasa', 'laporan_jasa')->name('jasa');
         });
     });
 });
