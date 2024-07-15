@@ -25,7 +25,7 @@ class Penyewaan extends Model
         return $this->hasOne(Customer::class,'id','customer_id');
     }
     public function pembayaran(){
-        return $this->hasOne(Pembayaran::class,'id','customer_id');
+        return $this->hasOne(Pembayaran::class,'penyewaan_id','id');
     }
 
     protected $appends = [
@@ -35,7 +35,8 @@ class Penyewaan extends Model
     public function kodeTransaksi(): Attribute
     {
         return new Attribute(
-            get:fn()=> $this->pembayaran()->first()->kode_transaksi
+            get:fn()=> $this->pembayaran()->first()->kode_transaksi,
+            set: null,
         );
     }
 

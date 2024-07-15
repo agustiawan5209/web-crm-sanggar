@@ -60,7 +60,7 @@ class PenyewaanController extends Controller
         $lastId = Pembayaran::max('id') + 1;
 
         // Membuat kode transaksi dengan format yang diinginkan
-        return 'TRX-' . str_pad($lastId, 8, '0', STR_PAD_LEFT);
+        return 'TRX-' . str_pad($lastId, 3, '0', STR_PAD_LEFT);
     }
     /**
      * Store a newly created resource in storage.
