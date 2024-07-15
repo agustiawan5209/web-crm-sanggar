@@ -29,6 +29,10 @@ class Penyewaan extends Model
         return $this->hasOne(Pembayaran::class,'penyewaan_id','id');
     }
 
+    protected $casts = [
+        'produk_id'=> 'json',
+    ];
+
     protected $appends = [
         'kode_transaksi',
     ];
