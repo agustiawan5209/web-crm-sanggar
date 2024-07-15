@@ -52,7 +52,7 @@ const auth = usePage().props.auth;
                 </li>
                 <li
                     class="font-medium text-sm p-3 cursor-pointer hover:bg-slate-800 sm:p-0 sm:hover:bg-transparent text-gray-600 hover:text-primary transition-colors">
-                    <a href="#" class="text-white">Kostum Tari & Pakaian Adat</a>
+                    <Link :href="route('all.produk_alat')" class="text-white">Kostum Tari & Pakaian Adat</Link>
                 </li>
             </ul>
             <div class="flex gap-3 items-center" v-if="auth.user">

@@ -3,6 +3,7 @@ import { defineProps, ref } from 'vue';
 import { Link, Head } from '@inertiajs/vue3';
 import HomeLayout from '@/Layouts/HomeLayout.vue';
 import Paket from '@/Components/Product/Paket.vue'
+import PaketAlat from '@/Components/Product/PaketAlat.vue'
 
 const props = defineProps({
     produk: {
@@ -248,7 +249,8 @@ const props = defineProps({
                     </div>
 
                     <div class="lg:col-span-3">
-                        <Paket :jasa="produk.data"></Paket>
+                        <Paket v-if="tipe =='jasa'" :jasa="produk.data"></Paket>
+                        <PaketAlat v-if="tipe =='alat'" :tipe="tipe" :alat="produk.data"></PaketAlat>
 
                         <div class="w-full mt-4" v-if="produk.data.length > 10">
                             <a href="#" class="w-full border-b border-gray-300 text-white">

@@ -21,6 +21,7 @@ Route::get('/', [HomeController::class, 'welcome'])->name('home');
 Route::controller(ProdukController::class)->group(function () {
     Route::get('/semua-jasa', 'produk_jasa')->name('all.produk_jasa');
     Route::get('/semua-alat', 'produk_alat')->name('all.produk_alat');
+    Route::get('/detail-produk/{tipe}/{slug}', 'produk_detail')->name('produk.detail');
 });
 
 
