@@ -13,7 +13,8 @@ use App\Http\Requests\UpdatePenyewaanRequest;
 
 class PenyewaanController extends Controller
 {
-    public function success(){
+    public function success()
+    {
         return Inertia::render("Home/Success", []);
     }
     /**
@@ -61,7 +62,10 @@ class PenyewaanController extends Controller
         return Inertia::render('Admin/Penyewaan/Riwayat', [
             'search' =>  Request::input('search'),
             'table_colums' => array_values(array_diff($columns, ['remember_token', 'password', 'email_verified_at', 'created_at', 'updated_at', 'user_id', 'deskripsi'])),
-            'data' => Penyewaan::where('status', 'SELESAI')->with(['customer', 'customer.user'])->filter(Request::only('search', 'order'))->paginate(10),
+            'data' => Penyewaan::with(['customer', 'customer.user'])
+                ->filter(Request::only('search', 'order'))
+                ->where('status', 'SELESAI')
+                ->paginate(10),
             'can' => [
                 'add' => false,
                 'edit' => false,
@@ -109,28 +113,33 @@ class PenyewaanController extends Controller
 
         $photo->storeAs('public/bukti_bayar', $random_name_photo);
         Pembayaran::create([
-            'kode_transaksi'=> $this->generateKodeTransaksi(),
-            'bukti'=> $random_name_photo,
-            'penyewaan_id'=> $penyewaan->id,
-            'total'=> $request->jumlah_bayar,
-            'jenis_bayar'=> $request->jenis_bayar,
-            'tgl'=> $request->tgl_pembayaran,
-            'status'=> "PENDING",
+            'kode_transaksi' => $this->generateKodeTransaksi(),
+            'bukti' => $random_name_photo,
+            'penyewaan_id' => $penyewaan->id,
+            'total' => $request->jumlah_bayar,
+            'jenis_bayar' => $request->jenis_bayar,
+            'tgl' => $request->tgl_pembayaran,
+            'status' => "PENDING",
         ]);
 
         return redirect()->route('payment.success');
-
-
     }
 
     /**
      * Display the specified resource.
      */
+    public function riwayat_show(Penyewaan $penyewaan)
+    {
+        Request::validate(['slug' => 'required|exists:penyewaans,id']);
+        return Inertia::render('Admin/Penyewaan/Show', [
+            'penyewaan' => $penyewaan->with(['customer', 'customer.user', 'pembayaran'])->find(Request::input('slug')),
+        ]);
+    }
     public function show(Penyewaan $penyewaan)
     {
-        Request::validate(['slug'=> 'required|exists:penyewaans,id']);
+        Request::validate(['slug' => 'required|exists:penyewaans,id']);
         return Inertia::render('Admin/Penyewaan/Show', [
-            'penyewaan'=> $penyewaan->with(['customer', 'customer.user', 'pembayaran'])->find(Request::input('slug')),
+            'penyewaan' => $penyewaan->with(['customer', 'customer.user', 'pembayaran'])->find(Request::input('slug')),
         ]);
     }
 
@@ -139,7 +148,7 @@ class PenyewaanController extends Controller
      */
     public function edit(Penyewaan $penyewaan)
     {
-       //
+        //
     }
 
     /**
@@ -149,11 +158,11 @@ class PenyewaanController extends Controller
     {
         $penyewaan = Penyewaan::find($request->slug);
         $penyewaan->update([
-            'status'=> $request->status,
-            'keterangan'=> $request->keterangan,
+            'status' => $request->status,
+            'keterangan' => $request->keterangan,
         ]);
 
-        return redirect()->route('Penyewaan.show', ['slug'=> $request->slug])->with('message','Data Penyewaan Berhasil Di Update!!');
+        return redirect()->route('Penyewaan.show', ['slug' => $request->slug])->with('message', 'Data Penyewaan Berhasil Di Update!!');
     }
 
     /**

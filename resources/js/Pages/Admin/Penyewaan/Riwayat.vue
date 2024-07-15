@@ -49,7 +49,7 @@ const crud = ref({
         </template>
 
         <div class="py-4 relative box-content">
-            <TransactionCardTable @update:search="search = $event" @update:order="order" :slug="null" path="Penyewaan" :TableData="data" :tableColums="table_colums" :crud="crud" />
+            <TransactionCardTable @update:search="search = $event" @update:order="order" :slug="null" path="Riwayat" :TableData="data" :tableColums="table_colums" :crud="crud" />
         </div>
     </AuthenticatedLayout>
 </template>

@@ -82,10 +82,12 @@ Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
         Route::controller(PenyewaanController::class)->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/detail-penyewaan', 'show')->name('show');
-            Route::get('/riwayat-penyewaan', 'riwayat')->name('riwayat');
             Route::put('/update-penyewaan', 'update')->name('update');
         });
     });
+    Route::get('/riwayat-penyewaan', [PenyewaanController::class, 'riwayat'])->name('Riwayat.index');
+    Route::get('/detail-riwayat-penyewaan', [PenyewaanController::class, 'riwayat_show'])->name('Riwayat.show');
+
     Route::group(['prefix' => 'pembayaran', 'as' => "Pembayaran."], function () {
         Route::controller(PembayaranController::class)->group(function () {
             Route::get('/', 'index')->name('index');
