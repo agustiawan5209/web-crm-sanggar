@@ -15,6 +15,10 @@ const props = defineProps({
         type: String,
         default:'jasa',
     },
+    quantity: {
+        type: Number,
+        default: 1,
+    },
 })
 
 
@@ -29,12 +33,20 @@ const funModal = () => {
 const closeModal = () => {
     showModal.value = false
 }
+var subTotal = props.produk.harga * props.quantity
+function formatRupiah(number) {
+    return new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        minimumFractionDigits: 0
+    }).format(number);
+}
 </script>
 
 <template>
 
     <Head title="Checkout" />
-    <ModalPayment :show="showModal" :produk="produk" :jenisproduk="tipe" maxWidth="2xl">
+    <ModalPayment :show="showModal" :produk="produk" :jenisproduk="tipe" :quantity="quantity" maxWidth="2xl">
 
     </ModalPayment>
     <HomeLayout>
@@ -77,6 +89,10 @@ const closeModal = () => {
                                     <p class="text-base text-white leading-4">Subtotal</p>
                                     <p class="text-base text-gray-300 leading-4">{{ produk.rupiah }}</p>
                                 </div>
+                                <div class="flex justify-between w-full">
+                                    <p class="text-base text-white leading-4">Jumlah Produk Yang Disewa</p>
+                                    <p class="text-base text-gray-300 leading-4">{{ quantity }}</p>
+                                </div>
                                 <div class="flex justify-between items-center w-full">
                                     <p class="text-base text-white leading-4">Discount <span
                                             class="bg-gray-200 text-gray-400 p-1 text-xs font-medium leading-3">STUDENT</span>
@@ -90,7 +106,7 @@ const closeModal = () => {
                             </div>
                             <div class="flex justify-between items-center w-full">
                                 <p class="text-base text-white font-semibold leading-4">Total</p>
-                                <p class="text-base text-gray-300 font-semibold leading-4">{{ produk.rupiah }}</p>
+                                <p class="text-base text-gray-300 font-semibold leading-4">{{ formatRupiah(subTotal) }}</p>
                             </div>
                         </div>
                     </div>

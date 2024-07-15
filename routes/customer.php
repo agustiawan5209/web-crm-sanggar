@@ -31,7 +31,8 @@ Route::middleware(['auth', 'verified', 'role:Customer'])->group(function () {
 
     // Pembayaran COntroller
     Route::controller(PembayaranController::class)->group(function () {
-        Route::get('/checkout-penyewaan', 'index')->name('payment.checkout');
+        Route::get('/checkout-penyewaan-paket', 'index')->name('payment.checkout');
+        Route::get('/checkout-penyewaan-kostum', 'indexalat')->name('payment.checkout.alat');
         Route::get('/success-penyewaan', 'success')->name('payment.success');
     });
 

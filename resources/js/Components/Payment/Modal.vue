@@ -30,31 +30,38 @@ const props = defineProps({
         type: String,
         default: '',
     },
+    quantity: {
+        type: Number,
+        default: 1,
+    },
 });
 
-const JumlahDp = ref(props.produk.harga / 2);
+var harga =  props.produk.harga * props.quantity;
+const JumlahDp = ref(harga / 2);
 const Form = useForm({
     dp: JumlahDp.value,
     jenis_bayar: '',
     jenis: props.jenisproduk,
-    jumlah_bayar: props.produk.harga,
+    jumlah_bayar: harga,
     bukti: '',
     tgl_pembayaran: '',
     tgl_pengambilan: '',
     tgl_pengembalian: '',
     produk: props.produk,
+    quantity: props.quantity,
 })
 
 // Jumlah Bayar
 const statusBayar = ref(null);
 
-watch(statusBayar, (value)=>{
+watch(statusBayar, (value) => {
+
     Form.jenis_bayar = value;
-    if(value == 'DP'){
-        Form.jumlah_bayar = JumlahDp.value;
+    if (value == 'DP') {
+        Form.jumlah_bayar = harga/2;
     }
-    if(value == 'Lunas'){
-        Form.jumlah_bayar = props.produk.harga;
+    if (value == 'Lunas') {
+        Form.jumlah_bayar = harga;
     }
 })
 // Data bukti Bayar || Gambar
@@ -96,10 +103,10 @@ function onFileChange(event) {
 
 //
 // Submit Penyewaan
-function submit(){
-    Form.post(route('Penyewaan.Store'),{
-        preserveState:true,
-        onError:(err)=>{
+function submit() {
+    Form.post(route('Penyewaan.Store'), {
+        preserveState: true,
+        onError: (err) => {
             console.log(err);
         }
     })
@@ -219,8 +226,8 @@ function submit(){
                                             <label for="tersedia" class="text-sm w-full">DP</label>
                                         </div>
                                         <div class="flex items-center gap-4">
-                                            <input id="tidak_tersedia" type="radio" value="Lunas"
-                                                v-model="statusBayar" class="text-gray-900" />
+                                            <input id="tidak_tersedia" type="radio" value="Lunas" v-model="statusBayar"
+                                                class="text-gray-900" />
                                             <label for="tidak_tersedia" class="text-sm w-full">Lunas</label>
                                         </div>
                                     </div>

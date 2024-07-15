@@ -81,30 +81,19 @@ const decreaseQuantity = () => {
                             <span class="text-gray-600 ml-2">(14 reviews)</span>
                         </div>
                         <div class="mb-4">
-                            <span class="block mb-1 font-medium">Upgrades</span>
-                            <div class="flex flex-col">
-                                <label class="flex items-center">
-                                    <input type="checkbox" class="form-checkbox h-4 w-4 text-blue-600"
-                                        v-model="upgrades.lumbarPillows">
-                                    <span class="ml-2 text-gray-700">Lumbar Pillows +$200</span>
-                                </label>
-                                <label class="flex items-center">
-                                    <input type="checkbox" class="form-checkbox h-4 w-4 text-blue-600"
-                                        v-model="upgrades.fancyMetals">
-                                    <span class="ml-2 text-gray-700">Fancy Metals +$120</span>
-                                </label>
-                            </div>
+                            <span class="block mb-1 font-medium" v-if="tipe=='alat'">Stok Produk:{{ produk.stok }}</span>
+
                         </div>
                         <div class="mb-4 flex items-center">
                             <button @click="decreaseQuantity"
                                 class="bg-gray-300 text-gray-700 px-2 py-1 rounded-l-lg hover:bg-gray-400 transition duration-300">-</button>
-                            <input type="text" readonly v-model="quantity" min="1"
+                            <input type="text" readonly v-model="quantity" min="1" :max="produk.stok"
                                 class="text-center w-12 border-t border-b border-gray-300 focus:outline-none">
                             <button @click="increaseQuantity"
                                 class="bg-gray-300 text-gray-700 px-2 py-1 rounded-r-lg hover:bg-gray-400 transition duration-300">+</button>
                         </div>
                     </div>
-                    <button class="bg-blue-600 text-white px-4 py-2 rounded-lg mt-4 hover:bg-blue-700">Sewa Produk</button>
+                    <Link :href="route('payment.checkout.alat', {slug:produk.id, quantity: quantity})" class="bg-blue-600 text-center text-white px-4 py-2 rounded-lg mt-4 hover:bg-blue-700">Sewa Produk</Link>
                 </div>
             </div>
         </div>
