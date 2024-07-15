@@ -45,6 +45,32 @@ class PenyewaanController extends Controller
             ]
         ]);
     }
+    public function riwayat()
+    {
+        $tableName = 'penyewaans'; // Ganti dengan nama tabel yang Anda inginkan
+        // $columns = DB::getSchemaBuilder()->getColumnListing($tableName);
+        $columns[] = 'id';
+        $columns[] = 'kode_transaksi';
+        $columns[] = 'customer_id';
+        $columns[] = 'jenis';
+        $columns[] = 'produk';
+        $columns[] = 'tgl_pengambilan';
+        $columns[] = 'tgl_pengembalian';
+        // $columns[] = 'status';
+
+        return Inertia::render('Admin/Penyewaan/Riwayat', [
+            'search' =>  Request::input('search'),
+            'table_colums' => array_values(array_diff($columns, ['remember_token', 'password', 'email_verified_at', 'created_at', 'updated_at', 'user_id', 'deskripsi'])),
+            'data' => Penyewaan::where('status', 'SELESAI')->with(['customer', 'customer.user'])->filter(Request::only('search', 'order'))->paginate(10),
+            'can' => [
+                'add' => false,
+                'edit' => false,
+                'show' => true,
+                'delete' => false,
+                'reset_password' => false,
+            ]
+        ]);
+    }
 
     /**
      * Show the form for creating a new resource.
