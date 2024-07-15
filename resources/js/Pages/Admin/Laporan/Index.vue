@@ -23,6 +23,10 @@ const props = defineProps({
         type: Object,
         default: () => ({}),
     },
+    datelaporan: {
+        type: Object,
+        default: () => ({}),
+    },
     table_colums: {
         type: Object,
         default: () => ({}),
@@ -53,7 +57,7 @@ const crud = ref({
         </template>
 
         <div class="py-4 relative box-content">
-            <LaporanCardTable @update:search="search = $event" @update:order="order" :slug="null" path="Laporan" :type="tipe" :TableData="data" :tableColums="table_colums" :crud="crud" />
+            <LaporanCardTable @update:search="search = $event" @update:order="order" :slug="null" path="Laporan" :type="tipe" :TableData="data" :tableColums="table_colums" :crud="crud" :datereport="datelaporan" />
         </div>
     </AuthenticatedLayout>
 </template>

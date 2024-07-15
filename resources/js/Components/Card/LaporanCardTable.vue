@@ -6,6 +6,7 @@ import dropdownTable from '@/Components/dropdownTable.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import Modal from '@/Components/Modal.vue';
+import axios from 'axios';
 const swal = inject('$swal')
 
 
@@ -53,6 +54,10 @@ const props = defineProps({
         default: () => ({}),
     },
     crud: {
+        type: Object,
+        default: () => ({}),
+    },
+    datereport: {
         type: Object,
         default: () => ({}),
     },
@@ -149,8 +154,8 @@ function truncateText(col) {
     }
 }
 const FormLaporan = useForm({
-    start_date: null,
-    end_date: null,
+    start_date: props.datereport.start_date,
+    end_date: props.datereport.end_date,
     type: props.type,
 })
 
@@ -160,6 +165,29 @@ function searchDate() {
         preserveScroll: true,
     })
 }
+const downloadPDF = () => {
+    axios({
+        method: 'get',
+        url: route(props.path + '.cetak',{
+            start_date: FormLaporan.start_date,
+            end_date: FormLaporan.end_date,
+            type: props.type,
+        }),
+        responseType: 'blob'
+    })
+        .then(response => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'penyewaan.pdf');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+};
 </script>
 
 <template>
@@ -219,8 +247,8 @@ function searchDate() {
                         </div>
                     </div>
                     <div class="p-2" v-show="TableData.data.length > 0">
-                        <PrimaryButton class="!bg-red-600" type="button" >
-                            <font-awesome-icon :icon="['fas', 'file-pdf']"/>
+                        <PrimaryButton @click="downloadPDF" class="!bg-red-600" type="button">
+                            <font-awesome-icon :icon="['fas', 'file-pdf']" />
                             <span>cetak</span>
                         </PrimaryButton>
                     </div>

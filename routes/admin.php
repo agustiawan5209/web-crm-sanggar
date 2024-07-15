@@ -102,6 +102,7 @@ Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
         Route::controller(LaporanController::class)->group(function () {
             Route::get('/alat', 'laporan_alat')->name('alat');
             Route::get('/jasa', 'laporan_jasa')->name('jasa');
+            Route::get('/cetak', 'cetakPDF')->name('cetak');
         });
     });
 });

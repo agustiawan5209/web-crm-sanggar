@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use App\Models\Penyewaan;
 use Illuminate\Support\Facades\Request;
-
+use PDF;
 class LaporanController extends Controller
 {
     public function laporan_alat(Request $request)
@@ -35,6 +35,7 @@ class LaporanController extends Controller
                 'reset_password' => false,
             ],
             'tipe' => 'alat',
+            'datelaporan'=>Request::only('start_date', 'end_date'),
         ]);
     }
     public function laporan_jasa(Request $request)
@@ -65,6 +66,32 @@ class LaporanController extends Controller
                 'reset_password' => false,
             ],
             'tipe' => 'jasa',
+            'datelaporan'=>Request::only('start_date', 'end_date'),
         ]);
+    }
+
+    public function cetakPDF()
+    {
+        // Ambil data penyewaan berdasarkan id
+        $data = Penyewaan::where('jenis', Request::input('type'))
+            ->whereBetween('created_at', Request::only('start_date', 'end_date'))
+            ->get();
+
+        // Definisikan kolom yang akan ditampilkan di PDF
+        $columns = [
+            'kode_transaksi',
+            'customer_id',
+            'jenis',
+            'produk',
+            'tgl_pengambilan',
+            'tgl_pengembalian',
+            'status'
+        ];
+
+        // Load view untuk PDF dan pass data penyewaan
+        $pdf = PDF::loadView('pdf.penyewaan', compact('data', 'columns'));
+
+        // Unduh PDF
+        return $pdf->download('penyewaan.pdf');
     }
 }
