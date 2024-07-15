@@ -15,6 +15,7 @@ class Penyewaan extends Model
     protected $fillable = [
         'customer_id',
         'jenis',
+        'produk_id',
         'produk',
         'tgl_pengambilan',
         'tgl_pengembalian',

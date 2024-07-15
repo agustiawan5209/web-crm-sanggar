@@ -97,12 +97,13 @@ class PenyewaanController extends Controller
      */
     public function store(StorePenyewaanRequest $request)
     {
-        // dd($request->all());
         $user = User::with(['customer'])->find(Auth::user()->id);
         $penyewaan = Penyewaan::create([
             'customer_id' => $user->customer->id,
             'jenis' => $request->jenis,
+            'produk_id' => $request->produk['id'],
             'produk' => $request->produk['nama'],
+            'jumlah'=> $request->quantity,
             'tgl_pengambilan' => $request->tgl_pengambilan,
             'tgl_pengembalian' => $request->tgl_pengembalian,
             'status' => "Dalam Penyewaan",
