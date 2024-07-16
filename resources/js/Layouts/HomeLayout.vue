@@ -56,7 +56,9 @@ const auth = usePage().props.auth;
                 </li>
             </ul>
             <div class="flex gap-3 items-center" v-if="auth.user">
-                <font-awesome-icon :icon="['fas', 'bag-shopping']" class="w-5 h-5 text-white" />
+                <Link :href="route('Customer.penyewaan')">
+                    <font-awesome-icon :icon="['fas', 'bag-shopping']" class="w-5 h-5 text-white" />
+                </Link>
 
                 <div class="h-10 w-10 hover:ring-4 user cursor-pointer relative ring-blue-700/30 rounded-full bg-cover bg-center bg-[url('https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')]"
                     @click="showUserDropdown = !showUserDropdown">
@@ -71,16 +73,6 @@ const auth = usePage().props.auth;
 
                                 <span> Dashboard </span>
                                 </Link>
-                            </li>
-                            <li class="px-3 py-3 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
-                                <font-awesome-icon :icon="['fas', 'gear']" class="w-5 h-5 text-gray-800" />
-
-                                <span> Setting </span>
-                            </li>
-                            <li class="px-3  py-3  text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
-                                <font-awesome-icon :icon="['fas', 'heart']" class="w-5 h-5 text-gray-800" />
-
-                                <span> Wishlist </span>
                             </li>
                             <li>
                                 <Link :href="route('logout')" method="post" as="button"
