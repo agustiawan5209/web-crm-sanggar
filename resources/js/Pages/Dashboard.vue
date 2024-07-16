@@ -2,19 +2,19 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import { ref, defineProps } from 'vue';
-
+import ChartTransaksiTahun from '@/Components/Chart/ChartTransaksiTahun.vue';
 const props = defineProps({
     penyewaan: {
         type: Object,
-        default: ()=>({}),
+        default: () => ({}),
     },
     produk: {
         type: Object,
-        default: ()=>({}),
+        default: () => ({}),
     },
     transaksi: {
         type: Object,
-        default: ()=>({}),
+        default: () => ({}),
     },
 })
 </script>
@@ -33,23 +33,23 @@ const props = defineProps({
                 <slot name="header" />
             </h2>
 
-            <div class="container items-center px-4 py-8 m-auto mt-5">
+            <div class="container items-center px-4 py-2 m-auto mt-5">
                 <div class="flex flex-wrap pb-3 mx-4 ">
-                    <ul
-                        class="w-full sm:w-4/5 text-xs sm:text-sm justify-center lg:justify-end items-center flex flex-row space-x-1 mt-6 overflow-hidden mb-4">
-                        <li><button
-                                class="px-4 py-2 bg-indigo-500 rounded-full text-sm text-gray-100 hover:bg-indigo-700 hover:text-gray-200">30
-                                days</button></li>
-                        <li><button
-                                class="px-4 py-2 bg-gray-200 rounded-full text-sm text-gray-700 hover:bg-indigo-700 hover:text-gray-200">90
-                                days</button></li>
-                        <li><button
-                                class="px-4 py-2 bg-gray-200 rounded-full text-sm text-gray-700 hover:bg-indigo-700 hover:text-gray-200">6
-                                months</button></li>
-                        <li><button
-                                class="px-4 py-2 bg-gray-200 rounded-full text-sm text-gray-700 hover:bg-indigo-700 hover:text-gray-200">12
-                                months</button></li>
-                    </ul>
+                    <!-- <ul
+                            class="w-full sm:w-4/5 text-xs sm:text-sm justify-center lg:justify-end items-center flex flex-row space-x-1 mt-6 overflow-hidden mb-4">
+                            <li><button
+                                    class="px-4 py-2 bg-indigo-500 rounded-full text-sm text-gray-100 hover:bg-indigo-700 hover:text-gray-200">30
+                                    days</button></li>
+                            <li><button
+                                    class="px-4 py-2 bg-gray-200 rounded-full text-sm text-gray-700 hover:bg-indigo-700 hover:text-gray-200">90
+                                    days</button></li>
+                            <li><button
+                                    class="px-4 py-2 bg-gray-200 rounded-full text-sm text-gray-700 hover:bg-indigo-700 hover:text-gray-200">6
+                                    months</button></li>
+                            <li><button
+                                    class="px-4 py-2 bg-gray-200 rounded-full text-sm text-gray-700 hover:bg-indigo-700 hover:text-gray-200">12
+                                    months</button></li>
+                        </ul> -->
                     <div class="w-full p-2 lg:w-1/4 md:w-1/2">
                         <div
                             class="flex flex-col px-6 py-10 overflow-hidden bg-white hover:bg-gradient-to-br hover:from-purple-400 hover:via-blue-400 hover:to-blue-500 rounded-xl shadow-lg duration-300 hover:shadow-2xl group">
@@ -98,7 +98,7 @@ const props = defineProps({
                             </div>
                             <h1
                                 class="text-3xl sm:text-4xl xl:text-5xl font-bold text-gray-700 mt-12 group-hover:text-gray-50">
-                                {{produk.jasa}}</h1>
+                                {{ produk.jasa }}</h1>
                             <div class="flex flex-row justify-between group-hover:text-gray-200">
                                 <p>Jumlah Paket</p>
                                 <span>
@@ -150,11 +150,10 @@ const props = defineProps({
                             class="flex flex-col px-6 py-10 overflow-hidden bg-white hover:bg-gradient-to-br hover:from-purple-400 hover:via-blue-400 hover:to-blue-500 rounded-xl shadow-lg duration-300 hover:shadow-2xl group">
                             <div class="flex flex-row justify-between items-center">
                                 <div class="px-4 py-4 bg-gray-300  rounded-xl bg-opacity-30">
-                                    <font-awesome-icon :icon="['fas', 'credit-card']"/>
+                                    <font-awesome-icon :icon="['fas', 'credit-card']" />
                                 </div>
                             </div>
-                            <h1
-                                class="text-3xl font-bold text-gray-700 mt-12 group-hover:text-gray-50">
+                            <h1 class="text-3xl font-bold text-gray-700 mt-12 group-hover:text-gray-50">
                                 {{ transaksi.pendapatan }}
                             </h1>
                             <div class="flex flex-row justify-between group-hover:text-gray-200">
@@ -171,6 +170,9 @@ const props = defineProps({
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="bg-white">
+                    <ChartTransaksiTahun></ChartTransaksiTahun>
                 </div>
             </div>
 

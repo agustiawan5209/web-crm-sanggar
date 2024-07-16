@@ -41,7 +41,7 @@ export default {
                 // },
                 title: {
                     display: true,
-                    text: 'Jumlah Riwayat Imunisasi  '
+                    text: 'Jumlah Transaksi '
                 }
             }
         },
@@ -64,7 +64,7 @@ export default {
         },
        async getBarChart() {
 
-            axios.get(route('api.pengguna.jumlah', { tahun: this.tahun }))
+            axios.get(route('grafik.transaksi', { tahun: this.tahun }))
                 .then((response) => {
                     if (response.status == 200) {
                         this.chartData = {

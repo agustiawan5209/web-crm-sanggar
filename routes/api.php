@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\DiskonController;
+use App\Http\Controllers\API\GrafikController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,4 +26,6 @@ Route::group(['prefix'=> 'diskon', 'as'=> 'Api.diskon.'], function () {
         Route::get('keep','keep_diskon')->name('keep_diskon');
     });
 });
+
+Route::get('transaksi', [GrafikController::class, 'transaksi'])->name('grafik.transaksi');
 

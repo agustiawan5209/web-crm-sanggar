@@ -35,7 +35,6 @@ const props = defineProps({
                 <form novalidate="" action="" class="container flex flex-col mx-auto space-y-12">
                     <div class="space-y-2 col-span-full lg:col-span-1 px-3 md:px-0">
                         <p class="font-medium">Detail Informasi Customer</p>
-                        <p class="text-xs">Detail data Customer dari puskesmas</p>
                     </div>
                     <fieldset class="grid grid-cols-3 gap-6 p-6 rounded-md shadow-sm bg-gray-50">
                         <div class="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
@@ -53,7 +52,7 @@ const props = defineProps({
                                     <col>
                                     </colgroup>
                                     <tr class="">
-                                        <td class="text-sm border-b py-2 font-bold capitalize">Nama Pasien</td>
+                                        <td class="text-sm border-b py-2 font-bold capitalize">Nama Customer</td>
                                         <td>:</td>
                                         <td class="text-sm border-b text-gray-600"> {{ customer.nama_customer }} </td>
                                     </tr>
