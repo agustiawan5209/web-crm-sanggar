@@ -27,13 +27,13 @@ const props = defineProps({
                     <h2 class="text-xl font-bold text-gray-200 sm:text-3xl" v-else-if="tipe == 'alat'">Kostum Tari & Pakaian Adat</h2>
                     <h2 class="text-xl font-bold text-gray-200 sm:text-3xl" v-else>Product Card Collection</h2>
 
-                    <p class="mt-4 max-w-md text-gray-300">
+                    <!-- <p class="mt-4 max-w-md text-gray-300">
                         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque praesentium cumque iure
                         dicta incidunt est ipsam, officia dolor fugit natus?
-                    </p>
+                    </p> -->
                 </header>
 
-                <div class="mt-8 block lg:hidden">
+                <!-- <div class="mt-8 block lg:hidden">
                     <button
                         class="flex cursor-pointer items-center gap-2 border-b border-gray-400 pb-1 text-gray-200 transition hover:border-gray-600">
                         <span class="text-sm font-medium text-gray-50"> Filters & Sorting </span>
@@ -43,10 +43,10 @@ const props = defineProps({
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                         </svg>
                     </button>
-                </div>
+                </div> -->
 
                 <div class="mt-4 lg:mt-8 lg:grid lg:grid-cols-4 lg:items-start lg:gap-8">
-                    <div class="hidden space-y-4 lg:block">
+                    <!-- <div class="hidden space-y-4 lg:block">
                         <div>
                             <label for="SortBy" class="block text-xs font-medium text-gray-100"> Sort By </label>
 
@@ -246,9 +246,9 @@ const props = defineProps({
                                 </details>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
-                    <div class="lg:col-span-3">
+                    <div class="lg:col-span-full">
                         <Paket v-if="tipe =='jasa'" :jasa="produk.data"></Paket>
                         <PaketAlat v-if="tipe =='alat'" :tipe="tipe" :alat="produk.data"></PaketAlat>
 
