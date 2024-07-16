@@ -27,7 +27,7 @@ function closeModal(){
     <Modal :show="ShowModal" >
         <FormRating :produk="idProduk" :penyewaan="idPenyewaan" :jenis="produk.jenis" @reviewSubmitted="closeModal"></FormRating>
     </Modal>
-    <div class="relative m-10 w-full max-w-xs overflow-hidden rounded-lg bg-white shadow-md">
+    <div class="relative my-2 md:m-10 w-full max-w-xs overflow-hidden rounded-lg bg-white shadow-md">
         <a href="#" v-for="(image,index) in produk.produk_id.image">
             <img class="h-60 rounded-t-lg object-cover"
                 v-if="image.status" :src="image.image_url"
