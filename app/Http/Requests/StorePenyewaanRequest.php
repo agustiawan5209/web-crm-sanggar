@@ -25,6 +25,7 @@ class StorePenyewaanRequest extends FormRequest
             "bukti"=> "required|image",
             'jenis_bayar'=> 'required|in:DP,Lunas',
             'jumlah_bayar'=> 'required|numeric',
+            'quantity'=> 'nullable|numeric',
             'tgl_pembayaran'=> 'required|date',
             'tgl_pengambilan'=> 'required|date',
             'tgl_pengembalian'=> 'required|date',

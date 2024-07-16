@@ -4,14 +4,18 @@ import { Head } from '@inertiajs/vue3';
 import { ref, defineProps } from 'vue';
 
 const props = defineProps({
-    pasien: {
-        type: Number,
-        default: 0,
+    penyewaan: {
+        type: Object,
+        default: ()=>({}),
     },
-    pemeriksaan: {
-        type: Number,
-        default: 0,
-    }
+    produk: {
+        type: Object,
+        default: ()=>({}),
+    },
+    transaksi: {
+        type: Object,
+        default: ()=>({}),
+    },
 })
 </script>
 
@@ -61,21 +65,13 @@ const props = defineProps({
                                             clip-rule="evenodd" />
                                     </svg>
                                 </div>
-                                <div class="inline-flex text-sm text-gray-600 group-hover:text-gray-200 sm:text-base">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        class="h-6 w-6 mr-2 text-green-500 group-hover:text-gray-200" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    12%
-                                </div>
+
                             </div>
                             <h1
                                 class="text-3xl sm:text-4xl xl:text-5xl font-bold text-gray-700 mt-12 group-hover:text-gray-50">
-                                42.34%</h1>
+                                {{ penyewaan.count }}</h1>
                             <div class="flex flex-row justify-between group-hover:text-gray-200">
-                                <p>Bounce Rate</p>
+                                <p>Jumlah Penyewaan</p>
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg"
                                         class="h-5 w-5 text-indigo-600 group-hover:text-gray-200" viewBox="0 0 20 20"
@@ -98,21 +94,13 @@ const props = defineProps({
                                         <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z" />
                                     </svg>
                                 </div>
-                                <div class="inline-flex text-sm text-gray-600 group-hover:text-gray-200 sm:text-base">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        class="h-6 w-6 mr-2 text-green-500 group-hover:text-gray-200" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    12%
-                                </div>
+
                             </div>
                             <h1
                                 class="text-3xl sm:text-4xl xl:text-5xl font-bold text-gray-700 mt-12 group-hover:text-gray-50">
-                                42.34%</h1>
+                                {{produk.jasa}}</h1>
                             <div class="flex flex-row justify-between group-hover:text-gray-200">
-                                <p>Page Per Visits</p>
+                                <p>Jumlah Paket</p>
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg"
                                         class="h-5 w-5 text-indigo-600 group-hover:text-gray-200" viewBox="0 0 20 20"
@@ -138,21 +126,13 @@ const props = defineProps({
                                             clip-rule="evenodd" />
                                     </svg>
                                 </div>
-                                <div class="inline-flex text-sm text-gray-600 group-hover:text-gray-200 sm:text-base">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        class="h-6 w-6 mr-2 text-green-500 group-hover:text-gray-200" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    12%
-                                </div>
+
                             </div>
                             <h1
                                 class="text-3xl sm:text-4xl xl:text-5xl font-bold text-gray-700 mt-12 group-hover:text-gray-50">
-                                42.34k</h1>
+                                {{ produk.alat }}</h1>
                             <div class="flex flex-row justify-between group-hover:text-gray-200">
-                                <p>Total Monthly Visits</p>
+                                <p>Produk Alat</p>
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg"
                                         class="h-5 w-5 text-indigo-600 group-hover:text-gray-200" viewBox="0 0 20 20"
@@ -170,29 +150,15 @@ const props = defineProps({
                             class="flex flex-col px-6 py-10 overflow-hidden bg-white hover:bg-gradient-to-br hover:from-purple-400 hover:via-blue-400 hover:to-blue-500 rounded-xl shadow-lg duration-300 hover:shadow-2xl group">
                             <div class="flex flex-row justify-between items-center">
                                 <div class="px-4 py-4 bg-gray-300  rounded-xl bg-opacity-30">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:text-gray-50"
-                                        viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd"
-                                            d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                </div>
-                                <div class="inline-flex text-sm text-gray-600 group-hover:text-gray-200 sm:text-base">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        class="h-6 w-6 mr-2 text-green-500 group-hover:text-gray-200" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    12%
+                                    <font-awesome-icon :icon="['fas', 'credit-card']"/>
                                 </div>
                             </div>
                             <h1
-                                class="text-3xl sm:text-4xl xl:text-5xl font-bold text-gray-700 mt-12 group-hover:text-gray-50">
-                                00:03:20%
+                                class="text-3xl font-bold text-gray-700 mt-12 group-hover:text-gray-50">
+                                {{ transaksi.pendapatan }}
                             </h1>
                             <div class="flex flex-row justify-between group-hover:text-gray-200">
-                                <p>Avg. Visit Duration</p>
+                                <p>Total Pendapatan</p>
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg"
                                         class="h-5 w-5 text-indigo-600 group-hover:text-gray-200" viewBox="0 0 20 20"
