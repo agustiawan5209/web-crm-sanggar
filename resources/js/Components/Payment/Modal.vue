@@ -23,8 +23,8 @@ const props = defineProps({
         default: () => ({}),
     },
     diskon: {
-        type: Object,
-        default: () => ({}),
+        type: Number,
+        default: 1,
     },
     jenisproduk: {
         type: String,
@@ -34,9 +34,13 @@ const props = defineProps({
         type: Number,
         default: 1,
     },
+    subtotal: {
+        type: Number,
+        default: 1,
+    },
 });
 
-var harga =  props.produk.harga * props.quantity;
+var harga = props.subtotal;
 const JumlahDp = ref(harga / 2);
 const Form = useForm({
     dp: JumlahDp.value,
@@ -58,7 +62,7 @@ watch(statusBayar, (value) => {
 
     Form.jenis_bayar = value;
     if (value == 'DP') {
-        Form.jumlah_bayar = harga/2;
+        Form.jumlah_bayar = harga / 2;
     }
     if (value == 'Lunas') {
         Form.jumlah_bayar = harga;

@@ -1,8 +1,9 @@
 <script setup>
 import { Link, Head, useForm, usePage } from '@inertiajs/vue3';
-import { ref, defineProps, onMounted } from 'vue';
+import { ref, defineProps, onMounted, watch } from 'vue';
 import HomeLayout from '@/Layouts/HomeLayout.vue';
 import ModalPayment from '@/Components/Payment/Modal.vue'
+import axios from 'axios';
 const dateNow = new Date().toLocaleDateString();
 const TimeNow = new Date().toLocaleTimeString();
 
@@ -13,17 +14,32 @@ const props = defineProps({
     },
     tipe: {
         type: String,
-        default:'jasa',
+        default: 'jasa',
     },
     quantity: {
         type: Number,
         default: 1,
     },
 })
-
-
-
+const JumlahDiskon = ref(0);
 const User = usePage().props.auth.user;
+
+const getDiskon = async () => {
+    try {
+        const response = await axios.get(route('Api.diskon.get_diskon', { jumlah: props.quantity,user_id: User.id }));
+        if(response.status == 200){
+            JumlahDiskon.value = response.data;
+        }
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+onMounted(() => {
+    getDiskon();
+})
+
+
 
 const showModal = ref(false);
 
@@ -41,12 +57,18 @@ function formatRupiah(number) {
         minimumFractionDigits: 0
     }).format(number);
 }
+const HargaDiskon = ref(0);
+watch(JumlahDiskon, (newValue) => {
+    HargaDiskon.value = subTotal * (JumlahDiskon.value / 100);
+    subTotal = subTotal - HargaDiskon.value;
+});
 </script>
 
 <template>
 
     <Head title="Checkout" />
-    <ModalPayment :show="showModal" :produk="produk" :jenisproduk="tipe" :quantity="quantity" maxWidth="2xl">
+    <ModalPayment :show="showModal" :produk="produk" :jenisproduk="tipe" :quantity="quantity" :diskon="HargaDiskon"
+        :subtotal="subTotal" maxWidth="2xl">
 
     </ModalPayment>
     <HomeLayout>
@@ -94,10 +116,9 @@ function formatRupiah(number) {
                                     <p class="text-base text-gray-300 leading-4">{{ quantity }}</p>
                                 </div>
                                 <div class="flex justify-between items-center w-full">
-                                    <p class="text-base text-white leading-4">Discount <span
-                                            class="bg-gray-200 text-gray-400 p-1 text-xs font-medium leading-3">STUDENT</span>
+                                    <p class="text-base text-white leading-4">Discount
                                     </p>
-                                    <p class="text-base text-gray-300 leading-4">-$28.00 (50%)</p>
+                                    <p class="text-base text-gray-300 leading-4">{{ formatRupiah(HargaDiskon) }}</p>
                                 </div>
                                 <!-- <div class="flex justify-between items-center w-full">
                                     <p class="text-base text-white leading-4">Shipping</p>
@@ -106,7 +127,8 @@ function formatRupiah(number) {
                             </div>
                             <div class="flex justify-between items-center w-full">
                                 <p class="text-base text-white font-semibold leading-4">Total</p>
-                                <p class="text-base text-gray-300 font-semibold leading-4">{{ formatRupiah(subTotal) }}</p>
+                                <p class="text-base text-gray-300 font-semibold leading-4">{{ formatRupiah(subTotal) }}
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -121,7 +143,8 @@ function formatRupiah(number) {
                                 class="flex justify-center w-full md:justify-start items-center space-x-4 py-8 border-b border-gray-200">
                                 <img src="https://i.ibb.co/5TSg7f6/Rectangle-18.png" alt="avatar" />
                                 <div class="flex justify-start items-start flex-col space-y-2">
-                                    <p class="text-base text-white font-semibold leading-4 text-left">{{ User.name }}</p>
+                                    <p class="text-base text-white font-semibold leading-4 text-left">{{ User.name }}
+                                    </p>
                                     <p class="text-sm text-gray-300 leading-5 ">10 Previous Orders</p>
                                 </div>
                             </div>

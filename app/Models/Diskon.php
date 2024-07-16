@@ -22,6 +22,10 @@ class Diskon extends Model
         'kadaluarsa',
     ];
 
+    protected $casts = [
+        'jumlah'=> 'integer'
+    ];
+
     public function scopeFilter($query, $filter)
     {
         $query->when($filter['search'] ?? null, function ($query, $search) {

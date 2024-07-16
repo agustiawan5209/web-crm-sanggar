@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\DiskonController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group(['prefix'=> 'diskon', 'as'=> 'Api.diskon.'], function () {
+    Route::controller(DiskonController::class)->group(function(){
+        Route::get('get','get_diskon')->name('get_diskon');
+        Route::get('keep','keep_diskon')->name('keep_diskon');
+    });
+});
+
