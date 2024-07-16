@@ -5,6 +5,7 @@ use App\Http\Controllers\Customer\PenyewaanController as CustomerPenyewaanContro
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Payment\PembayaranController;
 use App\Http\Controllers\PenyewaanController;
+use App\Http\Controllers\ReviewController;
 
 Route::middleware(['auth', 'verified', 'role:Customer'])->group(function () {
     // Dashboard User
@@ -25,6 +26,11 @@ Route::middleware(['auth', 'verified', 'role:Customer'])->group(function () {
                 Route::get('/', 'index')->name('index');
                 Route::get('/detail-pembayaran', 'show')->name('show');
             });
+        });
+    });
+    Route::group(['prefix'=> 'review','as'=> 'Review.'], function () {
+        Route::controller(ReviewController::class)->group(function () {
+            Route::post('/store', 'store')->name('store');
         });
     });
     // End Dashboard

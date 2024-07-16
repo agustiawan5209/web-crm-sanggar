@@ -1,11 +1,32 @@
 <script setup>
-import { ref, defineProps } from 'vue';
-import { Link } from '@inertiajs/vue3';
+import { ref, defineProps, inject } from 'vue';
+import { Link, usePage } from '@inertiajs/vue3';
+import Modal from '../Modal.vue';
+import FormRating from './FormRating.vue'
 
+const swal = inject('$swal');
+const page = usePage()
 const props = defineProps(['produk'])
+
+const ShowModal = ref(false);
+const idProduk = ref(null);
+const idPenyewaan = ref(null);
+function openModal(id, id_penyewaan){
+    ShowModal.value = true;
+    idProduk.value = id;
+    idPenyewaan.value = id_penyewaan;
+}
+function closeModal(){
+    ShowModal.value = false;
+    idProduk.value = null;
+    idPenyewaan.value = null;
+}
 </script>
 
 <template>
+    <Modal :show="ShowModal" >
+        <FormRating :produk="idProduk" :penyewaan="idPenyewaan" :jenis="produk.jenis" @reviewSubmitted="closeModal"></FormRating>
+    </Modal>
     <div class="relative m-10 w-full max-w-xs overflow-hidden rounded-lg bg-white shadow-md">
         <a href="#" v-for="(image,index) in produk.produk_id.image">
             <img class="h-60 rounded-t-lg object-cover"
@@ -29,10 +50,10 @@ const props = defineProps(['produk'])
                 </ul>
 
             </div>
-            <Link v-if="produk.status == 'SELESAI'" :href="route('produk.detail', { tipe: produk.jenis, slug: produk.produk_id.id })"
+            <button type="button" v-if="produk.status == 'SELESAI' && produk.review.length < 1" @click="openModal(produk.produk_id.id, produk.id)"
                     class="flex items-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
                     <font-awesome-icon :icon="['fas','star']"/>
-                    Beri Rating</Link>
+                    Beri Rating</button>
         </div>
     </div>
 </template>

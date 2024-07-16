@@ -37,7 +37,6 @@ function closePembayaranModal() {
 }
 
 function submitPembayaranUpdate() {
-    console.log(Form.keterangan)
     Form.put(route('Pembayaran.update'), {
         preserveState: false,
         onError: (err) => {

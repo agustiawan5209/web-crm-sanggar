@@ -11,7 +11,7 @@ class StoreReviewRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,8 @@ class StoreReviewRequest extends FormRequest
     {
         return [
             'produk_id' => 'required|integer',
-            'customer_id' => 'required|exists:customers,id',
+            'penyewaan_id' => 'required|exists:penyewaans,id',
+            'jenis' => 'required|in:alat,jasa',
             'rating' => 'required|integer|min:1|max:5',
             'comment' => 'nullable|string'
         ];

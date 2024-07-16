@@ -28,6 +28,9 @@ class Penyewaan extends Model
     public function pembayaran(){
         return $this->hasOne(Pembayaran::class,'penyewaan_id','id');
     }
+    public function review(){
+        return $this->hasOne(Review::class,'penyewaan_id','id');
+    }
 
     protected $casts = [
         'produk_id'=> 'json',

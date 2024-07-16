@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('produk_id');
             $table->string('jenis')->comment('alat, jasa');
-            $table->foreignId('customer_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('penyewaan_id')->constrained()->onDelete('cascade');
             $table->integer('rating');
             $table->text('comment')->nullable();
             $table->timestamps();

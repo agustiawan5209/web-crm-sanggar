@@ -29,7 +29,11 @@ class ReviewController extends Controller
      */
     public function store(StoreReviewRequest $request)
     {
-        //
+        $data = $request->all();
+        $data['user_id'] = auth()->user()->id;
+        $review = Review::create($data);
+
+        return redirect()->back()->with("message", "Review Berhasil Diberikan");
     }
 
     /**
