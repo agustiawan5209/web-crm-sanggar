@@ -63,9 +63,9 @@ const props = defineProps({
         <!-- end Pricing -->
 
         <!-- start testimonials -->
-        <section class="relative bg-gray-800">
+        <!-- <section class="relative bg-gray-800">
             <ProductCollection></ProductCollection>
-        </section>
+        </section> -->
         <!-- end testimonials -->
 
 
