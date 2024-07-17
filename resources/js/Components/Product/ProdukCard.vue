@@ -50,10 +50,14 @@ function closeModal(){
                 </ul>
 
             </div>
-            <button type="button" v-if="produk.status == 'SELESAI' && produk.review.length < 1" @click="openModal(produk.produk_id.id, produk.id)"
+            <button type="button" v-if="produk.status == 'SELESAI' && produk.review == null" @click="openModal(produk.produk_id.id, produk.id)"
                     class="flex items-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
                     <font-awesome-icon :icon="['fas','star']"/>
                     Beri Rating</button>
+            <div class="" v-if="produk.review != null">
+                <font-awesome-icon  :icon="['fas', 'star']" v-for="star in produk.review.rating" :key="star" class="h-8 w-8 cursor-pointer text-yellow-400"
+                    />
+            </div>
         </div>
     </div>
 </template>

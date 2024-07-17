@@ -26,7 +26,8 @@ class LaporanController extends Controller
             'table_colums' => array_values(array_diff($columns, ['remember_token', 'password', 'email_verified_at', 'created_at', 'updated_at', 'user_id', 'deskripsi'])),
             'data' => Penyewaan::with(['customer', 'customer.user'])->where('status', "SELESAI")
                 ->where('jenis', 'alat')
-                ->whereBetween('created_at', [Request::input('start_date'), Request::input('end_date')])->paginate(10),
+                ->whereBetween('created_at', [Request::input('start_date'), Request::input('end_date')])
+                ->paginate(10),
             'can' => [
                 'add' => false,
                 'edit' => false,
@@ -56,7 +57,7 @@ class LaporanController extends Controller
             'table_colums' => array_values(array_diff($columns, ['remember_token', 'password', 'email_verified_at', 'created_at', 'updated_at', 'user_id', 'deskripsi'])),
             'data' => Penyewaan::with(['customer', 'customer.user'])->where('status', "SELESAI")
                 ->where('jenis', 'jasa')
-                ->whereBetween('created_at', Request::only('start_date', 'end_date'))
+                ->whereBetween('created_at', [Request::input('start_date'), Request::input('end_date')])
                 ->paginate(10),
             'can' => [
                 'add' => false,

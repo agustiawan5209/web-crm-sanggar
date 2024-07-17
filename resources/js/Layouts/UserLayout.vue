@@ -25,11 +25,15 @@ const nonactive = "border-transparent text-gray-900 hover:bg-gray-50 hover:text-
 
                                 <Link :href="route('Customer.penyewaan')" :class="route().current('Customer.penyewaan') ? active : nonactive">
                                     <font-awesome-icon :icon="['fas','credit-card']" class="text-gray-400 group-hover:text-gray-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"/>
-                                     <span class="truncate">Data Penyewaan</span>
+                                     <span class="truncate">Data Pemesanan</span>
                                  </Link>
                                 <Link :href="route('Customer.Pembayaran.index')" :class="route().current('Customer.Pembayaran.index') ? active : nonactive">
                                     <font-awesome-icon :icon="['fas','credit-card']" class="text-gray-400 group-hover:text-gray-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"/>
                                      <span class="truncate">Data Transaksi</span>
+                                 </Link>
+                                <Link :href="route('Customer.riwayat.penyewaan')" :class="route().current('Customer.riwayat.penyewaan') ? active : nonactive">
+                                    <font-awesome-icon :icon="['fas','credit-card']" class="text-gray-400 group-hover:text-gray-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"/>
+                                     <span class="truncate">Riwayat Pemesanan</span>
                                  </Link>
 
                             </nav>

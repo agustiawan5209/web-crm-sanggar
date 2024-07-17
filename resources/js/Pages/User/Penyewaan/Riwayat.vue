@@ -1,9 +1,10 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import UserLayout from '@/Layouts/UserLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import ChartJenisImunisasi from '@/Components/Chart/ChartJenisImunisasi.vue';
-import LaporanCardTable from '@/Components/Card/LaporanCardTable.vue';
+import TransactionCardTable from '@/Components/Card/TransactionCardTable.vue';
 import Dropdown from '@/Components/Dropdown.vue';
+import ProdukCard from '@/Components/Product/ProdukCard.vue';
 
 import { ref, watch, defineProps } from 'vue';
 const props = defineProps({
@@ -15,15 +16,7 @@ const props = defineProps({
         type: String,
         default: '',
     },
-    tipe: {
-        type: String,
-        default: 'jasa',
-    },
     data: {
-        type: Object,
-        default: () => ({}),
-    },
-    datelaporan: {
         type: Object,
         default: () => ({}),
     },
@@ -49,15 +42,20 @@ const crud = ref({
 
 <template>
 
-    <Head title="Laporan" />
+    <Head title="Riwayat Penyewaan" />
 
-    <AuthenticatedLayout>
+    <UserLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Data Laporan {{ tipe }} </h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Data Riwayat Penyewaan</h2>
         </template>
 
         <div class="py-4 relative box-content">
-            <LaporanCardTable @update:search="search = $event" @update:order="order" :slug="null" path="Laporan" :type="tipe" :TableData="data" :tableColums="table_colums" :crud="crud" :datereport="datelaporan" />
+            <div class="grid md:grid-cols-3">
+                <template v-for="item in data.data">
+                    <ProdukCard :produk='item'></ProdukCard>
+                </template>
+
+            </div>
         </div>
-    </AuthenticatedLayout>
+    </UserLayout>
 </template>

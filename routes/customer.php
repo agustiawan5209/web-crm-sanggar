@@ -17,6 +17,7 @@ Route::middleware(['auth', 'verified', 'role:Customer'])->group(function () {
         // Penyewaan Jasa Barang
         Route::controller(CustomerPenyewaanController::class)->group(function () {
             Route::get('/penyewaan', 'index')->name('penyewaan');
+            Route::get('/riwayat-penyewaan', 'riwayat')->name('riwayat.penyewaan');
         });
 
 

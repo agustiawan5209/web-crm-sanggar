@@ -24,7 +24,7 @@ class CustomerController extends Controller
         // $columns = DB::getSchemaBuilder()->getColumnListing($tableName);
         $columns[] = 'id';
         $columns[] = 'nama_customer';
-        $columns[] = 'phone';
+        $columns[] = 'no_telpon';
         $columns[] = 'alamat';
 
         return Inertia::render('Admin/Customer/Index', [

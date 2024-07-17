@@ -15,29 +15,23 @@ const props = defineProps({
         type: Object,
         default:()=>({})
     },
-    pegawai: {
-        type: Object,
-        default:()=>({})
-    },
-    posyandus: {
+    customer: {
         type: Object,
         default:()=>({})
     },
 })
 const Form = useForm({
-    slug: props.pegawai.id,
-    posyandus_id:props.pegawai.posyandus_id,
-    name:props.pegawai.user.name,
-    jabatan:props.pegawai.jabatan,
-    alamat:props.pegawai.alamat,
-    username:props.pegawai.user.username,
-    email:props.pegawai.user.email,
-    password:props.pegawai.user.password,
-    no_telpon:props.pegawai.no_telpon,
+    slug: props.customer.id,
+    name:props.customer.user.name,
+    alamat:props.customer.alamat,
+    username:props.customer.user.username,
+    email:props.customer.user.email,
+    password:props.customer.user.password,
+    no_telpon:props.customer.no_telpon,
 })
 
 function submit() {
-    Form.put(route('Pegawai.update'), {
+    Form.put(route('Customer.update'), {
         onError: (err) => {
             console.log(err)
         }
@@ -49,11 +43,11 @@ function submit() {
 
 <template>
 
-    <Head title="Pegawai" />
+    <Head title="PegaCustomerwai" />
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Form Edit Pegawai</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Form Edit Customer</h2>
         </template>
 
         <div class="py-4 relative box-content">
@@ -71,24 +65,6 @@ function submit() {
                                 <label for="no_telpon" class="text-sm">No. Telepon</label>
                                 <TextInput id="no_telpon" type="text" v-model="Form.no_telpon" placeholder="No. telpon" class="w-full text-gray-900"  />
                                 <InputError :message="Form.errors.no_telpon"/>
-
-                            </div>
-                            <div class="col-span-full sm:col-span-3">
-                                <label for="jabatan" class="text-sm">Jabatan</label>
-                                <select name="jabatan" id="jabatan" v-model="Form.jabatan" class="border-gray-300 focus:border-primary focus:ring-primary rounded-md shadow-sm w-full text-gray-900">
-                                    <option value="">-----</option>
-                                    <option v-for="jab in jabatan" :value="jab.name" >{{jab.name}}</option>
-                                </select>
-                                <InputError :message="Form.errors.jabatan"/>
-
-                            </div>
-                            <div class="col-span-full sm:col-span-3">
-                                <label for="posyandus_id" class="text-sm">Posyandu</label>
-                                <select name="posyandus_id" id="posyandus_id" v-model="Form.posyandus_id" class="border-gray-300 focus:border-primary focus:ring-primary rounded-md shadow-sm w-full text-gray-900">
-                                    <option value="">-----</option>
-                                    <option v-for="pos in posyandus" :value="pos.id" >{{pos.nama}}</option>
-                                </select>
-                                <InputError :message="Form.errors.posyandus_id"/>
 
                             </div>
                             <div class="col-span-full">

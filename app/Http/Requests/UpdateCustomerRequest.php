@@ -11,7 +11,7 @@ class UpdateCustomerRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class UpdateCustomerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "alamat" => "required|string|max:200",
+            "no_telpon" => "required",
+            'name' => 'required|string|max:255',
         ];
     }
 }

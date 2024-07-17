@@ -21,12 +21,19 @@ class Customer extends Model
 
     protected $appends = [
         'nama_customer',
+        'no_telpon'
     ];
 
     public function namaCustomer(): Attribute
     {
         return new Attribute(
             get: fn () => $this->user()->first()->name,
+        );
+    }
+    public function noTelpon(): Attribute
+    {
+        return new Attribute(
+            get: fn () => $this->user()->first()->phone,
         );
     }
 
