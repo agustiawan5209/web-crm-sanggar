@@ -32,11 +32,11 @@ class CustomerController extends Controller
             'table_colums' => array_values(array_diff($columns, ['remember_token', 'password', 'email_verified_at', 'created_at', 'updated_at', 'user_id', 'deskripsi'])),
             'data' => Customer::with(['user'])->filter(Request::only('search', 'order'))->paginate(10),
             'can' => [
-                'add' => true,
-                'edit' => true,
-                'show' => true,
-                'delete' => true,
-                'reset_password' => true,
+                'add' => false,
+                'edit' => false,
+                'show' => false,
+                'delete' => false,
+                'reset_password' => false,
             ]
         ]);
     }

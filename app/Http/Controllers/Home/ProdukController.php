@@ -10,31 +10,34 @@ use Inertia\Inertia;
 
 class ProdukController extends Controller
 {
-    public function produk_jasa(Request $request){
-        return Inertia::render('Home/Produk',[
-            'produk'=> ProdukJasa::paginate(10),
-            'tipe'=> 'jasa',
+    public function produk_jasa(Request $request)
+    {
+        return Inertia::render('Home/Produk', [
+            'produk' => ProdukJasa::with(['image'])->paginate(10),
+            'tipe' => 'jasa',
         ]);
     }
-    public function produk_alat(Request $request){
-        return Inertia::render('Home/Produk',[
-            'produk'=> ProdukAlat::with(['image'])->paginate(10),
-            'tipe'=> 'alat',
+    public function produk_alat(Request $request)
+    {
+        return Inertia::render('Home/Produk', [
+            'produk' => ProdukAlat::with(['image'])->paginate(10),
+            'tipe' => 'alat',
         ]);
     }
 
-    public function produk_detail(Request $request, $tipe,$slug){
-        if($tipe == 'jasa'){
-            $produk = ProdukAlat::with(['image'])->findOrFail($slug);
+    public function produk_detail(Request $request, $tipe, $slug)
+    {
+        if ($tipe == 'jasa') {
+            $produk = ProdukJasa::with(['image'])->findOrFail($slug);
         }
-        if($tipe == 'alat'){
+        else if ($tipe == 'alat') {
             $produk = ProdukAlat::with(['image'])->findOrFail($slug);
-        }else{
+        } else {
             return redirect()->back();
         }
-        return Inertia::render('Home/DetailProduk',[
-            'produk'=> $produk,
-            'tipe'=> $tipe,
+        return Inertia::render('Home/DetailProduk', [
+            'produk' => $produk,
+            'tipe' => $tipe,
         ]);
     }
 }

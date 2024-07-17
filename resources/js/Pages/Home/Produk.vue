@@ -249,7 +249,7 @@ const props = defineProps({
                     </div> -->
 
                     <div class="lg:col-span-full">
-                        <Paket v-if="tipe =='jasa'" :jasa="produk.data"></Paket>
+                        <Paket v-if="tipe =='jasa'"  :tipe="tipe" :jasa="produk.data"></Paket>
                         <PaketAlat v-if="tipe =='alat'" :tipe="tipe" :alat="produk.data"></PaketAlat>
 
                         <div class="w-full mt-4" v-if="produk.data.length > 10">

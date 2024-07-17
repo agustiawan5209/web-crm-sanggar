@@ -2,7 +2,7 @@
 import { defineProps, ref } from 'vue';
 import { Link, useForm, usePage } from '@inertiajs/vue3';
 import Modal from '../Modal.vue';
-const props = defineProps(['jasa'])
+const props = defineProps(['jasa' ,'tipe'])
 
 const ShowModal = ref(false);
 const Form = useForm({
@@ -19,6 +19,15 @@ const funModal = (id)=>{
 
     <div class="mx-auto grid max-w-md grid-cols-1 gap-8 lg:max-w-7xl lg:grid-cols-3 lg:gap-8">
         <div v-for="item in jasa" class="flex flex-col rounded-3xl  bg-gray-900 shadow-xl ring-1 ring-black/10">
+            <Link :href="route('produk.detail', { tipe: tipe, slug: item.id })"  v-for="(image,index) in item.image">
+                <img class="h-60 rounded-t-lg object-cover w-full"
+                    v-if="image.status" :src="image.image_url"
+                    alt="product image" />
+                <img class="h-60 rounded-t-lg object-cover"
+                    v-else-if="index == 0" :src="image.image_url"
+                    alt="product image" />
+
+            </Link>
             <div class="p-8 sm:p-10">
                 <div class="flex">
                     <h3 class="text-lg font-semibold leading-8 tracking-tight text-teal-400"
