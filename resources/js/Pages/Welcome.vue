@@ -34,10 +34,7 @@ const props = defineProps({
                             Sanggar Seni Kawali merupakan wadah penyaluran minat di bidang
                             seni yang berada di Kabupaten Soppeng. Pada sanggar ini menawarkan
                             penyewaan paket jasa pementasan tari, pelatihan tari, penyewaan paket kostum
-                            tari dan kostum pakaian adat. Dengan jumlah jenis pementasan tari sebanyak
-                            2
-                            10 tarian, jumlah kostum tari sebanyak 500 set, dan jumlah kostum pakaian adat
-                            sebanyak 50 set
+                            tari dan kostum pakaian adat.
                         </p>
                         <!-- <div class="flex mt-8">
                             <a href="#" class="uppercase py-2 px-4 rounded-lg bg-pink-500 border-2 border-transparent text-white text-md mr-4 hover:bg-pink-400">

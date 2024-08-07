@@ -148,7 +148,7 @@ const auth = usePage().props.auth;
                                     </svg>
                                 </span>
                                 <span class="ml-3">
-                                    Karunrung, Kec. Rappocini, Kota Makassar, Sulawesi Selatan 90221
+                                    Desa Tetewatu, Kec. lilirilau, Kab. Soppeng
                                 </span>
                             </a>
                         </li>
@@ -243,7 +243,7 @@ const auth = usePage().props.auth;
                         </li>
                     </ul>
 
-                    <p class="text-sm text-gray-400 mt-12">© 2024 KlinikDenta. <br class="hidden lg:block">All Rights
+                    <p class="text-sm text-gray-400 mt-12">© 2024 Kawali. <br class="hidden lg:block">All Rights
                         Reserved.
                     </p>
                 </div>
