@@ -36,10 +36,10 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+            'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             "alamat" => "required|string|max:200",
-            "no_telpon" => "required",
+            "no_telpon" => "required|unique:users,phone",
             'username' => 'required|string|max:255|unique:users,username',
         ]);
 
@@ -49,7 +49,7 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'remember_token' => Str::random(60),
-            'phone'=> $request->no_telpon,
+            'phone' => $request->no_telpon,
         ]);
         $role = Role::findByName('Customer');
         if ($role) {
@@ -64,9 +64,9 @@ class RegisteredUserController extends Controller
 
         $customer = new Customer([
             'user_id' => $user->id,
-            'nama'=> $request->name,
+            'nama' => $request->name,
             'alamat' => $request->alamat,
-            'status'=> '0',
+            'status' => '0',
         ]);
         $customer->save();
 
