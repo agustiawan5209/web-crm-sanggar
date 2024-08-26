@@ -28,10 +28,10 @@ const rentItem = (id) => {
     <div class="mx-auto grid max-w-md grid-cols-1 gap-8 lg:max-w-7xl lg:grid-cols-3 lg:gap-8">
         <div v-for="item in alat" :key="item.id" class="relative m-10 w-full max-w-xs overflow-hidden rounded-lg bg-white shadow-md">
             <Link :href="route('produk.detail', { tipe: tipe, slug: item.id })"  v-for="(image,index) in item.image">
-                <img class="h-60 rounded-t-lg object-cover"
+                <img class="h-60 w-full rounded-t-lg object-cover"
                     v-if="image.status" :src="image.image_url"
                     alt="product image" />
-                <img class="h-60 rounded-t-lg object-cover"
+                <img class="h-60 w-full rounded-t-lg object-cover"
                     v-else-if="index == 0" :src="image.image_url"
                     alt="product image" />
 

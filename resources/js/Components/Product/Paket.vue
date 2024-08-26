@@ -23,7 +23,7 @@ const funModal = (id)=>{
                 <img class="h-60 rounded-t-lg object-cover w-full"
                     v-if="image.status" :src="image.image_url"
                     alt="product image" />
-                <img class="h-60 rounded-t-lg object-cover"
+                <img class="h-60 rounded-t-lg object-cover w-full"
                     v-else-if="index == 0" :src="image.image_url"
                     alt="product image" />
 
