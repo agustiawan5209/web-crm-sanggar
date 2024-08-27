@@ -43,6 +43,8 @@ class RegisteredUserController extends Controller
             'username' => 'required|string|max:255|unique:users,username',
         ]);
 
+        // dd($request->all());
+
         $user = User::create([
             'name' => $request->name,
             'username' => $request->username,

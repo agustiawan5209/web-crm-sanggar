@@ -58,7 +58,7 @@ const submit = () => {
             <div class="mt-4">
                 <InputLabel for="no_telpon" value="Nomor Telpon" />
 
-                <TextInput id="no_telpon" type="number" class="mt-1 block w-full" v-model="form.no_telpon" required
+                <TextInput id="no_telpon" type="text" class="mt-1 block w-full" v-model="form.no_telpon" required
                     autocomplete="username" />
 
                 <InputError class="mt-2" :message="form.errors.no_telpon" />
