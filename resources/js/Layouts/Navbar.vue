@@ -10,6 +10,7 @@ import Sidebar from '@/Components/Sidebar/Sidebar.vue';
 
 const Page = usePage().props.auth;
 const Roles = Page.role;
+
 function roleToCheck(role) {
     if (Array.isArray(Roles)) {
         return Roles.includes(role)
@@ -28,7 +29,7 @@ const toggleDropdownLaporan = () => {
 }
 </script>
 <template>
-    <ul class="mt-6  overflow-hidden" v-if="roleToCheck('Admin')">
+    <ul class="mt-6  overflow-hidden" v-if="roleToCheck('Admin') || roleToCheck('Bendahara')">
         <li class="relative">
 
             <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
@@ -36,14 +37,14 @@ const toggleDropdownLaporan = () => {
                 <span class="ml-4">Dashboard</span>
             </NavLink>
         </li>
-        <li class="relative">
+        <li class="relative" v-if="roleToCheck('Admin')">
 
             <NavLink :href="route('Customer.index')" :active="route().current('Customer.index')">
                 <font-awesome-icon :icon="['fas', 'users']" />
                 <span class="ml-4">Customer</span>
             </NavLink>
         </li>
-        <li class="relative py-3">
+        <li class="relative py-3" v-if="roleToCheck('Admin')">
             <div class="group px-3">
                 <button @click="toggleDropdown" class="flex items-center justify-between w-full text-white ">
                     <span class="flex items-center">
@@ -78,31 +79,31 @@ const toggleDropdownLaporan = () => {
                 </div>
             </transition>
         </li>
-        <li class="relative">
+        <li class="relative" v-if="roleToCheck('Admin')">
             <NavLink :href="route('Diskon.index')" :active="route().current('Diskon.index')">
                 <font-awesome-icon :icon="['fas', 'tags']" />
                 <span class="ml-4">Diskon</span>
             </NavLink>
         </li>
-        <li class="relative">
+        <li class="relative" v-if="roleToCheck('Admin')">
             <NavLink :href="route('Penyewaan.index')" :active="route().current('Penyewaan.index')">
                 <font-awesome-icon :icon="['fas', 'cart-shopping']" />
                 <span class="ml-4">Penyewaan</span>
             </NavLink>
         </li>
-        <li class="relative">
+        <li class="relative" v-if="roleToCheck('Admin')">
             <NavLink :href="route('Pembayaran.index')" :active="route().current('Pembayaran.index')">
                 <font-awesome-icon :icon="['fas', 'credit-card']" />
                 <span class="ml-4">Transaksi</span>
             </NavLink>
         </li>
-        <li class="relative">
+        <li class="relative" v-if="roleToCheck('Admin')">
             <NavLink :href="route('Riwayat.index')" :active="route().current('Riwayat.index')">
                 <font-awesome-icon :icon="['fas', 'credit-card']" />
                 <span class="ml-4">Riwayat Penyewaan</span>
             </NavLink>
         </li>
-        <li class="relative py-3">
+        <li class="relative py-3" v-if="roleToCheck('Bendahara')">
             <div class="group px-3">
                 <button @click="toggleDropdownLaporan" class="flex items-center justify-between w-full text-white ">
                     <span class="flex items-center">

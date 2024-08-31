@@ -9,7 +9,7 @@ class LoginController extends Controller
 {
     protected function authenticated(Request $request, $user)
     {
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('admin') || $user->hasRole('Bendahara')) {
             return redirect('/admin/dashboard');
         }
 
