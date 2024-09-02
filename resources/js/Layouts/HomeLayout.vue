@@ -13,9 +13,9 @@ const auth = usePage().props.auth;
         <!-- start header -->
         <!-- component -->
         <nav class="flex bg-primary items-center relative justify-between  px-5 py-6 w-full z-50">
-            <div>
+            <Link :href="route('home')">
                 <img :src="'/img/logo.png'" class="w-16 h-16 object-scale-down"/>
-            </div>
+            </Link>
             <ul id="drawer" role="menu"
                 class="sm:gap-3 transition-left ease-[cubic-bezier(0.4, 0.0, 0.2, 1)] delay-150  sm:flex  flex flex-col cursor-pointer absolute min-h-screen -left-48 sm:static w-48 top-0  sm:shadow-none shadow-xl sm:bg-transparent sm:flex-row sm:w-auto sm:min-h-0 bg-primary  ">
                 <div class="sm:hidden p-6 mb-5 flex items-center justify-center">

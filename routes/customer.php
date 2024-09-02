@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Customer\PembayaranController as CustomerPembayaranController;
 use App\Http\Controllers\Customer\PenyewaanController as CustomerPenyewaanController;
@@ -9,7 +10,7 @@ use App\Http\Controllers\ReviewController;
 
 Route::middleware(['auth', 'verified', 'role:Customer'])->group(function () {
     // Dashboard User
-    Route::group(['prefix'=> 'user', 'as'=> 'Customer.'], function () {
+    Route::group(['prefix' => 'user', 'as' => 'Customer.'], function () {
         Route::controller(CustomerController::class)->group(function () {
             Route::get('/dashboard', 'index')->name('dashboard');
             Route::get('/profile', 'profile')->name('profile');
@@ -29,13 +30,12 @@ Route::middleware(['auth', 'verified', 'role:Customer'])->group(function () {
             });
         });
     });
-    Route::group(['prefix'=> 'review','as'=> 'Review.'], function () {
+    Route::group(['prefix' => 'review', 'as' => 'Review.'], function () {
         Route::controller(ReviewController::class)->group(function () {
             Route::post('/store', 'store')->name('store');
         });
     });
     // End Dashboard
-
     // Pembayaran COntroller
     Route::controller(PembayaranController::class)->group(function () {
         Route::get('/checkout-penyewaan-paket', 'index')->name('payment.checkout');
@@ -43,6 +43,9 @@ Route::middleware(['auth', 'verified', 'role:Customer'])->group(function () {
         Route::get('/success-penyewaan', 'success')->name('payment.success');
     });
 
+
     // Buat Data Penyewaan
     Route::post('store-penyewaan', [PenyewaanController::class, 'store'])->name('Penyewaan.Store');
 });
+
+
