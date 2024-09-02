@@ -23,7 +23,7 @@ class UpdatePembayaranRequest extends FormRequest
     {
         return [
             'slug'=> 'required|exists:pembayarans,id',
-            'status'=> 'required|string|in:DITERIMA,DITOLAK,SELESAI',
+            'status_bayar'=> 'required|string|in:DITERIMA,DITOLAK,SELESAI',
             'keterangan'=> 'nullable|string|max:255',
         ];
     }

@@ -21,6 +21,7 @@ class PembayaranController extends Controller
         // $columns = DB::getSchemaBuilder()->getColumnListing($tableName);
         $columns[] = 'id';
         $columns[] = 'kode_transaksi';
+        $columns[] = 'nama_customer';
         $columns[] = 'produk';
         $columns[] = 'jenis_bayar';
         $columns[] = 'tgl';
@@ -31,7 +32,7 @@ class PembayaranController extends Controller
         return Inertia::render('Admin/Pembayaran/Index', [
             'search' =>  Request::input('search'),
             'table_colums' => array_values(array_diff($columns, ['remember_token', 'password', 'email_verified_at', 'created_at', 'updated_at', 'user_id', 'deskripsi'])),
-            'data' => Pembayaran::paginate(10),
+            'data' => Pembayaran::with(['penyewaan', 'penyewaan.customer', 'penyewaan.customer.user'])->paginate(10),
             'can' => [
                 'add' => false,
                 'edit' => false,
@@ -84,7 +85,7 @@ class PembayaranController extends Controller
     {
         $pembayaran = Pembayaran::find($request->slug);
         $pembayaran->update([
-            'status'=> $request->status,
+            'status'=> $request->status_bayar,
             'keterangan'=> $request->keterangan,
         ]);
 
