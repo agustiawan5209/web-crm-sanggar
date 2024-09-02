@@ -101,6 +101,7 @@ class PenyewaanController extends Controller
         $user = User::with(['customer'])->find(Auth::user()->id);
         $penyewaan = Penyewaan::create([
             'customer_id' => $user->customer->id,
+            'customer_user' => $user,
             'jenis' => $request->jenis,
             'produk_id' => $request->produk,
             'produk' => $request->produk['nama'],
@@ -158,10 +159,12 @@ class PenyewaanController extends Controller
      */
     public function update(UpdatePenyewaanRequest $request, Penyewaan $penyewaan)
     {
+        // dd($request->all());
         $penyewaan = Penyewaan::find($request->slug);
         $penyewaan->update([
             'status' => $request->status,
             'keterangan' => $request->keterangan,
+            'tgl_pengembalian' => $request->tgl_pengembalian,
         ]);
 
         return redirect()->route('Penyewaan.show', ['slug' => $request->slug])->with('message', 'Data Penyewaan Berhasil Di Update!!');

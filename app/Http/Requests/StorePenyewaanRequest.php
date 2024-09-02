@@ -27,8 +27,8 @@ class StorePenyewaanRequest extends FormRequest
             'jumlah_bayar'=> 'required|numeric',
             'quantity'=> 'nullable|numeric',
             'tgl_pembayaran'=> 'required|date',
-            'tgl_pengambilan'=> 'required|date',
-            'tgl_pengembalian'=> 'required|date',
+            'tgl_pengambilan'=> 'nullable|date',
+            'tgl_pengembalian'=> 'nullable|date',
         ];
     }
 }

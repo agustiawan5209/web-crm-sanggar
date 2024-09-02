@@ -115,6 +115,7 @@ function submit() {
         }
     })
 }
+console.log(props.jenisproduk)
 </script>
 
 <template>
@@ -259,23 +260,13 @@ function submit() {
                                         <InputError :message="Form.errors.tgl_pembayaran" />
 
                                     </div>
-                                    <div class="col-span-2">
+                                    <div class="col-span-2" v-show="jenisproduk == 'alat'">
                                         <label for="cvv" class="block text-sm font-medium text-gray-700 mb-2">Tanggal
                                             Pengambilan</label>
                                         <input type="date" v-model="Form.tgl_pengambilan" name="cvv" id="cvv"
-                                            placeholder="000"
+                                            placeholder="000" :required="jenisproduk == 'alat'"
                                             class="w-full py-3 px-4 border border-gray-400 rounded-lg focus:outline-none focus:border-blue-500">
                                         <InputError :message="Form.errors.tgl_pengambilan" />
-
-                                    </div>
-                                    <div class="col-span-2">
-                                        <label for="card-holder"
-                                            class="block text-sm font-medium text-gray-700 mb-2">Tanggal
-                                            Pengembalian</label>
-                                        <input type="date" v-model="Form.tgl_pengembalian" name="card-holder"
-                                            id="card-holder" placeholder="Full Name"
-                                            class="w-full py-3 px-4 border border-gray-400 rounded-lg focus:outline-none focus:border-blue-500">
-                                        <InputError :message="Form.errors.tgl_pengembalian" />
 
                                     </div>
                                 </div>

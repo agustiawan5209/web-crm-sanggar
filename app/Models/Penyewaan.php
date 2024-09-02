@@ -14,6 +14,7 @@ class Penyewaan extends Model
 
     protected $fillable = [
         'customer_id',
+        'customer_user',
         'jenis',
         'produk_id',
         'produk',
@@ -34,6 +35,7 @@ class Penyewaan extends Model
 
     protected $casts = [
         'produk_id'=> 'json',
+        'customer_user'=> 'json',
     ];
 
     protected $appends = [

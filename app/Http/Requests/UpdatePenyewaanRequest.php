@@ -23,8 +23,9 @@ class UpdatePenyewaanRequest extends FormRequest
     {
         return [
             'slug'=> 'required|exists:penyewaans,id',
-            'status'=> 'required|string|in:DITERIMA,DITOLAK,SELESAI',
+            'status'=> 'required|string|in:Dalam Penyewaan,Di Batalkan,SELESAI',
             'keterangan'=> 'nullable|string|max:255',
+            'tgl_pengembalian'=> 'nullable|date',
         ];
     }
 }

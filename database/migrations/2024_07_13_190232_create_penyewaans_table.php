@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('penyewaans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('customer_id')->constrained('customers');
+            $table->json('customer_user');
             $table->string('jenis');
             $table->json('produk_id')->nullable();
             $table->string('produk');
-            $table->string('tgl_pengambilan');
-            $table->string('tgl_pengembalian');
+            $table->date('tgl_pengambilan')->nullable();
+            $table->date('tgl_pengembalian')->nullable();
             $table->integer('jumlah')->nullable();
             $table->string('status')->comment('Dalam Penyewaan, Di Kembalikan, DIBATALKAN, SELESAI');
             $table->timestamps();

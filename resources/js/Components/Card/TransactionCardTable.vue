@@ -252,6 +252,12 @@ function truncateText(col) {
                                                 <li v-if="item.customer.user != null">{{ item.customer.user.phone }}</li>
                                             </ul>
                                         </span>
+                                        <span v-else-if="col == 'nama_customer'">
+                                            <ul>
+                                                <li>{{ item.penyewaan.customer.nama }}</li>
+                                                <li v-if="item.penyewaan.customer.user != null">{{ item.penyewaan.customer.user.phone }}</li>
+                                            </ul>
+                                        </span>
                                         <span v-else-if="col == 'status'">
                                             <span v-if="item.status == 'PENDING'"
                                                 class="inline-flex items-center justify-center rounded-full bg-yellow-100 px-2.5 py-0.5 text-yellow-700">

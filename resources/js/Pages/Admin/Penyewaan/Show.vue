@@ -22,9 +22,10 @@ const props = defineProps({
 })
 
 const Form = useForm({
-    slug: props.penyewaan.pembayaran.id,
-    status: '',
+    status: props.penyewaan.status,
+    status_bayar: props.penyewaan.pembayaran.status,
     keterangan: '',
+    tgl_pengembalian: props.penyewaan.tgl_pengembalian,
 })
 
 const updatePembayaranModal = ref(false);
@@ -37,8 +38,7 @@ function closePembayaranModal() {
 }
 
 function submitPembayaranUpdate() {
-    console.log(Form.keterangan)
-    Form.put(route('Pembayaran.update'), {
+    Form.put(route('Pembayaran.update', { slug: props.penyewaan.pembayaran.id }), {
         preserveState: false,
         onError: (err) => {
             console.log(err);
@@ -67,8 +67,7 @@ function closePenyewaanModal() {
 }
 
 function submitPenyewaanUpdate() {
-    console.log(Form.keterangan)
-    Form.put(route('Penyewaan.update'), {
+    Form.put(route('Penyewaan.update', { slug: props.penyewaan.id, }), {
         preserveState: false,
         onError: (err) => {
             console.log(err);
@@ -100,7 +99,7 @@ function submitPenyewaanUpdate() {
                 class="w-full max-w-full flex flex-col space-y-4 justify-center">
                 <div class="relative w-full">
                     <InputLabel class="w-full" value="Update Status Pembayaran" />
-                    <select id="order" v-model="Form.status"
+                    <select id="order" v-model="Form.status_bayar"
                         class="px-2 py-1 md:px-3 md:py-2 placeholder-gray-400 border focus:outline-none w-full sm:text-sm border-gray-200 shadow-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none ">
                         <option value="">-----</option>
                         <option value="DITERIMA">DITERIMA</option>
@@ -115,7 +114,12 @@ function submitPenyewaanUpdate() {
                     <InputError :message="Form.errors.keterangan" />
 
                 </div>
-                <PrimaryButton type="submit">Simpan</PrimaryButton>
+                <div class="flex gap-4">
+
+                    <PrimaryButton type="button" class="!bg-red-600 hover:!bg-red-800"
+                        @click="updatePembayaranModal = false">Batalkan</PrimaryButton>
+                    <PrimaryButton type="submit">Simpan</PrimaryButton>
+                </div>
             </form>
         </div>
     </Modal>
@@ -137,7 +141,22 @@ function submitPenyewaanUpdate() {
                     </select>
                     <InputError :message="Form.errors.status" />
                 </div>
-                <PrimaryButton type="submit">Simpan</PrimaryButton>
+
+                <div class="col-span-2">
+                    <label for="tgl_pengembalian" class="block text-sm font-medium text-gray-700 mb-2">Tanggal
+                        Pengembalian</label>
+                    <input type="date" v-model="Form.tgl_pengembalian" name="tgl_pengembalian" id="tgl_pengembalian"
+                        placeholder="Full Name" :required="penyewaan.jenis == 'alat'"
+                        class="w-full py-3 px-4 border border-gray-400 rounded-lg focus:outline-none focus:border-blue-500">
+                    <InputError :message="Form.errors.tgl_pengembalian" />
+
+                </div>
+                <div class="flex gap-4">
+
+                    <PrimaryButton type="button" class="!bg-red-600 hover:!bg-red-800"
+                        @click="updatePenyewaanModal = false">Batalkan</PrimaryButton>
+                    <PrimaryButton type="submit">Simpan</PrimaryButton>
+                </div>
             </form>
         </div>
     </Modal>
@@ -214,7 +233,7 @@ function submitPenyewaanUpdate() {
                                         </td>
                                     </tr>
                                     <tr class="">
-                                        <td class="text-sm border-b py-2 font-bold capitalize">Tanggal Pengembalian</td>
+                                        <td class="text-sm border-b py-2 font-bold capitalize">Tanggal Pengembalian/Selesai</td>
                                         <td>:</td>
                                         <td class="text-sm border-b text-gray-800"> {{ penyewaan.tgl_pengembalian }}
                                         </td>
@@ -280,7 +299,8 @@ function submitPenyewaanUpdate() {
                                     <tr class="">
                                         <td class="text-sm border-b py-2 font-bold capitalize">Total Pembayaran</td>
                                         <td>:</td>
-                                        <td class="text-sm border-b text-gray-800"> {{ penyewaan.pembayaran.total_transaksi }}
+                                        <td class="text-sm border-b text-gray-800"> {{
+                                            penyewaan.pembayaran.total_transaksi }}
                                         </td>
                                     </tr>
                                     <tr class="">
