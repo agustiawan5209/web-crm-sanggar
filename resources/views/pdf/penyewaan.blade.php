@@ -36,11 +36,11 @@
 </head>
 <body>
     <div class="header">
-        {{-- <img src="{{ asset('path/to/logo.png') }}" alt="Logo Perusahaan"> --}}
-        <h1>Nama Perusahaan</h1>
+        <img src="{{ asset('/img/logo.png') }}" alt="Logo Perusahaan">
+        <h1>Sanggar Seni Kawali</h1>
         <h2>Laporan Penyewaan Produk</h2>
-        <p>Alamat Perusahaan</p>
-        <p>Telepon: (123) 456-7890 | Email: info@perusahaan.com</p>
+        <p>Tetewatu, Kec. Lili Rilau, Kabupaten Soppeng, Sulawesi Selatan </p>
+        <p>Telepon: (123) 456-7890 | Instagram: sanggar.seni.kawali</p>
         <hr>
     </div>
     <div class="content">

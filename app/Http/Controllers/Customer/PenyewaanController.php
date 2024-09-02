@@ -58,10 +58,10 @@ class PenyewaanController extends Controller
             'search' =>  Request::input('search'),
             'table_colums' => array_values(array_diff($columns, ['remember_token', 'password', 'email_verified_at', 'created_at', 'updated_at', 'user_id', 'deskripsi'])),
             'data' => Penyewaan::with(['customer', 'customer.user', 'review'])
-                ->filter(Request::only('search', 'order'))
+                ->orderBy('id','desc')
                 ->where('customer_id', $user->customer->id)
                 ->where('status', 'SELESAI')
-                ->paginate(10),
+                ->get(),
             'can' => [
                 'add' => false,
                 'edit' => false,

@@ -140,6 +140,12 @@ const toggleDropdownLaporan = () => {
                 </div>
             </transition>
         </li>
+        <li class="relative" v-if="roleToCheck('Admin')">
+            <NavLink :href="route('Review.index')" :active="route().current('Review.index')">
+                <font-awesome-icon :icon="['fas', 'credit-card']" />
+                <span class="ml-4">Review</span>
+            </NavLink>
+        </li>
 
     </ul>
 </template>

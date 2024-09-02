@@ -9,7 +9,7 @@ use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\PenyewaanController;
 use App\Http\Controllers\ProdukAlatController;
 use App\Http\Controllers\ProdukJasaController;
-
+use App\Http\Controllers\ReviewController;
 
 Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
 
@@ -95,6 +95,11 @@ Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
             Route::get('/detail-pembayaran', 'show')->name('show');
 
             Route::put('update-pembayaran', 'update')->name('update');
+        });
+    });
+    Route::group(['prefix' => 'review', 'as' => "Review."], function () {
+        Route::controller(ReviewController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
         });
     });
 

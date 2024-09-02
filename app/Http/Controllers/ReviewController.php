@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Models\Review;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Request;
 use App\Http\Requests\StoreReviewRequest;
 use App\Http\Requests\UpdateReviewRequest;
 
@@ -13,7 +16,26 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        //
+        $tableName = 'reviews'; // Ganti dengan nama tabel yang Anda inginkan
+        // $columns = DB::getSchemaBuilder()->getColumnListing($tableName);
+        $columns[] = 'id';
+        $columns[] = 'nama_customer';
+        $columns[] = 'rating';
+        $columns[] = 'comment';
+        // $columns[] = 'status_pelanggan';
+
+        return Inertia::render('Admin/Review/Index', [
+            'search' =>  Request::input('search'),
+            'table_colums' => array_values(array_diff($columns, ['remember_token', 'password', 'email_verified_at', 'created_at', 'updated_at', 'user_id', 'deskripsi'])),
+            'data' => Review::with(['user'])->filter(Request::only('search', 'order'))->paginate(10),
+            'can' => [
+                'add' => false,
+                'edit' => false,
+                'show' => false,
+                'delete' => true,
+                'reset_password' => false,
+            ]
+        ]);
     }
 
     /**
@@ -31,6 +53,7 @@ class ReviewController extends Controller
     {
         $data = $request->all();
         $data['user_id'] = auth()->user()->id;
+        $data['user'] = auth()->user();
         $review = Review::create($data);
 
         return redirect()->back()->with("message", "Review Berhasil Diberikan");
@@ -65,6 +88,8 @@ class ReviewController extends Controller
      */
     public function destroy(Review $review)
     {
-        //
+        $customer = Review::find(Request::input('slug'));
+        $customer->delete();
+        return redirect()->route('Review.index')->with('message', 'Data Review Berhasil Di Hapus!!');
     }
 }

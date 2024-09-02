@@ -241,6 +241,10 @@ function truncateText(text) {
                                         <span v-else-if="col == 'deskripsi' || col == 'keterangan'">
                                             <p v-html="truncateText(item[col])"></p>
                                         </span>
+                                        <span v-else-if="col == 'star' || col == 'rating'">
+                                            <font-awesome-icon  :icon="['fas', 'star']" v-for="star in item.rating" :key="star" class="h-8 w-8 cursor-pointer text-yellow-400"
+                                            />
+                                        </span>
                                         <span v-else-if="col == 'status'">
                                             <span v-if="item.status == 0 || item.status == '0'"
                                                 class="inline-flex items-center justify-center rounded-full bg-green-100 px-2.5 py-0.5 text-green-700">

@@ -1,10 +1,10 @@
 <script setup>
-import UserLayout from '@/Layouts/UserLayout.vue';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import ChartJenisImunisasi from '@/Components/Chart/ChartJenisImunisasi.vue';
-import TransactionCardTable from '@/Components/Card/TransactionCardTable.vue';
+import CardTable from '@/Components/Card/CardTable.vue';
 import Dropdown from '@/Components/Dropdown.vue';
-import ProdukCard from '@/Components/Product/ProdukCard.vue';
+import DropdownLink from '@/Components/DropdownLink.vue';
 
 import { ref, watch, defineProps } from 'vue';
 const props = defineProps({
@@ -29,12 +29,12 @@ const props = defineProps({
         default: () => ({}),
     },
 })
-
 const crud = ref({
     tambah: props.can.add,
     edit: props.can.edit,
     show: props.can.show,
     delete: props.can.delete,
+    reset_password: props.can.reset_password,
 
 })
 
@@ -42,23 +42,17 @@ const crud = ref({
 
 <template>
 
-    <Head title="Penyewaan" />
+    <Head title="Customer" />
 
-    <UserLayout>
+    <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Data Penyewaan</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Data Customer</h2>
         </template>
 
         <div class="py-4 relative box-content">
-            <div class="grid md:grid-cols-3" v-if="data.length > 0">
-                <template v-for="item in data">
-                    <ProdukCard :produk='item'></ProdukCard>
-                </template>
+            <CardTable @update:search="search = $event" @update:order="order" :slug="null" path="Customer" :TableData="data" :tableColums="table_colums" :crud="crud" >
 
-            </div>
-            <div class="container w-full text-center text-base mx-auto py-2" v-else>
-                <h4>DATA KOSONG</h4>
-            </div>
+            </CardTable>
         </div>
-    </UserLayout>
+    </AuthenticatedLayout>
 </template>
