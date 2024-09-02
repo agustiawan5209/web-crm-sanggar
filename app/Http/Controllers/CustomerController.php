@@ -26,6 +26,7 @@ class CustomerController extends Controller
         $columns[] = 'nama_customer';
         $columns[] = 'no_telpon';
         $columns[] = 'alamat';
+        $columns[] = 'status_pelanggan';
 
         return Inertia::render('Admin/Customer/Index', [
             'search' =>  Request::input('search'),

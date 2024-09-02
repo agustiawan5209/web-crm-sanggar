@@ -162,8 +162,8 @@ function parseJSON(value) {
                                 <form @submit.prevent="create()" class="space-y-4" action="#">
 
                                     <div class="flex items-center justify-center w-full">
-                                        <label for="dropzone-file"
-                                            class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 text-gray-800">
+                                        <label for="dropzone-file relative overflow-hidden"
+                                            class="flex flex-col items-center justify-center overflow-hidden w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50  text-gray-800">
                                             <div v-if="FileForm.file == null"
                                                 class="flex flex-col items-center justify-center pt-5 pb-6">
                                                 <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none"
@@ -181,7 +181,7 @@ function parseJSON(value) {
                                                     (MAX. 800x400px)</p>
                                             </div>
                                             <div v-else>
-                                                <img v-if="urlFile" :src="urlFile" />
+                                                <img v-if="urlFile" class="w-full object-scale-down" :src="urlFile" />
                                             </div>
                                             <input id="dropzone-file" type="file" class="hidden"
                                                 @change="fileSelected($event)" />
@@ -234,7 +234,7 @@ function parseJSON(value) {
             </tr>
             <tr v-for="(item, index) in props.image" :key="item" :index="index"
                 class="p-3 sm:pb-4 bg-white border-b py-1.5">
-                <td class=" border py-2 flex justify-center">
+                <td class="relative border py-2 flex justify-center">
                     <div class="flex-shrink-0">
                         <img class="w-40 h-40 rounded-3xl border border-gray-200" :src="item.image_url" alt="image photo">
                     </div>

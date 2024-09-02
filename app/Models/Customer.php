@@ -18,10 +18,19 @@ class Customer extends Model
         'alamat',
         'status'
     ];
+    public function penyewaan(){
+        return $this->hasMany(Penyewaan::class, 'customer_id', 'id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 
     protected $appends = [
         'nama_customer',
-        'no_telpon'
+        'no_telpon',
+        'status_pelanggan'
     ];
 
     public function namaCustomer(): Attribute
@@ -36,11 +45,14 @@ class Customer extends Model
             get: fn () => $this->user()->first()->phone,
         );
     }
-
-    public function user()
+    public function statusPelanggan(): Attribute
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return new Attribute(
+            get: fn () => $this->penyewaan()->count() > 3 ? 'aktif': 'tidak akif',
+        );
     }
+
+
 
     public function scopeFilter($query, $filter)
     {
