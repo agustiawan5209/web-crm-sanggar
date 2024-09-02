@@ -36,7 +36,7 @@
 </head>
 <body>
     <div class="header">
-        <img src="{{ asset('/img/logo.png') }}" alt="Logo Perusahaan">
+        {{-- <img src="{{ asset('/img/logo.png') }}" alt="Logo Perusahaan"> --}}
         <h1>Sanggar Seni Kawali</h1>
         <h2>Laporan Penyewaan Produk</h2>
         <p>Tetewatu, Kec. Lili Rilau, Kabupaten Soppeng, Sulawesi Selatan </p>
