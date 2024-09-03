@@ -162,8 +162,8 @@ function parseJSON(value) {
                                 <form @submit.prevent="create()" class="space-y-4" action="#">
 
                                     <div class="flex items-center justify-center w-full">
-                                        <label for="dropzone-file relative"
-                                            class="flex flex-col items-center justify-center cursor-pointer overflow-hidden w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50  text-gray-800">
+                                        <label for="dropzone-file"
+                                            class="relative flex flex-col items-center justify-center overflow-hidden w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50  text-gray-800">
                                             <div v-if="FileForm.file == null"
                                                 class="flex flex-col items-center justify-center pt-5 pb-6">
                                                 <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none"
