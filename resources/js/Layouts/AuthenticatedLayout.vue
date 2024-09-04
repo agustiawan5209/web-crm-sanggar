@@ -75,8 +75,8 @@ function closeModal() {
         <!-- Desktop sidebar -->
         <aside class="z-20 hidden w-[17%] overflow-y-auto  bg-gray-800 md:block flex-shrink-0">
             <div class="py-4">
-                <a class="ml-6 text-base font-bold  text-gray-200" href="#">
-                    Sistem Informasi Sanggar Seni
+                <a class="ml-6 text-base font-bold  text-gray-200 text-center" href="#">
+                    Sistem Informasi Sanggar Seni Kawali
                 </a>
                 <Navbar />
             </div>

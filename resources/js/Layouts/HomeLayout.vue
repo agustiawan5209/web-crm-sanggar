@@ -166,7 +166,7 @@ const auth = usePage().props.auth;
                                     </svg>
                                 </span>
                                 <span class="ml-3">
-                                    +62 812-4275-5965
+                                    +6282194709778
                                 </span>
                             </a>
                         </li>

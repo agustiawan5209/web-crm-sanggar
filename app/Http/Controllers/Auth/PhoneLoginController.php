@@ -37,14 +37,12 @@ class PhoneLoginController extends Controller
             Auth::login($user);
             $request->session()->regenerate();
 
-            return redirect()->route('Customer.dashboard'); // Ganti dengan route sesuai kebutuhan Anda
+            return redirect()->intended(RouteServiceProvider::HOMECUSTOMER); // Ganti dengan route sesuai kebutuhan Anda
         }
 
         return back()->withErrors([
             'Phone' => 'Nomor Telepon Tidak Cocok dengan data kami.',
         ]);
-
-        return redirect()->intended(RouteServiceProvider::HOME);
     }
 
     /**

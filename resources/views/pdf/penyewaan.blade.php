@@ -40,7 +40,7 @@
         <h1>Sanggar Seni Kawali</h1>
         <h2>Laporan Penyewaan Produk</h2>
         <p>Tetewatu, Kec. Lili Rilau, Kabupaten Soppeng, Sulawesi Selatan </p>
-        <p>Telepon: (123) 456-7890 | Instagram: sanggar.seni.kawali</p>
+        <p>Telepon: +62 82194709778 | Instagram: sanggar.seni.kawali</p>
         <hr>
     </div>
     <div class="content">

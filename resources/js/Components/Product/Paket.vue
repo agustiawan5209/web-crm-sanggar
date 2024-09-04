@@ -48,7 +48,7 @@ const funModal = (id)=>{
                 <div
                     class="flex flex-1 flex-col justify-between rounded-2xl bg-gray-700 p-6 sm:p-8">
                     <p v-html="item.keterangan" class="text-white text-sm"></p>
-                    <div class="mt-8"><Link :href="route('payment.checkout', {slug: item.id})"
+                    <div class="mt-8"><Link :href="route('payment.list', {slug: item.id})"
                             class="inline-block w-full rounded-lg bg-teal-600 px-4 py-2.5 text-center text-sm font-semibold leading-5 text-white shadow-md hover:bg-teal-500 cursor-pointer"
                             aria-describedby="tier-basic">Mulai Penyewaan</Link></div>
                 </div>

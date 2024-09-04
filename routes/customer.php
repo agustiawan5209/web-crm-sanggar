@@ -38,14 +38,20 @@ Route::middleware(['auth', 'verified', 'role:Customer'])->group(function () {
     // End Dashboard
     // Pembayaran COntroller
     Route::controller(PembayaranController::class)->group(function () {
-        Route::get('/checkout-penyewaan-paket', 'index')->name('payment.checkout');
-        Route::get('/checkout-penyewaan-kostum', 'indexalat')->name('payment.checkout.alat');
+        Route::get('/checkout-penyewaan-paket', 'checkout')->name('payment.checkout');
+        Route::get('/checkout-penyewaan-kostum', 'checkoutalat')->name('payment.checkout.alat');
         Route::get('/success-penyewaan', 'success')->name('payment.success');
     });
 
 
     // Buat Data Penyewaan
     Route::post('store-penyewaan', [PenyewaanController::class, 'store'])->name('Penyewaan.Store');
+});
+
+Route::controller(PembayaranController::class)->group(function () {
+    Route::get('/list-penyewaan-paket', 'index')->name('payment.list');
+    Route::get('/list-penyewaan-kostum', 'indexalat')->name('payment.list.alat');
+    Route::get('/success-penyewaan', 'success')->name('payment.success');
 });
 
 
