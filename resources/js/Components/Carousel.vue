@@ -1,5 +1,5 @@
 <template>
-    <Carousel :autoplay="5000" :wrap-around="true">
+    <Carousel v-if="items.length > 0" :autoplay="5000" :wrap-around="true">
         <Slide v-for="(item, index) in items" :key="index" :class="{ 'active': index === currentIndex }">
             <div class="relative w-full h-[500px]">
                 <div class="absolute w-full h-full left-0 top-0 bg-gray-800 opacity-25"></div>
