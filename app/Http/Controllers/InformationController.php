@@ -22,9 +22,9 @@ class InformationController extends Controller
         $tableName = 'informations'; // Ganti dengan nama tabel yang Anda inginkan
         // $columns = DB::getSchemaBuilder()->getColumnListing($tableName);
         $columns[] = 'id';
-        $columns[] = 'nama';
-        $columns[] = 'jenis';
-        $columns[] = 'jumlah';
+        $columns[] = 'gambar';
+        $columns[] = 'title';
+        $columns[] = 'description';
         // $columns[] = 'kadaluarsa';
 
         return Inertia::render('Admin/Information/Index', [
@@ -32,11 +32,11 @@ class InformationController extends Controller
             'table_colums' => array_values(array_diff($columns, ['remember_token', 'password', 'email_verified_at', 'created_at', 'updated_at', 'user_id', 'deskripsi'])),
             'data' => Information::filter(Request::only('search', 'order'))->paginate(10),
             'can' => [
-                'add' => true,
-                'edit' => true,
-                'show' => true,
+                'add' => false,
+                'edit' => false,
+                'show' => false,
                 'delete' => true,
-                'reset_password' => true,
+                'reset_password' => false,
             ]
         ]);
     }
@@ -111,5 +111,14 @@ class InformationController extends Controller
         $informations->delete();
 
         return redirect()->route('Information.index')->with('message', 'Data Information Berhasil Di Hapus!!');
+    }
+
+
+    // Get Data api
+
+    public function getAllData(){
+        $informations = Information::all();
+
+        return response()->json($informations);
     }
 }

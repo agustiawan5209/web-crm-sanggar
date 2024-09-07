@@ -17,20 +17,19 @@ const props = defineProps({
     },
 })
 const Form = useForm({
-    nama: '',
-    keterangan: '',
-    jumlah: '',
-    jenis: 'Get',
-    min_quantity: '',
-    min_frequency: '',
+    title: '',
+    description: '',
+    image: null,
 })
 
-const TypeDiscount = ref('');
-
-
+const urlFile = ref(null)
+function fileSelected(event) {
+    Form.image = event.target.files[0];
+    urlFile.value = URL.createObjectURL(event.target.files[0])
+}
 
 function submit() {
-    Form.post(route('Diskon.store'), {
+    Form.post(route('Information.store'), {
         onError: (err) => {
             console.log(err)
         }
@@ -42,11 +41,11 @@ function submit() {
 
 <template>
 
-    <Head title="JASA" />
+    <Head title="Banner" />
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Form Tambah JASA</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Form Banner Informasi</h2>
         </template>
 
         <div class="py-4 relative box-content group">
@@ -54,55 +53,54 @@ function submit() {
                 <form @submit.prevent="submit()" novalidate="" action=""
                     class="container flex flex-col mx-auto space-y-12">
                     <div class="space-y-2 col-span-full lg:col-span-1 group-hover:text-white">
-                        <p class="font-medium">Data Informasi PRODUK JASA</p>
-                        <p class="text-xs">Tambahkan data PRODUK JASA</p>
+                        <p class="font-medium">Tambah Data Bnner Informasi</p>
+                        <p class="text-xs">Banner Informasi akan ditapilkan dihalaman utama</p>
                     </div>
                     <fieldset class="grid grid-cols-3 gap-6 p-6 rounded-md shadow-sm bg-gray-50">
                         <div class="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
-                            <div class="col-span-full ">
-                                <label for="nama" class="text-base">Nama diskon</label>
-                                <TextInput id="nama" type="text" placeholder="nama Diskon" v-model="Form.nama"
-                                    class="w-full text-gray-900" />
-                                <InputError :message="Form.errors.nama" />
+                            <div class="flex items-center justify-center col-span-full">
+                                <label for="dropzone-file"
+                                    class="relative flex flex-col items-center justify-center overflow-hidden w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50  text-gray-800">
+                                    <div v-if="Form.image == null"
+                                        class="flex flex-col items-center justify-center pt-5 pb-6">
+                                        <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none"
+                                            stroke="currentColor" viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
+                                            </path>
+                                        </svg>
+                                        <p class="mb-2 text-sm text-gray-800"><span
+                                                class="font-semibold">Click to upload</span> or drag and drop
+                                        </p>
+                                        <p class="text-xs text-gray-800">SVG, PNG, JPG or GIF
+                                            (MAX. 800x400px)</p>
+                                    </div>
+                                    <div v-else>
+                                        <img v-if="urlFile" class="w-full object-scale-down" :src="urlFile" />
+                                    </div>
+                                    <input id="dropzone-file" type="file" class="cursor-pointer opacity-0 absolute top-0 left-0 w-full h-full pointer-events-auto"
+                                        @change="fileSelected($event)" />
+                                </label>
                             </div>
                             <div class="col-span-full ">
-                                <label for="jumlah" class="text-base">jumlah</label>
-                                <TextInput id="jumlah" type="number" placeholder="Jumlah Diskon" v-model="Form.jumlah"
+                                <label for="title" class="text-base">Judul Informasi</label>
+                                <TextInput id="title" type="text" placeholder="Judul Informasi" v-model="Form.title"
                                     class="w-full text-gray-900" />
-                                <InputError :message="Form.errors.jumlah" />
+                                <InputError :message="Form.errors.title" />
                             </div>
 
-                            <div class="col-span-full">
-                                <label for="jenis" class="text-base w-full">Jenis</label>
-                                <div class="flex items-center gap-4">
-                                    <input id="get" type="radio" value="Get" v-model="Form.jenis" class="text-gray-900" />
-                                    <label for="get" class="text-sm w-full">Get</label>
-                                </div>
-                                <div class="flex items-center gap-4">
-                                    <input id="Keep" type="radio" value="Keep" v-model="Form.jenis" class="text-gray-900" />
-                                    <label for="Keep" class="text-sm w-full">Keep</label>
-                                </div>
-                                <InputError :message="Form.errors.jenis" />
-                            </div>
 
-                            <div class="col-span-full " v-if="Form.jenis == 'Get'">
-                                <label for="min_quantity" class="text-base">Jumlah Penyewaan Kostum</label>
-                                <TextInput id="min_quantity" type="number" placeholder="Jumlah Penyewaan Kustom" v-model="Form.min_quantity"
-                                    class="w-full text-gray-900" />
-                                <InputError :message="Form.errors.min_quantity" />
-                            </div>
-                            <div class="col-span-full " v-if="Form.jenis == 'Keep'">
-                                <label for="Frekuensi" class="text-base">Frekuensi Penyewaan</label>
-                                <TextInput id="Frekuensi" type="number" placeholder="Frekuensi Penyewaan Dalam Sebulan" v-model="Form.min_frequency"
-                                    class="w-full text-gray-900" />
-                                <InputError :message="Form.errors.min_frequency" />
-                            </div>
+
                             <div class="col-span-full">
-                                <label for="keterangan" class="text-base w-full mb-2">Keterangan</label>
-                                <quill-editor id="keterangan" contentType="html" theme="snow"
-                                    v-model:content="Form.keterangan" placeholder="@keterangan"
+                                <label for="description" class="text-base w-full mb-2">Keterangan</label>
+                                <div class="bg-white">
+                                    <quill-editor id="description" contentType="html" theme="snow"
+                                    v-model:content="Form.description" placeholder="@description"
                                     class="w-full text-gray-900" />
-                                <InputError :message="Form.errors.keterangan" />
+                                <InputError :message="Form.errors.description" />
+                                </div>
 
                             </div>
                         </div>

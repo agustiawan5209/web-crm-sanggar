@@ -238,8 +238,14 @@ function truncateText(text) {
                                         <span v-if="col == 'id' || col == 'slug'">
                                             {{ (TableData.current_page - 1) * TableData.per_page + index + 1 }}
                                         </span>
+                                        <span v-else-if="col == 'gambar' || col =='image' ">
+                                            <img :src="item[col]" class="w-64 object-scale-down" alt="">
+                                        </span>
                                         <span v-else-if="col == 'deskripsi' || col == 'keterangan'">
                                             <p v-html="truncateText(item[col])"></p>
+                                        </span>
+                                        <span v-else-if="col == 'description'">
+                                            <p v-html="item[col]"></p>
                                         </span>
                                         <span v-else-if="col == 'star' || col == 'rating'">
                                             <font-awesome-icon  :icon="['fas', 'star']" v-for="star in item.rating" :key="star" class="h-8 w-8 cursor-pointer text-yellow-400"

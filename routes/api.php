@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\DiskonController;
 use App\Http\Controllers\API\GrafikController;
+use App\Http\Controllers\InformationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,4 +29,6 @@ Route::group(['prefix'=> 'diskon', 'as'=> 'Api.diskon.'], function () {
 });
 
 Route::get('transaksi', [GrafikController::class, 'transaksi'])->name('grafik.transaksi');
+
+Route::get('all-banner', [InformationController::class, 'getAllData'])->name('information.all.data');
 

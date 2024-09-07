@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Information extends Model
 {
@@ -14,6 +15,17 @@ class Information extends Model
         'title',
         'description',
     ];
+
+    protected $appends = [
+        'gambar',
+    ];
+
+    public function gambar(): Attribute
+    {
+        return new Attribute(
+            get: fn()=> asset('storage/info/'. $this->image),
+        );
+    }
 
     public function scopeFilter($query, $filter)
     {
