@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DiskonController;
 use App\Http\Controllers\GambarController;
+use App\Http\Controllers\InformationController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\PenyewaanController;
@@ -100,6 +101,21 @@ Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
     Route::group(['prefix' => 'review', 'as' => "Review."], function () {
         Route::controller(ReviewController::class)->group(function () {
             Route::get('/', 'index')->name('index');
+        });
+    });
+
+
+    // Information Banner
+     // Router Diskon
+     Route::group(['prefix' => 'information', 'as' => "Information."], function () {
+        Route::controller(InformationController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/tambah-data-information', 'create')->name('create');
+            Route::get('/edit-data-information', 'edit')->name('edit');
+            Route::post('/store-data-information', 'store')->name('store');
+            Route::get('/detail-information', 'show')->name('show');
+            Route::put('/update-data-information', 'update')->name('update');
+            Route::delete('/hapus-data-information', 'destroy')->name('destroy');
         });
     });
 
