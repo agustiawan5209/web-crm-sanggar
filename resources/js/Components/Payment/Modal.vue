@@ -44,7 +44,7 @@ var harga = props.subtotal;
 const JumlahDp = ref(harga / 2);
 const Form = useForm({
     dp: JumlahDp.value,
-    jenis_bayar: '',
+    jenis_bayar: 'Lunas',
     jenis: props.jenisproduk,
     jumlah_bayar: harga,
     bukti: '',
@@ -58,16 +58,16 @@ const Form = useForm({
 // Jumlah Bayar
 const statusBayar = ref(null);
 
-watch(statusBayar, (value) => {
+// watch(statusBayar, (value) => {
 
-    Form.jenis_bayar = value;
-    if (value == 'DP') {
-        Form.jumlah_bayar = harga / 2;
-    }
-    if (value == 'Lunas') {
-        Form.jumlah_bayar = harga;
-    }
-})
+//     Form.jenis_bayar = value;
+//     if (value == 'DP') {
+//         Form.jumlah_bayar = harga / 2;
+//     }
+//     if (value == 'Lunas') {
+//         Form.jumlah_bayar = harga;
+//     }
+// })
 // Data bukti Bayar || Gambar
 const imageUrl = ref(null);
 function swalShow(icon, message) {
@@ -222,7 +222,7 @@ console.log(props.jenisproduk)
                         <div class="bg-white rounded-lg shadow-lg p-6">
                             <h2 class="text-lg font-medium mb-6">Informasi Penyewaan</h2>
                             <div class="space-y-4">
-                                <div class="col-span-full">
+                                <!-- <div class="col-span-full">
                                     <label for="jenis_bayar" class="text-base w-full">Jenis Pembayaran</label>
                                     <div class="flex gap-7">
                                         <div class="flex items-center gap-4">
@@ -237,7 +237,7 @@ console.log(props.jenisproduk)
                                         </div>
                                     </div>
                                     <InputError :message="Form.errors.jenis_bayar" />
-                                </div>
+                                </div> -->
                                 <div class="grid grid-cols-2 gap-3">
 
                                     <div class="col-span-2">

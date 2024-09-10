@@ -12,7 +12,7 @@ use App\Http\Controllers\ProdukAlatController;
 use App\Http\Controllers\ProdukJasaController;
 use App\Http\Controllers\ReviewController;
 
-Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
+Route::middleware(['auth', 'verified', 'role:Admin|Bendahara'])->group(function () {
 
 
     // Router Pegawai
@@ -20,7 +20,7 @@ Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
         Route::controller(CustomerController::class)->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/tambah-data-customer', 'create')->name('create');
-            Route::get('/edit-data-customer', 'edit')->middleware(['auth', 'password.confirm'])->name('edit');
+            Route::get('/edit-data-customer', 'edit')->name('edit');
             Route::post('/store-data-customer', 'store')->name('store');
             Route::get('/detail-customer', 'show')->name('show');
             Route::put('/update-data-customer', 'update')->name('update');
@@ -28,7 +28,7 @@ Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
 
             // reset password
 
-            Route::get('/reset-password-customer', 'resetpassword')->middleware(['auth', 'password.confirm'])->name('reset.password');
+            Route::get('/reset-password-customer', 'resetpassword')->name('reset.password');
             Route::post('/reset-password-customer', 'resetpasswordUpdate')->name('reset.password');
             Route::put('/update-status-customer/{id}', 'updateStatus')->name('updateStatus');
         });
