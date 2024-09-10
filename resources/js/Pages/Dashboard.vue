@@ -1,6 +1,6 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head } from '@inertiajs/vue3';
+import { Head ,Link, usePage } from '@inertiajs/vue3';
 import { ref, defineProps } from 'vue';
 import ChartTransaksiTahun from '@/Components/Chart/ChartTransaksiTahun.vue';
 const props = defineProps({
@@ -17,6 +17,18 @@ const props = defineProps({
         default: () => ({}),
     },
 })
+
+const Page = usePage().props.auth;
+const Roles = Page.role;
+
+function roleToCheck(role) {
+    if (Array.isArray(Roles)) {
+        return Roles.includes(role)
+    } else {
+        return false;
+    }
+}
+
 </script>
 
 <template>
@@ -84,7 +96,7 @@ const props = defineProps({
                             </div>
                         </div>
                     </div>
-                    <div class="w-full p-2 lg:w-1/4 md:w-1/2">
+                    <!-- <div class="w-full p-2 lg:w-1/4 md:w-1/2">
                         <div
                             class="flex flex-col px-6 py-10 overflow-hidden bg-white hover:bg-gradient-to-br hover:from-purple-400 hover:via-blue-400 hover:to-blue-500 rounded-xl shadow-lg duration-300 hover:shadow-2xl group">
                             <div class="flex flex-row justify-between items-center">
@@ -112,7 +124,7 @@ const props = defineProps({
                                 </span>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="w-full p-2 lg:w-1/4 md:w-1/2">
                         <div
                             class="flex flex-col px-6 py-10 overflow-hidden bg-white hover:bg-gradient-to-br hover:from-purple-400 hover:via-blue-400 hover:to-blue-500 rounded-xl shadow-lg duration-300 hover:shadow-2xl group">
@@ -145,8 +157,8 @@ const props = defineProps({
                             </div>
                         </div>
                     </div>
-                    <div class="w-full p-2 lg:w-1/4 md:w-1/2">
-                        <div
+                    <div class="w-full p-2 lg:w-1/4 md:w-1/2" v-if="roleToCheck('Bendahara')">
+                        <Link :href="route('Riwayat.index')"
                             class="flex flex-col px-6 py-10 overflow-hidden bg-white hover:bg-gradient-to-br hover:from-purple-400 hover:via-blue-400 hover:to-blue-500 rounded-xl shadow-lg duration-300 hover:shadow-2xl group">
                             <div class="flex flex-row justify-between items-center">
                                 <div class="px-4 py-4 bg-gray-300  rounded-xl bg-opacity-30">
@@ -168,7 +180,7 @@ const props = defineProps({
                                     </svg>
                                 </span>
                             </div>
-                        </div>
+                        </Link>
                     </div>
                 </div>
                 <div class="bg-white">

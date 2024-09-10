@@ -110,7 +110,7 @@ const toggleDropdownLaporan = () => {
                 <span class="ml-4">Riwayat Penyewaan</span>
             </NavLink>
         </li>
-        <li class="relative py-3" v-if="roleToCheck('Bendahara')">
+        <li class="relative py-3" v-if="roleToCheck('Bendahara') || roleToCheck('Admin')">
             <div class="group px-3">
                 <button @click="toggleDropdownLaporan" class="flex items-center justify-between w-full text-white ">
                     <span class="flex items-center">

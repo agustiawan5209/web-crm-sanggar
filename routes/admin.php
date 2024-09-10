@@ -30,6 +30,7 @@ Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
 
             Route::get('/reset-password-customer', 'resetpassword')->middleware(['auth', 'password.confirm'])->name('reset.password');
             Route::post('/reset-password-customer', 'resetpasswordUpdate')->name('reset.password');
+            Route::put('/update-status-customer/{id}', 'updateStatus')->name('updateStatus');
         });
     });
 

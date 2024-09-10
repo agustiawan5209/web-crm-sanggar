@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->string('nama',100);
-            $table->string('alamat',100);
-            $table->enum('status',['0','1','2'])->comment('0 = Pelanggan Baru, 1=Pelanggan Aktif, 2 = Pelanggan Lama');
+            $table->string('nama', 100);
+            $table->string('alamat', 100);
+            $table->enum('status', ['0', '1', '2'])->comment('0 = Pelanggan Baru, 1=Pelanggan Aktif, 2 = Pelanggan Lama');
             $table->timestamps();
         });
     }

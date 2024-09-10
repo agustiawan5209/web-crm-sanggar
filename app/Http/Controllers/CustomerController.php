@@ -61,7 +61,7 @@ class CustomerController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'remember_token' => Str::random(60),
-            'phone'=> $request->no_telpon,
+            'phone' => $request->no_telpon,
         ]);
         $role = Role::findByName('Customer');
         if ($role) {
@@ -76,9 +76,9 @@ class CustomerController extends Controller
 
         $customer = new Customer([
             'user_id' => $user->id,
-            'nama'=> $request->name,
+            'nama' => $request->name,
             'alamat' => $request->alamat,
-            'status'=> '0',
+            'status' => '0',
         ]);
         $customer->save();
 
@@ -112,7 +112,7 @@ class CustomerController extends Controller
     {
 
         $customer = Customer::find(Request::input('slug'));
-        $user = User::find($customer->user_id)->update(['name'=> $request->name]);
+        $user = User::find($customer->user_id)->update(['name' => $request->name]);
         $customer->update([
             'alamat' => $request->alamat,
             'tanggal_lahir' => $request->tanggal_lahir,
@@ -156,6 +156,13 @@ class CustomerController extends Controller
             'password' => Hash::make(Request::input('password')),
         ]);
         return redirect()->route('Customer.index')->with('message', 'Password Customer berhasil Di Ubah!');
+    }
 
+    public function updateStatus($id)
+    {
+        $customer = Customer::find($id);
+
+        $customer->update(['status' => Request::input('status')]);
+        return redirect()->route('Customer.index')->with('message', 'Status Customer berhasil Di Ubah!');
     }
 }

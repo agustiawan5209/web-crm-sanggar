@@ -18,7 +18,8 @@ class Customer extends Model
         'alamat',
         'status'
     ];
-    public function penyewaan(){
+    public function penyewaan()
+    {
         return $this->hasMany(Penyewaan::class, 'customer_id', 'id');
     }
 
@@ -36,19 +37,37 @@ class Customer extends Model
     public function namaCustomer(): Attribute
     {
         return new Attribute(
-            get: fn () => $this->user()->first()->name,
+            get: fn() => $this->user()->first()->name,
         );
     }
     public function noTelpon(): Attribute
     {
         return new Attribute(
-            get: fn () => $this->user()->first()->phone,
+            get: fn() => $this->user()->first()->phone,
         );
     }
     public function statusPelanggan(): Attribute
     {
+        $s = "0 = Pelanggan Baru, 1=Pelanggan Aktif, 2 = Pelanggan Lama";
+
+        $status = $this->status;
+        switch ($status) {
+            case '0' || 0:
+                $value = "Pelanggan Baru";
+                break;
+            case '1' || 1:
+                $value = "Pelanggan Aktif";
+                break;
+            case '2' || 2:
+                $value = "Pelanggan Lama";
+                break;
+
+            default:
+                $value = "Pelanggan Baru";
+                break;
+        }
         return new Attribute(
-            get: fn () => $this->penyewaan()->count() > 3 ? 'aktif': 'tidak akif',
+            get: fn() => $value,
         );
     }
 
@@ -59,7 +78,7 @@ class Customer extends Model
         $query->when($filter['search'] ?? null, function ($query, $search) {
             $query->where('no_telpon', 'like', '%' . $search . '%')
                 ->orWhere('alamat', 'like', '%' . $search . '%')
-                ->orWhereHas('user', function($query, $search){
+                ->orWhereHas('user', function ($query, $search) {
                     $query->where('name', 'like', '%' . $search . '%');
                 });
         })->when($filter['order'] ?? null, function ($query, $order) {
