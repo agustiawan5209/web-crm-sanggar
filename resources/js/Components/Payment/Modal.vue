@@ -222,7 +222,7 @@ console.log(props.jenisproduk)
                         <div class="bg-white rounded-lg shadow-lg p-6">
                             <h2 class="text-lg font-medium mb-6">Informasi Penyewaan</h2>
                             <div class="space-y-4">
-                                <div class="col-span-full" v-if="jenisproduk=='alat'">
+                                <div class="col-span-full" v-if="jenisproduk == 'jasa'">
                                     <label for="jenis_bayar" class="text-base w-full">Jenis Pembayaran</label>
                                     <div class="flex gap-7">
                                         <div class="flex items-center gap-4">
