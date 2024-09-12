@@ -23,7 +23,7 @@ class StorePenyewaanRequest extends FormRequest
     {
         return [
             "bukti"=> "required|image",
-            // 'jenis_bayar'=> 'required|in:DP,Lunas',
+            // 'jenis_bayar'=> 'nullable|in:DP,Lunas',
             'jumlah_bayar'=> 'required|numeric',
             'quantity'=> 'nullable|numeric',
             'tgl_pembayaran'=> 'required|date',
