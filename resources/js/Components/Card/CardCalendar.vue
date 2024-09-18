@@ -1,16 +1,15 @@
 <script setup>
 import { ref, watch, onMounted } from 'vue';
-import { router , usePage } from '@inertiajs/vue3';
+import { router, usePage } from '@inertiajs/vue3';
 import { Calendar, DatePicker, Popover } from 'v-calendar';
 import 'v-calendar/style.css';
 import axios from 'axios';
 
 const dates = ref(null);
 watch(dates, (value) => {
-    const Jadwal = new Date(value)
-    const search = `${Jadwal.getFullYear()}-${String(Jadwal.getMonth() + 1).padStart(2, '0')}-${Jadwal.getDate().toString().padStart(2, '0')}`;
-
-    router.get(route('Jadwal.index', {search: search}))
+    const Penyewaan = new Date(value)
+    const search = `${Penyewaan.getFullYear()}-${String(Penyewaan.getMonth() + 1).padStart(2, '0')}-${Penyewaan.getDate().toString().padStart(2, '0')}`;
+    router.get(route('Penyewaan.index', { search: search }))
 })
 const Loaded = ref(false)
 const AttributeData = ref([{
@@ -23,15 +22,16 @@ const AttributeData = ref([{
     dates: new Date(),
 },])
 
-const user_id = usePage().props.auth.user.id;
 onMounted(() => {
-    // dates.value = new Date();
-    axios.get(route('api.jadwal.getJadwal', {user:  user_id}))
+    axios.get(route('grafik.calendar'))
         .then((res) => {
             if (res.status == 200) {
-                const Jadwal = res.data.data;
-                for (let i = 0; i < Jadwal.length; i++) {
-                    const element = Jadwal[i];
+                const sewa = res.data.data;
+                for (let i = 0; i < sewa.length; i++) {
+                    const element = sewa[i];
+                    // Periksa format tanggal, jika perlu ubah ke format Date
+                    const date = new Date(element.tanggal); // Contoh
+
                     AttributeData.value.push({
                         key: i.toString(),
                         highlight: {
@@ -40,7 +40,7 @@ onMounted(() => {
                             contentClass: 'italic',
                         },
                         dot: 'red',
-                        dates: element.tanggal,
+                        dates: date,
                         popover: {
                             label: element.deskripsi,
                             isInteractive: false,
@@ -52,9 +52,8 @@ onMounted(() => {
                 console.log('Error Data Gagal Didapat')
             }
         })
-        .catch((err) => {
-            console.log(err)
-            // console.error('Error :' + err)
+        .catch(err => {
+            console.error('Error :' + err)
         })
 })
 </script>
@@ -62,6 +61,7 @@ onMounted(() => {
 
 <template>
     <div class="w-full h-full box-content" v-if="Loaded">
-        <DatePicker v-model.lazy="dates"  :attributes="AttributeData" expanded :locale="{ id: 'id', firstDayOfWeek: 2, masks: { weekdays: 'WWWW' } }"/>
+        <DatePicker v-model.lazy="dates" :attributes="AttributeData" expanded
+            :locale="{ id: 'id', firstDayOfWeek: 2, masks: { weekdays: 'WWWW' } }" />
     </div>
 </template>

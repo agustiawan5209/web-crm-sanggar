@@ -29,6 +29,7 @@ Route::group(['prefix'=> 'diskon', 'as'=> 'Api.diskon.'], function () {
 });
 
 Route::get('transaksi', [GrafikController::class, 'transaksi'])->name('grafik.transaksi');
+Route::get('calendar', [GrafikController::class, 'calendar'])->name('grafik.calendar');
 
 Route::get('all-banner', [InformationController::class, 'getAllData'])->name('information.all.data');
 

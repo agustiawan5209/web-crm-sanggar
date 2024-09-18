@@ -41,7 +41,7 @@ class Gambar extends Model
         $query->when($filter['search'] ?? null, function ($query, $search) {
             $query->where('no_telpon', 'like', '%' . $search . '%')
                 ->orWhere('alamat', 'like', '%' . $search . '%')
-                ->orWhereHas('user', function($query, $search){
+                ->orWhereHas('user', function ($query) use ($search) {
                     $query->where('name', 'like', '%' . $search . '%');
                 });
         })->when($filter['order'] ?? null, function ($query, $order) {

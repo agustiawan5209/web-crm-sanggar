@@ -47,10 +47,10 @@ class Review extends Model
     {
         $query->when($filter['search'] ?? null, function ($query, $search) {
             $query->where('jenis', 'like', '%' . $search . '%')
-                ->orWhere('rating', 'like', '%' . $search . '%');
-                // ->orWhereHas('customer', function($query, $search){
-                //     $query->where('name', 'like', '%' . $search . '%');
-                // });
+                ->orWhere('rating', 'like', '%' . $search . '%')
+                ->orWhereHas('customer', function ($query) use ($search) {
+                    $query->where('nama', 'like', '%' . $search . '%');
+                });
         })->when($filter['order'] ?? null, function ($query, $order) {
             $query->orderBy('id', $order);
         });

@@ -23,7 +23,7 @@ const props = defineProps({
 
 const Form = useForm({
     slug: props.pembayaran.id,
-    status: '',
+    status_bayar: '',
     keterangan: '',
 })
 
@@ -69,14 +69,14 @@ function submitPembayaranUpdate() {
                 class="w-full max-w-full flex flex-col space-y-4 justify-center">
                 <div class="relative w-full">
                     <InputLabel class="w-full" value="Update Status Pembayaran" />
-                    <select id="order" v-model="Form.status"
+                    <select id="order" v-model="Form.status_bayar"
                         class="px-2 py-1 md:px-3 md:py-2 placeholder-gray-400 border focus:outline-none w-full sm:text-sm border-gray-200 shadow-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none ">
                         <option value="">-----</option>
                         <option value="DITERIMA">DITERIMA</option>
                         <option value="DITOLAK">DITOLAK</option>
                         <option value="SELESAI">SELESAI</option>
                     </select>
-                    <InputError :message="Form.errors.status" />
+                    <InputError :message="Form.errors.status_bayar" />
                 </div>
                 <div class="relative w-full">
                     <InputLabel class="w-full" value="Keterangan Status Pembayaran" />

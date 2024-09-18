@@ -3,6 +3,8 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head ,Link, usePage } from '@inertiajs/vue3';
 import { ref, defineProps } from 'vue';
 import ChartTransaksiTahun from '@/Components/Chart/ChartTransaksiTahun.vue';
+import CardCalendar from '@/Components/Card/CardCalendar.vue';
+
 const props = defineProps({
     penyewaan: {
         type: Object,
@@ -182,6 +184,10 @@ function roleToCheck(role) {
                             </div>
                         </Link>
                     </div>
+                </div>
+                <div class="relative w-full">
+                    <h3 class=" text-xs md:text-base lg:text-lg font-semibold text-center">Kalender Jadwal Penyewaan</h3>
+                    <CardCalendar />
                 </div>
                 <div class="bg-white">
                     <ChartTransaksiTahun></ChartTransaksiTahun>
