@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use App\Http\Requests\StorePenyewaanRequest;
 use App\Http\Requests\UpdatePenyewaanRequest;
+use App\Http\Requests\PaylaterPenyewaanRequest;
 
 class PenyewaanController extends Controller
 {
@@ -36,7 +37,7 @@ class PenyewaanController extends Controller
         return Inertia::render('Admin/Penyewaan/Index', [
             'search' =>  Request::input('search'),
             'table_colums' => array_values(array_diff($columns, ['remember_token', 'password', 'email_verified_at', 'created_at', 'updated_at', 'user_id', 'deskripsi'])),
-            'data' => Penyewaan::with(['customer', 'customer.user'])->filter(Request::only('search', 'order'))->paginate(10),
+            'data' => Penyewaan::with(['customer', 'customer.user', 'pembayaran'])->filter(Request::only('search', 'order'))->paginate(10),
             'can' => [
                 'add' => false,
                 'edit' => false,
@@ -91,6 +92,36 @@ class PenyewaanController extends Controller
 
         // Membuat kode transaksi dengan format yang diinginkan
         return 'TRX-' . str_pad($lastId, 3, '0', STR_PAD_LEFT);
+    }
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function storepaylater(PaylaterPenyewaanRequest $request)
+    {
+        // dd(json_encode($request->produk));
+        $user = User::with(['customer'])->find(Auth::user()->id);
+        $penyewaan = Penyewaan::create([
+            'customer_id' => $user->customer->id,
+            'customer_user' => $user,
+            'jenis' => $request->jenis,
+            'produk_id' => $request->produk,
+            'produk' => $request->produk['nama'],
+            'jumlah'=> $request->quantity,
+            'tgl_pengambilan' => $request->tgl_pengambilan,
+            'tgl_pengembalian' => $request->tgl_pengembalian,
+            'status' => "Dalam Penyewaan",
+            'tipe_bayar'=> 'Bayar Nanti',
+        ]);
+        Pembayaran::create([
+            'kode_transaksi' => $this->generateKodeTransaksi(),
+            'penyewaan_id' => $penyewaan->id,
+            'total' => $request->jumlah_bayar,
+            'jenis_bayar' => 'Bayar Nanti',
+
+            'status' => "PENDING",
+        ]);
+
+        return redirect()->route('payment.success');
     }
     /**
      * Store a newly created resource in storage.

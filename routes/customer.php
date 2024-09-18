@@ -46,6 +46,7 @@ Route::middleware(['auth', 'verified', 'role:Customer'])->group(function () {
 
     // Buat Data Penyewaan
     Route::post('store-penyewaan', [PenyewaanController::class, 'store'])->name('Penyewaan.Store');
+    Route::post('store-penyewaan-later', [PenyewaanController::class, 'storepaylater'])->name('Penyewaan.Store.later');
 });
 
 Route::controller(PembayaranController::class)->group(function () {

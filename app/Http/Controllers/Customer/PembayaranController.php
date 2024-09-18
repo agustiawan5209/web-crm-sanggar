@@ -34,7 +34,7 @@ class PembayaranController extends Controller
         return Inertia::render('User/Pembayaran/Index', [
             'search' =>  Request::input('search'),
             'table_colums' => array_values(array_diff($columns, ['remember_token', 'password', 'email_verified_at', 'created_at', 'updated_at', 'user_id', 'deskripsi'])),
-            'data' => Pembayaran::whereHas('penyewaan', function($query) use($user){
+            'data' => Pembayaran::whereHas('penyewaan', function ($query) use ($user) {
                 $query->where('customer_id', $user->customer->id);
             })->paginate(10),
             'can' => [
@@ -68,9 +68,9 @@ class PembayaranController extends Controller
      */
     public function show(Pembayaran $pembayaran)
     {
-        Request::validate(['slug'=> 'required|exists:pembayarans,id']);
+        Request::validate(['slug' => 'required|exists:pembayarans,id']);
         return Inertia::render('User/Pembayaran/Show', [
-            'pembayaran'=> $pembayaran->with(['penyewaan', 'penyewaan.customer','penyewaan.customer.user'])->find(Request::input('slug')),
+            'pembayaran' => $pembayaran->with(['penyewaan', 'penyewaan.customer', 'penyewaan.customer.user'])->find(Request::input('slug')),
         ]);
     }
 
@@ -89,11 +89,11 @@ class PembayaranController extends Controller
     {
         $pembayaran = Pembayaran::find($request->slug);
         $pembayaran->update([
-            'status'=> $request->status,
-            'keterangan'=> $request->keterangan,
+            'status' => $request->status,
+            'keterangan' => $request->keterangan,
         ]);
 
-        return redirect()->route('Penyewaan.show', ['slug'=> $request->slug])->with('message','Data Pembayaran Berhasil Di Update!!');
+        return redirect()->route('Penyewaan.show', ['slug' => $request->slug])->with('message', 'Data Pembayaran Berhasil Di Update!!');
     }
 
     /**

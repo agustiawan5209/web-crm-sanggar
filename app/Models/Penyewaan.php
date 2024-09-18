@@ -21,6 +21,7 @@ class Penyewaan extends Model
         'tgl_pengambilan',
         'tgl_pengembalian',
         'status',
+        'tipe_bayar',
     ];
 
     public function customer(){

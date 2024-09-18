@@ -27,7 +27,7 @@ class PenyewaanController extends Controller
         return Inertia::render('User/Penyewaan/Index', [
             'search' =>  Request::input('search'),
             'table_colums' => array_values(array_diff($columns, ['remember_token', 'password', 'email_verified_at', 'created_at', 'updated_at', 'user_id', 'deskripsi'])),
-            'data' => Penyewaan::with(['customer', 'customer.user', 'review'])
+            'data' => Penyewaan::with(['customer', 'customer.user', 'review', 'pembayaran'])
                 ->filter(Request::only('search', 'order'))
                 ->where('customer_id', $user->customer->id)
                 ->orderBy('id', 'desc')

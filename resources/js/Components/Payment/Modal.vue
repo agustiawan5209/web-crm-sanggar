@@ -115,12 +115,120 @@ function submit() {
         }
     })
 }
-console.log(props.jenisproduk)
+// Submit Penyewaan later
+function submitLater() {
+    Form.post(route('Penyewaan.Store.later'), {
+        preserveState: true,
+        onError: (err) => {
+            console.log(err);
+        }
+    })
+}
+
+
+const modalPay = ref(true);
+const payLater = ref(true);
+const payNow = ref(false);
+
+const typePayment = ref(0);
+
+const paylaterProduk = () => {
+    typePayment.value = 1;
+}
+const paylaterJasa = () => {
+    typePayment.value = 2;
+}
+
+
+const paylaterfalse = () => {
+    payLater.value = false;
+    modalPay.value = false;
+    payNow.value = true;
+}
+const payLaterTrue = () => {
+    payLater.value = true;
+    modalPay.value = false;
+    payNow.value = false;
+
+    if (props.jenisproduk == 'jasa') {
+        Form.post(route('Penyewaan.Store.later'), {
+            preserveState: true,
+            onError: (err) => {
+                console.log(err);
+            }
+        })
+    }
+    if (props.jenisproduk == 'alat') {
+        paylaterProduk();
+    }
+}
 </script>
 
 <template>
     <Modal :show="show">
-        <section class="body-font h-screen bg-gray-100 text-gray-600 overflow-y-auto">
+        <section v-if="modalPay == true" class="body-font h-max bg-gray-100 text-gray-600 overflow-y-auto">
+            <div
+                class="container mx-auto flex max-w-full flex-col items-center justify-center rounded-lg bg-white px-5 py-10">
+                <!-- QR Code Number Account & Uploadfile -->
+                <!-- Step Checkout -->
+                <h1 class="text-3xl lg:text-4xl font-semibold leading-7 pb-10 lg:leading-9 text-gray-800">Detail
+                    Penyewaan
+                </h1>
+
+                <div class="inline-flex gap-4 rounded-md shadow-sm" role="group">
+                    <button type="button" @click="payLaterTrue()"
+                        class="px-4 py-2 text-sm font-medium text-gray-900 bg-orange-200 border border-gray-200 rounded-md hover:bg-gray-100 hover:text-orange-700 focus:z-10 focus:ring-2 focus:ring-orange-700 focus:text-orange-700">
+                        Bayar Nanti
+                    </button>
+                    <button type="button" @click="paylaterfalse()"
+                        class="px-4 py-2 text-sm font-medium text-gray-900 bg-green-200 border border-gray-200 rounded-md hover:bg-gray-100 hover:text-green-700 focus:z-10 focus:ring-2 focus:ring-green-700 focus:text-green-700">
+                        Bayar Sekarang
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Bayar Nanti -->
+        <section v-if="modalPay == false && payLater == true"
+            class="body-font h-max bg-gray-100 text-gray-600 overflow-y-auto">
+            <div class="container mx-auto flex max-w-full flex-wrap justify-center rounded-lg bg-white px-5 py-10">
+                <!-- QR Code Number Account & Uploadfile -->
+
+                <form @submit.prevent="submitLater" enctype="multipart/form-data" class="w-full flex flex-col">
+
+                    <div class="w-full md:w-2/3 mx-auto p-2">
+                        <div class="bg-white rounded-lg shadow-lg p-6">
+                            <h2 class="text-lg font-medium mb-6">isi Informasi Tanggal penyewaan Untuk melanjutkan</h2>
+                            <div class="space-y-4">
+
+                                <div class="grid grid-cols-2 gap-3">
+
+                                    <div class="col-span-2" v-show="jenisproduk == 'alat'">
+                                        <label for="cvv" class="block text-sm font-medium text-gray-700 mb-2">Tanggal
+                                            Pengambilan</label>
+                                        <input type="date" v-model="Form.tgl_pengambilan" name="cvv" id="cvv"
+                                            placeholder="000" :required="jenisproduk == 'alat'"
+                                            class="w-full py-3 px-4 border border-gray-400 rounded-lg focus:outline-none focus:border-blue-500">
+                                        <InputError :message="Form.errors.tgl_pengambilan" />
+
+                                    </div>
+                                </div>
+                                <div class="mt-8">
+                                    <button type="submit"
+                                        class="w-full disabled:bg-red-300 bg-green-500 hover:bg-blue-600 text-white font-medium py-3 rounded-lg focus:outline-none">Simpan</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+        </section>
+        <!-- Bayar Sekarang -->
+        <section v-if="modalPay == false && payNow == true"
+            class="body-font h-screen bg-gray-100 text-gray-600 overflow-y-auto">
             <div class="container mx-auto flex max-w-full flex-wrap justify-center rounded-lg bg-white px-5 py-10">
                 <!-- QR Code Number Account & Uploadfile -->
                 <!-- Step Checkout -->
@@ -272,7 +380,7 @@ console.log(props.jenisproduk)
                                 </div>
                                 <div class="mt-8">
                                     <button type="submit" :disabled="Form.jumlah_bayar == ''"
-                                        class="w-full disabled:bg-red-300 bg-green-500 hover:bg-blue-600 text-white font-medium py-3 rounded-lg focus:outline-none">Submit</button>
+                                        class="w-full disabled:bg-red-300 bg-green-500 hover:bg-blue-600 text-white font-medium py-3 rounded-lg focus:outline-none">Simpan</button>
                                 </div>
                             </div>
                         </div>

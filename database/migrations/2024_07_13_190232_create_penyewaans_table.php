@@ -22,6 +22,7 @@ return new class extends Migration
             $table->date('tgl_pengembalian')->nullable();
             $table->integer('jumlah')->nullable();
             $table->string('status')->comment('Dalam Penyewaan, Di Kembalikan, DIBATALKAN, SELESAI');
+            $table->string('tipe_bayar',20)->nullable();
             $table->timestamps();
         });
     }
