@@ -1,7 +1,7 @@
 <script setup>
 import UserLayout from '@/Layouts/UserLayout.vue';
 import { Head } from '@inertiajs/vue3';
-import CardCalendar from '@/Components/Card/CardCalendar.vue';
+import CardUserCalendar from '@/Components/Card/CardUserCalendar.vue';
 import ChartJumlah from '@/Components/Chart/ChartJumlah.vue';
 import HeaderStats from '@/Components/Header/HeaderStats.vue';
 import { defineProps } from "vue";
@@ -140,6 +140,10 @@ const props = defineProps({
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="relative w-full">
+                <h3 class=" text-xs md:text-base lg:text-lg font-semibold text-center">Kalender Jadwal Penyewaan</h3>
+                <CardUserCalendar />
             </div>
         </div>
     </UserLayout>

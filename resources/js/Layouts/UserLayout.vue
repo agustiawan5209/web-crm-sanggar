@@ -18,6 +18,10 @@ const nonactive = "border-transparent text-gray-900 hover:bg-gray-50 hover:text-
                         <aside class="py-6 lg:col-span-2">
                             <nav class="space-y-1">
 
+                                <Link :href="route('Customer.dashboard')" :class="route().current('Customer.dashboard') ? active : nonactive">
+                                   <font-awesome-icon :icon="['fas','home']" class="text-gray-400 group-hover:text-gray-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"/>
+                                    <span class="truncate">Dashboard</span>
+                                </Link>
                                 <Link :href="route('Customer.profile')" :class="route().current('Customer.profile') ? active : nonactive">
                                    <font-awesome-icon :icon="['fas','circle-user']" class="text-gray-400 group-hover:text-gray-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"/>
                                     <span class="truncate">Profile</span>
