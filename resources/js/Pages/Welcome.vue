@@ -18,7 +18,7 @@ const props = defineProps({
     <Head title="Welcome" />
     <HomeLayout class="w-full">
         <!-- start hero -->
-        <Carousel></Carousel>
+        <!-- <Carousel></Carousel> -->
         <div class="bg-gray-100 block">
             <div class="bg-white dark:bg-gray-800 flex relative z-20 items-center overflow-hidden">
                 <div class="container mx-auto px-6 flex relative py-16">

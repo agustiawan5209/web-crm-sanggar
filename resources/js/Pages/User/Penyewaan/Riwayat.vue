@@ -50,11 +50,14 @@ const crud = ref({
         </template>
 
         <div class="py-4 relative box-content">
-            <div class="grid md:grid-cols-3">
-                <template v-for="item in data.data">
+            <div class="grid md:grid-cols-3" v-if="data.length > 0">
+                <template v-for="item in data">
                     <ProdukCard :produk='item'></ProdukCard>
                 </template>
 
+            </div>
+            <div class="container w-full text-center text-base mx-auto py-2" v-else>
+                <h4>DATA KOSONG</h4>
             </div>
         </div>
     </UserLayout>

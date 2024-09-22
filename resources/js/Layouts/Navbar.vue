@@ -44,13 +44,13 @@ const toggleDropdownLaporan = () => {
                 <span class="ml-4">Customer</span>
             </NavLink>
         </li>
-        <li class="relative" v-if="roleToCheck('Admin')">
+        <!-- <li class="relative" v-if="roleToCheck('Admin')">
 
             <NavLink :href="route('Information.index')" :active="route().current('Information.index')">
                 <font-awesome-icon :icon="['fas', 'users']" />
                 <span class="ml-4">Banner Informasi</span>
             </NavLink>
-        </li>
+        </li> -->
         <li class="relative py-3" v-if="roleToCheck('Admin')">
             <div class="group px-3">
                 <button @click="toggleDropdown" class="flex items-center justify-between w-full text-white ">

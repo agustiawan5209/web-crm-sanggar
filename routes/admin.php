@@ -97,6 +97,7 @@ Route::middleware(['auth', 'verified', 'role:Admin|Bendahara'])->group(function 
             Route::get('/detail-pembayaran', 'show')->name('show');
 
             Route::put('update-pembayaran', 'update')->name('update');
+            Route::delete('/delete-pembayaran', 'destroy')->name('destroy');
         });
     });
     Route::group(['prefix' => 'review', 'as' => "Review."], function () {

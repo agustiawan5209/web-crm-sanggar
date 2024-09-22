@@ -36,7 +36,9 @@ class PembayaranController extends Controller
             'table_colums' => array_values(array_diff($columns, ['remember_token', 'password', 'email_verified_at', 'created_at', 'updated_at', 'user_id', 'deskripsi'])),
             'data' => Pembayaran::whereHas('penyewaan', function ($query) use ($user) {
                 $query->where('customer_id', $user->customer->id);
-            })->paginate(10),
+            })
+            ->orderBy('id','desc')
+            ->paginate(10),
             'can' => [
                 'add' => false,
                 'edit' => false,

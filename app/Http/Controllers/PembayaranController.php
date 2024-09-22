@@ -32,12 +32,15 @@ class PembayaranController extends Controller
         return Inertia::render('Admin/Pembayaran/Index', [
             'search' =>  Request::input('search'),
             'table_colums' => array_values(array_diff($columns, ['remember_token', 'password', 'email_verified_at', 'created_at', 'updated_at', 'user_id', 'deskripsi'])),
-            'data' => Pembayaran::with(['penyewaan', 'penyewaan.customer', 'penyewaan.customer.user'])->paginate(10),
+            'data' => Pembayaran::with(['penyewaan', 'penyewaan.customer', 'penyewaan.customer.user'])
+            ->filterBySearch(Request::input('search'))
+            ->filterOrderBy(Request::input('order'))
+            ->paginate(10),
             'can' => [
                 'add' => false,
                 'edit' => false,
                 'show' => true,
-                'delete' => false,
+                'delete' => true,
                 'reset_password' => false,
             ]
         ]);
@@ -97,6 +100,11 @@ class PembayaranController extends Controller
      */
     public function destroy(Pembayaran $pembayaran)
     {
-        //
+        $pembayaran = $pembayaran->find(Request::input('slug'));
+        $penyewaan = Penyewaan::find($pembayaran->penyewaan_id);
+
+        $penyewaan->delete();
+        return redirect()->route('Pembayaran.index')->with('message','Data Pembayaran Berhasil Di Hapus!!');
+
     }
 }
