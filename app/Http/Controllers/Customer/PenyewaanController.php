@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Customer;
 use App\Models\User;
 use Inertia\Inertia;
 use App\Models\Penyewaan;
+use App\Models\Pembayaran;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
@@ -73,5 +74,29 @@ class PenyewaanController extends Controller
                 'reset_password' => false,
             ]
         ]);
+    }
+
+    public function updatePayLater(Penyewaan $penyewaan)
+    {
+        $request = Request::validate([
+            'slug'=>'required|exists:penyewaans,id',
+            'bukti'=> 'required|image',
+        ]);
+        $photo = Request::file('bukti');
+        $name_photo = $photo->getClientOriginalName();
+        $random_name_photo = md5($name_photo);
+        $request = Request::all();
+        $penyewaan = Penyewaan::find(Request::input('slug'));
+        $pembayaran = Pembayaran::find($penyewaan->pembayaran->id);
+        // dd($pembayaran);
+        $photo->storeAs('public/bukti_bayar', $random_name_photo);
+
+        $pembayaran->update([
+            'bukti' => $random_name_photo,
+            'jenis_bayar' => Request::input('jenis_bayar'),
+            'status' => "SELESAI",
+        ]);
+
+        return redirect()->route('Customer.Pembayaran.show', ['slug' => $pembayaran->id])->with('message', 'Data Penyewaan Berhasil Di Update!!');
     }
 }

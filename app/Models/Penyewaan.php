@@ -21,6 +21,7 @@ class Penyewaan extends Model
         'tgl_pengambilan',
         'tgl_pengembalian',
         'status',
+        'jumlah',
         'tipe_bayar',
     ];
 
@@ -37,6 +38,7 @@ class Penyewaan extends Model
         return $this->hasOne(Review::class, 'penyewaan_id', 'id');
     }
 
+
     protected $casts = [
         'produk_id' => 'json',
         'customer_user' => 'json',
@@ -44,12 +46,20 @@ class Penyewaan extends Model
 
     protected $appends = [
         'kode_transaksi',
+        'total_bayar',
     ];
 
     public function kodeTransaksi(): Attribute
     {
         return new Attribute(
             get: fn() => $this->pembayaran()->first()->kode_transaksi,
+            set: null,
+        );
+    }
+    public function totalBayar(): Attribute
+    {
+        return new Attribute(
+            get: fn() => $this->pembayaran()->first()->total,
             set: null,
         );
     }

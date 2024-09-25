@@ -30,6 +30,7 @@ class PenyewaanController extends Controller
         $columns[] = 'customer_id';
         $columns[] = 'jenis';
         $columns[] = 'produk';
+        $columns[] = 'jumlah';
         $columns[] = 'tgl_pengambilan';
         $columns[] = 'tgl_pengembalian';
         $columns[] = 'status';
@@ -56,6 +57,7 @@ class PenyewaanController extends Controller
         $columns[] = 'customer_id';
         $columns[] = 'jenis';
         $columns[] = 'produk';
+        $columns[] = 'jumlah';
         $columns[] = 'tgl_pengambilan';
         $columns[] = 'tgl_pengembalian';
         // $columns[] = 'status';
@@ -98,7 +100,7 @@ class PenyewaanController extends Controller
      */
     public function storepaylater(PaylaterPenyewaanRequest $request)
     {
-        // dd(json_encode($request->produk));
+        // dd($request->quantity == null ? 1 : $request->quantity);
         $user = User::with(['customer'])->find(Auth::user()->id);
         $penyewaan = Penyewaan::create([
             'customer_id' => $user->customer->id,
@@ -106,7 +108,7 @@ class PenyewaanController extends Controller
             'jenis' => $request->jenis,
             'produk_id' => $request->produk,
             'produk' => $request->produk['nama'],
-            'jumlah'=> $request->quantity,
+            'jumlah'=> $request->quantity == null ? 1 : $request->quantity,
             'tgl_pengambilan' => $request->tgl_pengambilan,
             'tgl_pengembalian' => $request->tgl_pengembalian,
             'status' => "Dalam Penyewaan",
@@ -136,7 +138,7 @@ class PenyewaanController extends Controller
             'jenis' => $request->jenis,
             'produk_id' => $request->produk,
             'produk' => $request->produk['nama'],
-            'jumlah'=> $request->quantity,
+            'jumlah'=> $request->quantity == null ? 1 : $request->quantity,
             'tgl_pengambilan' => $request->tgl_pengambilan,
             'tgl_pengembalian' => $request->tgl_pengembalian,
             'status' => "Dalam Penyewaan",
@@ -200,6 +202,7 @@ class PenyewaanController extends Controller
 
         return redirect()->route('Penyewaan.show', ['slug' => $request->slug])->with('message', 'Data Penyewaan Berhasil Di Update!!');
     }
+
 
     /**
      * Remove the specified resource from storage.

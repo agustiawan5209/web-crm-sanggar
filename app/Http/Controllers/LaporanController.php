@@ -20,6 +20,7 @@ class LaporanController extends Controller
         $columns[] = 'tgl_pengambilan';
         $columns[] = 'tgl_pengembalian';
         $columns[] = 'status';
+        $columns[] = 'total_bayar';
 
         return Inertia::render('Admin/Laporan/Index', [
             'search' =>  Request::input('search'),
@@ -48,16 +49,20 @@ class LaporanController extends Controller
         $columns[] = 'customer_id';
         $columns[] = 'jenis';
         $columns[] = 'produk';
+        $columns[] = 'jumlah';
         $columns[] = 'tgl_pengambilan';
         $columns[] = 'tgl_pengembalian';
         $columns[] = 'status';
+        $columns[] = 'total_bayar';
 
         return Inertia::render('Admin/Laporan/Index', [
             'search' =>  Request::input('search'),
             'table_colums' => array_values(array_diff($columns, ['remember_token', 'password', 'email_verified_at', 'created_at', 'updated_at', 'user_id', 'deskripsi'])),
             'data' => Penyewaan::with(['customer', 'customer.user'])->where('status', "SELESAI")
                 ->where('jenis', 'jasa')
-                ->whereBetween('created_at', [Request::input('start_date'), Request::input('end_date')])
+                ->when(Request::input('start_date') != null && Request::input('end_date') != null, function($query){
+                    $query->whereBetween('created_at', [Request::input('start_date'), Request::input('end_date')]);
+                })
                 ->paginate(10),
             'can' => [
                 'add' => false,

@@ -19,6 +19,7 @@ Route::middleware(['auth', 'verified', 'role:Customer'])->group(function () {
         Route::controller(CustomerPenyewaanController::class)->group(function () {
             Route::get('/penyewaan', 'index')->name('penyewaan');
             Route::get('/riwayat-penyewaan', 'riwayat')->name('riwayat.penyewaan');
+            Route::post('/update-penyewaan', 'updatePayLater')->name('penyewaan.store.pay.later');
         });
 
 

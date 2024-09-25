@@ -53,9 +53,10 @@
                     <th>Customer ID</th>
                     <th>Jenis</th>
                     <th>Produk</th>
+                    <th>Jumlah</th>
                     <th>Tanggal Pengambilan</th>
                     <th>Tanggal Pengembalian</th>
-                    <th>Status</th>
+                    <th>Total Bayar</th>
                 </tr>
             </thead>
             <tbody>
@@ -66,9 +67,10 @@
                         <td>{{ $penyewaan->customer_id }}</td>
                         <td>{{ $penyewaan->jenis }}</td>
                         <td>{{ $penyewaan->produk }}</td>
+                        <td>{{ $penyewaan->jumlah }}</td>
                         <td>{{ $penyewaan->tgl_pengambilan }}</td>
                         <td>{{ $penyewaan->tgl_pengembalian }}</td>
-                        <td>{{ $penyewaan->status }}</td>
+                        <td>{{ $penyewaan->total_bayar }}</td>
                     </tr>
                 @endforeach
             </tbody>
