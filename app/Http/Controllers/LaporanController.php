@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use App\Models\Penyewaan;
 use Illuminate\Support\Facades\Request;
 use PDF;
+
 class LaporanController extends Controller
 {
     public function laporan_alat(Request $request)
@@ -22,13 +23,21 @@ class LaporanController extends Controller
         $columns[] = 'status';
         $columns[] = 'total_bayar';
 
+        $penyewaaan = Penyewaan::with(['customer', 'customer.user'])->where('status', "SELESAI")
+        ->where('jenis', 'alat')
+        ->when(Request::input('start_date') != null && Request::input('end_date') != null, function ($query) {
+            $query->whereBetween('created_at', [Request::input('start_date'), Request::input('end_date')]);
+        })
+        ->paginate(10);
+        $transaksi = [];
+        foreach($penyewaaan->items() as $key=> $value ){
+            $transaksi[$key] = $value->pembayaran->total;
+        }
         return Inertia::render('Admin/Laporan/Index', [
             'search' =>  Request::input('search'),
             'table_colums' => array_values(array_diff($columns, ['remember_token', 'password', 'email_verified_at', 'created_at', 'updated_at', 'user_id', 'deskripsi'])),
-            'data' => Penyewaan::with(['customer', 'customer.user'])->where('status', "SELESAI")
-                ->where('jenis', 'alat')
-                ->whereBetween('created_at', [Request::input('start_date'), Request::input('end_date')])
-                ->paginate(10),
+            'data' => $penyewaaan,
+            'total_pendapatan' => 'Rp.'. number_format(array_sum($transaksi),0,2),
             'can' => [
                 'add' => false,
                 'edit' => false,
@@ -37,7 +46,7 @@ class LaporanController extends Controller
                 'reset_password' => false,
             ],
             'tipe' => 'alat',
-            'datelaporan'=>Request::only('start_date', 'end_date'),
+            'datelaporan' => Request::only('start_date', 'end_date'),
         ]);
     }
     public function laporan_jasa(Request $request)
@@ -55,15 +64,22 @@ class LaporanController extends Controller
         $columns[] = 'status';
         $columns[] = 'total_bayar';
 
+        $penyewaaan = Penyewaan::with(['customer', 'customer.user'])->where('status', "SELESAI")
+        ->where('jenis', 'jasa')
+        ->when(Request::input('start_date') != null && Request::input('end_date') != null, function ($query) {
+            $query->whereBetween('created_at', [Request::input('start_date'), Request::input('end_date')]);
+        })
+        ->paginate(10);
+
+        $transaksi = [];
+        foreach($penyewaaan->items() as $key=> $value ){
+            $transaksi[$key] = $value->pembayaran->total;
+        }
         return Inertia::render('Admin/Laporan/Index', [
             'search' =>  Request::input('search'),
             'table_colums' => array_values(array_diff($columns, ['remember_token', 'password', 'email_verified_at', 'created_at', 'updated_at', 'user_id', 'deskripsi'])),
-            'data' => Penyewaan::with(['customer', 'customer.user'])->where('status', "SELESAI")
-                ->where('jenis', 'jasa')
-                ->when(Request::input('start_date') != null && Request::input('end_date') != null, function($query){
-                    $query->whereBetween('created_at', [Request::input('start_date'), Request::input('end_date')]);
-                })
-                ->paginate(10),
+            'data' => $penyewaaan,
+            'total_pendapatan' => 'Rp.'. number_format(array_sum($transaksi),0,2),
             'can' => [
                 'add' => false,
                 'edit' => false,
@@ -72,7 +88,7 @@ class LaporanController extends Controller
                 'reset_password' => false,
             ],
             'tipe' => 'jasa',
-            'datelaporan'=>Request::only('start_date', 'end_date'),
+            'datelaporan' => Request::only('start_date', 'end_date'),
         ]);
     }
 

@@ -59,7 +59,7 @@ class Penyewaan extends Model
     public function totalBayar(): Attribute
     {
         return new Attribute(
-            get: fn() => $this->pembayaran()->first()->total,
+            get: fn() => "Rp. ". number_format($this->pembayaran()->first()->total,0,2),
             set: null,
         );
     }

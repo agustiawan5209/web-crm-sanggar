@@ -19,6 +19,10 @@ const props = defineProps({
         type: String,
         default: 'jasa',
     },
+    total_pendapatan: {
+        type: String,
+        default: '0',
+    },
     data: {
         type: Object,
         default: () => ({}),
@@ -57,7 +61,7 @@ const crud = ref({
         </template>
 
         <div class="py-4 relative box-content">
-            <LaporanCardTable @update:search="search = $event" @update:order="order" :slug="null" path="Laporan" :type="tipe" :TableData="data" :tableColums="table_colums" :crud="crud" :datereport="datelaporan" />
+            <LaporanCardTable @update:search="search = $event" @update:order="order" :slug="null" path="Laporan" :type="tipe" :TableData="data" :tableColums="table_colums" :crud="crud" :total_pendapatan="total_pendapatan" :datereport="datelaporan" />
         </div>
     </AuthenticatedLayout>
 </template>

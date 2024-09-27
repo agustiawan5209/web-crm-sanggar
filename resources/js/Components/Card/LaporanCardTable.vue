@@ -45,6 +45,10 @@ const props = defineProps({
         type: String,
         default: '',
     },
+    total_pendapatan: {
+        type: String,
+        default: '0',
+    },
     TableData: {
         type: Object,
         default: () => ({}),
@@ -370,7 +374,10 @@ const downloadPDF = () => {
                                         </div>
                                     </td>
                                 </tr>
-
+                                <tr>
+                                    <td class="px-2 py-1 md:px-4 md:py-3  text-xs font-medium text-gray-800 border relative text-right" :colspan="tableColums.length -1">Total Pendapatan</td>
+                                    <td class="px-2 py-1 md:px-4 md:py-3  text-xs font-medium text-gray-800 border relative"> {{ total_pendapatan }} </td>
+                                </tr>
                             </tbody>
                             <tbody v-else>
                                 <tr>
