@@ -70,12 +70,12 @@
                         <td>{{ $penyewaan->jumlah }}</td>
                         <td>{{ $penyewaan->tgl_pengambilan }}</td>
                         <td>{{ $penyewaan->tgl_pengembalian }}</td>
-                        <td>{{ "Rp. ". number_format($penyewaan->total_bayar, 0,2) }}</td>
+                        <td style="white-space: nowrap;">{{ "Rp. ". number_format($penyewaan->pembayaran->total, 0,2) }}</td>
                     </tr>
                 @endforeach
                 <tr>
                     <td colspan="8">Total Pendapatan</td>
-                    <td > {{ $total_pendapatan }} </td>
+                    <td style="white-space: nowrap;"> {{ $total_pendapatan }} </td>
                 </tr>
             </tbody>
         </table>

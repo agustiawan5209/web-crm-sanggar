@@ -95,7 +95,7 @@ class LaporanController extends Controller
     public function cetakPDF()
     {
         // Ambil data penyewaan berdasarkan id
-        $data = Penyewaan::where('jenis', Request::input('type'))
+        $data = Penyewaan::where('jenis', Request::input('type'))->with(['pembayaran'])
             ->whereBetween('created_at', Request::only('start_date', 'end_date'))
             ->get();
 
@@ -117,7 +117,7 @@ class LaporanController extends Controller
         ];
 
         // Load view untuk PDF dan pass data penyewaan
-        $pdf = PDF::loadView('pdf.penyewaan', compact('data', 'columns', 'total_pendapatan'));
+        $pdf = PDF::loadView('pdf.penyewaan', compact('data', 'columns', 'total_pendapatan'))->setPaper('a4', 'landscape');;
 
         // Unduh PDF
         return $pdf->download('penyewaan.pdf');
