@@ -53,7 +53,8 @@ class ReviewController extends Controller
     {
         $data = $request->all();
         $data['user_id'] = auth()->user()->id;
-        $data['user'] = auth()->user();
+        // $data['user'] = auth()->user();
+
         $review = Review::create($data);
 
         return redirect()->back()->with("message", "Review Berhasil Diberikan");

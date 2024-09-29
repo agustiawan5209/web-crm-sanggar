@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     public function index(){
-        $penyewaan = Penyewaan::all();
+        $penyewaan = Penyewaan::where('jenis',  'alat')->get();
         return Inertia::render('Dashboard', [
             'penyewaan'=> [
                 'count'=> $penyewaan->count(),

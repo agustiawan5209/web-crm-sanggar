@@ -65,7 +65,7 @@ const submitReview = () => {
                     class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     placeholder="Write your Komentar here..." required></textarea>
             </div>
-            <div class="mb-4">
+            <!-- <div class="mb-4">
                 <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
                 <input v-model="form.name" id="name" type="text"
                     class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -76,7 +76,7 @@ const submitReview = () => {
                 <input v-model="form.email" id="email" type="email"
                     class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     placeholder="Your email" required>
-            </div>
+            </div> -->
             <button type="submit"
                 class="w-full py-2 px-4 bg-indigo-600 text-white font-semibold rounded-md shadow hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Submit
                 Review</button>

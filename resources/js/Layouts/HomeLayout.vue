@@ -80,7 +80,7 @@ const auth = usePage().props.auth;
                 <li class="md:ml-6 mt-3 md:mt-0">
                     <Link
                         class="inline-block font-semibold px-4 py-2 text-white bg-blue-600 md:bg-transparent md:text-white border border-white rounded"
-                        :href="route('phone-login')">Masuk</Link>
+                        :href="route('login')">Masuk</Link>
                 </li>
             </div>
         </nav>

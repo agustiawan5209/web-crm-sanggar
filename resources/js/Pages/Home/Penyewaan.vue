@@ -69,6 +69,7 @@ watch(JumlahDiskon, (newValue) => {
     <Head title="Checkout" />
     <ModalPayment :show="showModal" :produk="produk" :jenisproduk="tipe" :quantity="quantity" :diskon="HargaDiskon"
         :subtotal="subTotal" maxWidth="2xl">
+        <span class="absolute top-3 left-10 text-lg cursor-pointer" @click="showModal = false">X</span>
 
     </ModalPayment>
     <HomeLayout>

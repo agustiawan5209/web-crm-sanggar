@@ -118,6 +118,8 @@ function submit() {
         <section class="body-font h-screen bg-gray-100 text-gray-600 overflow-y-auto">
             <div class="container mx-auto flex max-w-full flex-wrap justify-center rounded-lg bg-white px-5 py-10">
                 <!-- QR Code Number Account & Uploadfile -->
+                <span class="absolute top-3 left-10 text-lg cursor-pointer" @click="showModal = false">X</span>
+
                 <!-- Step Checkout -->
                 <div class="mt-8 max-w-sm md:mb-10 md:ml-10 ">
                     <div class="relative flex pb-12">

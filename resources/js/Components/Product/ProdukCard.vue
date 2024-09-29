@@ -26,6 +26,8 @@ console.log(props.produk)
 
 <template>
     <Modal :show="ShowModal">
+        <span class="absolute top-3 left-10 text-lg cursor-pointer" @click="ShowModal = false">X</span>
+
         <FormRating :produk="idProduk" :penyewaan="idPenyewaan" :jenis="produk.jenis" @reviewSubmitted="closeModal">
         </FormRating>
     </Modal>
