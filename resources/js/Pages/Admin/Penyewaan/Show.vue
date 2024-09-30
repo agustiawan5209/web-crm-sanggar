@@ -304,6 +304,12 @@ function submitPenyewaanUpdate() {
                                         </td>
                                     </tr>
                                     <tr class="">
+                                        <td class="text-sm border-b py-2 font-bold capitalize">Sub Total Pembayaran</td>
+                                        <td>:</td>
+                                        <td class="text-sm border-b text-gray-800"> {{ penyewaan.pembayaran.sub_total_transaksi }}
+                                        </td>
+                                    </tr>
+                                    <tr class="">
                                         <td class="text-sm border-b py-2 font-bold capitalize">Tanggal Pembayaran</td>
                                         <td>:</td>
                                         <td class="text-sm border-b text-gray-800"> {{ penyewaan.pembayaran.tgl }}

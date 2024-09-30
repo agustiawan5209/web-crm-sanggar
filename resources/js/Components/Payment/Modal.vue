@@ -47,6 +47,7 @@ const Form = useForm({
     jenis_bayar: 'Lunas',
     jenis: props.jenisproduk,
     jumlah_bayar: harga,
+    total:  harga,
     bukti: '',
     tgl_pembayaran: '',
     tgl_pengambilan: '',
@@ -317,7 +318,7 @@ function resetModal() {
                             <h1 class="font-laonoto mt-4 text-center text-xl font-bold">Form Pembayaran
                             </h1>
                             <p class="mt-2 text-center font-semibold text-gray-600">{{ produk.nama }}</p>
-                            <p class="mt-1 text-center font-medium text-red-500">{{ produk.rupiah }}
+                            <p class="mt-1 text-center font-medium text-red-500">{{ harga }}
                             </p>
                         </div>
                         <!-- component -->
@@ -349,7 +350,7 @@ function resetModal() {
                         <div class="bg-white rounded-lg shadow-lg p-6">
                             <h2 class="text-lg font-medium mb-6">Informasi Penyewaan</h2>
                             <div class="space-y-4">
-                                <div class="col-span-full">
+                                <div class="col-span-full" v-if="jenisproduk== 'jasa'">
                                     <label for="jenis_bayar" class="text-base w-full">Jenis Pembayaran</label>
                                     <div class="flex gap-7">
                                         <div class="flex items-center gap-4">

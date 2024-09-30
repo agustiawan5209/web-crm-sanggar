@@ -120,7 +120,8 @@ class PenyewaanController extends Controller
         Pembayaran::create([
             'kode_transaksi' => $this->generateKodeTransaksi(),
             'penyewaan_id' => $penyewaan->id,
-            'total' => $request->jumlah_bayar,
+            'total'=> Request::input('jumlah_bayar'),
+            'sub_total'=> Request::input('total'),
             'jenis_bayar' => 'Bayar Nanti',
 
             'status' => "PENDING",
@@ -155,7 +156,8 @@ class PenyewaanController extends Controller
             'kode_transaksi' => $this->generateKodeTransaksi(),
             'bukti' => $random_name_photo,
             'penyewaan_id' => $penyewaan->id,
-            'total' => $request->jumlah_bayar,
+            'total'=> Request::input('jumlah_bayar'),
+            'sub_total'=> Request::input('total'),
             'jenis_bayar' => $request->jenis_bayar,
             'tgl' => $request->tgl_pembayaran,
             'status' => "PENDING",

@@ -24,20 +24,6 @@ const props = defineProps({
 const JumlahDiskon = ref(0);
 const User = usePage().props.auth.user;
 
-const getDiskon = async () => {
-    try {
-        const response = await axios.get(route('Api.diskon.get_diskon', { jumlah: props.quantity,user_id: User.id }));
-        if(response.status == 200){
-            JumlahDiskon.value = response.data;
-        }
-    } catch (err) {
-        console.error(err);
-    }
-}
-
-onMounted(() => {
-    getDiskon();
-})
 
 
 
@@ -49,7 +35,7 @@ const funModal = () => {
 const closeModal = () => {
     showModal.value = false
 }
-var subTotal = props.produk.harga * props.quantity
+const subTotal = ref(props.produk.harga * props.quantity)
 function formatRupiah(number) {
     return new Intl.NumberFormat('id-ID', {
         style: 'currency',
@@ -58,10 +44,28 @@ function formatRupiah(number) {
     }).format(number);
 }
 const HargaDiskon = ref(0);
-watch(JumlahDiskon, (newValue) => {
-    HargaDiskon.value = subTotal * (JumlahDiskon.value / 100);
-    subTotal = subTotal - HargaDiskon.value;
-});
+// watch(JumlahDiskon, (newValue) => {
+//     HargaDiskon.value = subTotal * (JumlahDiskon.value / 100);
+//     subTotal = subTotal - HargaDiskon.value;
+// });
+
+const getDiskon = async () => {
+    try {
+        const response = await axios.get(route('Api.diskon.get_diskon', { jumlah: props.quantity, user_id: User.id }));
+        if (response.status == 200) {
+            JumlahDiskon.value = response.data;
+            HargaDiskon.value = subTotal.value * (JumlahDiskon.value / 100);
+            subTotal.value = subTotal.value - HargaDiskon.value;
+        }
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+onMounted(async () => {
+    await getDiskon();
+})
+console.log(subTotal.value, HargaDiskon.value)
 </script>
 
 <template>

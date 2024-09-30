@@ -34,15 +34,35 @@ const props = defineProps({
     }
 })
 
+
+
 var harga = props.pembayaran.total;
 const JumlahDp = ref(harga / 2);
 const Form = useForm({
     slug: props.pembayaran.penyewaan.id,
-    jenis_bayar: 'Lunas',
+    jenis_bayar: "Lunas",
     jenis: props.jenisproduk,
+    total:  harga,
     jumlah_bayar: harga,
     bukti: '',
+    tgl: '',
 })
+
+// Jumlah Bayar
+const statusBayar = ref(null);
+
+watch(statusBayar, (value) => {
+
+    Form.jenis_bayar = value;
+    if (value == 'DP') {
+        Form.jumlah_bayar = harga / 2;
+    }
+    if (value == 'Lunas') {
+        Form.jumlah_bayar = harga;
+    }
+})
+
+
 const showModal = ref(false);
 
 // Data bukti Bayar || Gambar
@@ -85,6 +105,13 @@ function onFileChange(event) {
 //
 // Submit Penyewaan
 function submit() {
+    Form.jenis_bayar = statusBayar.value;
+    if (Form.jenis_bayar == 'DP') {
+        Form.jumlah_bayar = harga / 2;
+    }
+    if (Form.jenis_bayar == 'Lunas') {
+        Form.jumlah_bayar = harga;
+    }
     Form.post(route('Customer.penyewaan.store.pay.later'), {
         preserveState: true,
         onFinish: () => {
@@ -222,7 +249,22 @@ function submit() {
                             <h2 class="text-lg font-medium mb-6">Informasi Penyewaan</h2>
                             <div class="space-y-4">
                                 <div class="grid grid-cols-2 gap-3">
-
+                                    <div class="col-span-full" v-if="pembayaran.penyewaan.jenis== 'jasa'">
+                                        <label for="jenis_bayar" class="text-base w-full">Jenis Pembayaran</label>
+                                        <div class="flex gap-7">
+                                            <div class="flex items-center gap-4">
+                                                <input id="tersedia" type="radio" value="DP" v-model="statusBayar"
+                                                    class="text-gray-900" />
+                                                <label for="tersedia" class="text-sm w-full">DP</label>
+                                            </div>
+                                            <div class="flex items-center gap-4">
+                                                <input id="tidak_tersedia" type="radio" value="Lunas" v-model="statusBayar"
+                                                    class="text-gray-900" />
+                                                <label for="tidak_tersedia" class="text-sm w-full">Lunas</label>
+                                            </div>
+                                        </div>
+                                        <InputError :message="Form.errors.jenis_bayar" />
+                                    </div>
                                     <div class="col-span-2">
                                         <label for="jumlah_bayar"
                                             class="block text-sm font-medium text-gray-700 mb-2">Jumlah
@@ -234,13 +276,13 @@ function submit() {
 
                                     </div>
                                     <div class="col-span-2">
-                                        <label for="tgl_pembayaran"
+                                        <label for="tgl"
                                             class="block text-sm font-medium text-gray-700 mb-2">Tanggal
                                             Pembayaran</label>
-                                        <input type="date" v-model="Form.tgl_pembayaran" id="tgl_pembayaran"
+                                        <input type="date" v-model="Form.tgl" id="tgl"
                                             placeholder="MM / YY"
                                             class="w-full py-3 px-4 border border-gray-400 rounded-lg focus:outline-none focus:border-blue-500">
-                                        <InputError :message="Form.errors.tgl_pembayaran" />
+                                        <InputError :message="Form.errors.tgl" />
 
                                     </div>
                                 </div>
@@ -370,7 +412,7 @@ function submit() {
                                         <col class="w-3">
                                         <col>
                                     </colgroup>
-                                    <tr class="" v-if="pembayaran.bukti_bayar != null">
+                                    <tr class="" v-if="pembayaran.bukti != null">
                                         <td class="text-sm border-b py-2 font-bold capitalize">Bukti Bayar</td>
                                         <td>:</td>
                                         <td class="text-sm border-b text-gray-800">
@@ -390,6 +432,12 @@ function submit() {
                                         <td class="text-sm border-b py-2 font-bold capitalize">Total Pembayaran</td>
                                         <td>:</td>
                                         <td class="text-sm border-b text-gray-800"> {{ pembayaran.total_transaksi }}
+                                        </td>
+                                    </tr>
+                                    <tr class="">
+                                        <td class="text-sm border-b py-2 font-bold capitalize">Sub Total Pembayaran</td>
+                                        <td>:</td>
+                                        <td class="text-sm border-b text-gray-800"> {{ pembayaran.sub_total_transaksi }}
                                         </td>
                                     </tr>
                                     <tr class="" v-if="pembayaran.tgl != null">

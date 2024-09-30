@@ -17,6 +17,7 @@ class Pembayaran extends Model
         'kode_transaksi',
         'bukti',
         'penyewaan_id',
+        'sub_total',
         'total',
         'jenis_bayar',
         'tgl',
@@ -27,6 +28,7 @@ class Pembayaran extends Model
     protected $appends = [
         'bukti_url',
         'total_transaksi',
+        'sub_total_transaksi',
         'produk',
         'human_format',
     ];
@@ -65,6 +67,12 @@ class Pembayaran extends Model
     {
         return new Attribute(
             get: fn() => "Rp." . number_format($this->total, 0, 2),
+        );
+    }
+    public function subTotalTransaksi(): Attribute
+    {
+        return new Attribute(
+            get: fn() => "Rp." . number_format($this->sub_total, 0, 2),
         );
     }
 

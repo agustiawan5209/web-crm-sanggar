@@ -94,7 +94,10 @@ class PenyewaanController extends Controller
         $pembayaran->update([
             'bukti' => $random_name_photo,
             'jenis_bayar' => Request::input('jenis_bayar'),
-            'status' => "Telah Dibayar",
+            'total'=> Request::input('jumlah_bayar'),
+            'sub_total'=> Request::input('total'),
+            'tgl'=> Request::input('tgl'),
+            'status' => "PENDING",
         ]);
 
         return redirect()->route('Customer.Pembayaran.show', ['slug' => $pembayaran->id])->with('message', 'Data Penyewaan Berhasil Di Update!!');
