@@ -74,6 +74,7 @@ class Penyewaan extends Model
                     $query->where('nama', 'like', '%' . $search . '%');
                 });
         })->when($filter['order'] ?? null, function ($query, $order) {
+            // dd($order);
             $query->orderBy('id', $order);
         });
     }

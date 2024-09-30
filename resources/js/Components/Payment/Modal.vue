@@ -162,10 +162,21 @@ const payLaterTrue = () => {
         paylaterProduk();
     }
 }
+
+function resetModal() {
+    modalPay.value = true;
+    payLater.value = true;
+    payNow.value = false;
+
+    typePayment.value = 0;
+}
 </script>
 
 <template>
     <Modal :show="show">
+        <slot />
+
+
         <section v-if="modalPay == true" class="body-font h-max bg-gray-100 text-gray-600 overflow-y-auto">
             <div
                 class="container mx-auto flex max-w-full flex-col items-center justify-center rounded-lg bg-white px-5 py-10">
@@ -191,7 +202,11 @@ const payLaterTrue = () => {
 
         <!-- Bayar Nanti -->
         <section v-if="modalPay == false && payLater == true"
-            class="body-font h-max bg-gray-100 text-gray-600 overflow-y-auto">
+            class="body-font h-max bg-gray-100 text-gray-600 overflow-y-auto relative">
+            <button v-if="modalPay == false" type="button" class="absolute top-10 left-10 text-lg cursor-pointer" @click="resetModal()">
+                <font-awesome-icon :icon="['fas', 'square-xmark']" class="text-read " />
+                kembali
+            </button>
             <div class="container mx-auto flex max-w-full flex-wrap justify-center rounded-lg bg-white px-5 py-10">
                 <!-- QR Code Number Account & Uploadfile -->
 
@@ -228,7 +243,11 @@ const payLaterTrue = () => {
         </section>
         <!-- Bayar Sekarang -->
         <section v-if="modalPay == false && payNow == true"
-            class="body-font h-screen bg-gray-100 text-gray-600 overflow-y-auto">
+            class="body-font h-screen bg-gray-100 text-gray-600 overflow-y-auto relative">
+            <button v-if="modalPay == false" type="button" class="absolute top-10 left-10 text-lg cursor-pointer" @click="resetModal()">
+                <font-awesome-icon :icon="['fas', 'square-xmark']" class="text-read " />
+                kembali
+            </button>
             <div class="container mx-auto flex max-w-full flex-wrap justify-center rounded-lg bg-white px-5 py-10">
                 <!-- QR Code Number Account & Uploadfile -->
                 <!-- Step Checkout -->
@@ -330,7 +349,7 @@ const payLaterTrue = () => {
                         <div class="bg-white rounded-lg shadow-lg p-6">
                             <h2 class="text-lg font-medium mb-6">Informasi Penyewaan</h2>
                             <div class="space-y-4">
-                                <div class="col-span-full" v-if="jenisproduk == 'jasa'">
+                                <div class="col-span-full">
                                     <label for="jenis_bayar" class="text-base w-full">Jenis Pembayaran</label>
                                     <div class="flex gap-7">
                                         <div class="flex items-center gap-4">
