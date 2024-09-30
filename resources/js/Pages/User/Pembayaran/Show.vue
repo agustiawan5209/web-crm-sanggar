@@ -398,6 +398,12 @@ function submit() {
                                         <td class="text-sm border-b text-gray-800"> {{ pembayaran.tgl }}
                                         </td>
                                     </tr>
+                                    <tr class="" v-if="pembayaran.jenis_bayar == 'Bayar Nanti'">
+                                        <td class="text-sm border-b py-2 font-bold capitalize">Estimasi Pembayaran</td>
+                                        <td>:</td>
+                                        <td class="text-sm border-b text-gray-800"> {{ pembayaran.human_format }}
+                                        </td>
+                                    </tr>
                                     <tr class="">
                                         <td class="text-sm border-b py-2 font-bold capitalize">Status Pembayaran</td>
                                         <td>:</td>

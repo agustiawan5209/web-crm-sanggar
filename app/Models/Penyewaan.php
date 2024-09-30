@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
 class Penyewaan extends Model
 {
@@ -47,7 +48,32 @@ class Penyewaan extends Model
     protected $appends = [
         'kode_transaksi',
         'total_bayar',
+        'human_format'
     ];
+
+    // Accessor untuk formatted created_at
+    public function humanFormat() : Attribute
+    {
+        return new Attribute(
+            get: function() {
+                $createdAt = Carbon::parse($this->created_at);
+                $expirationTime = $createdAt->addHour();
+                $now = Carbon::now();
+
+                if ($now->greaterThan($expirationTime)) {
+                    return "Waktu pembayaran sudah berakhir.";
+                }
+
+                $remainingTime = $now->diffForHumans($expirationTime, [
+                    'syntax' => Carbon::DIFF_RELATIVE_TO_NOW,
+                    'parts' => 2,
+                    'short' => true,
+                ]);
+
+                return "Sisa waktu pembayaran: $remainingTime";
+            }
+        );
+    }
 
     public function kodeTransaksi(): Attribute
     {

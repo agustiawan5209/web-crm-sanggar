@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -26,8 +27,37 @@ class Pembayaran extends Model
     protected $appends = [
         'bukti_url',
         'total_transaksi',
-        'produk'
+        'produk',
+        'human_format',
     ];
+
+    // Accessor untuk formatted created_at
+    public function humanFormat() : Attribute
+    {
+        return new Attribute(
+            get: function() {
+                $createdAt = Carbon::parse($this->created_at);
+                $expirationTime = $createdAt->addHour();
+                $now = Carbon::now();
+
+                if($this->jenis_bayar == 'Bayar Nanti'){
+                    if ($now->greaterThan($expirationTime)) {
+                        // Hapus data jika waktu pembayaran sudah berakhir
+                        Penyewaan::find($this->penyewaan_id)->delete();
+                        return "Waktu pembayaran sudah berakhir dan data telah dihapus.";
+                    }
+                }
+
+                $remainingTime = $now->diffForHumans($expirationTime, [
+                    'syntax' => Carbon::DIFF_RELATIVE_TO_NOW,
+                    'parts' => 2,
+                    'short' => true,
+                ]);
+
+                return "Sisa waktu pembayaran: $remainingTime";
+            }
+        );
+    }
 
     public function totalTransaksi(): Attribute
     {
