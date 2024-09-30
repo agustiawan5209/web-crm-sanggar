@@ -32,15 +32,17 @@ class Pembayaran extends Model
     ];
 
     // Accessor untuk formatted created_at
-    public function humanFormat() : Attribute
+    public function humanFormat(): Attribute
     {
         return new Attribute(
-            get: function() {
+            get: function () {
+                // Set locale ke bahasa Indonesia
+                Carbon::setLocale('id');
                 $createdAt = Carbon::parse($this->created_at);
                 $expirationTime = $createdAt->addHour();
                 $now = Carbon::now();
 
-                if($this->jenis_bayar == 'Bayar Nanti'){
+                if ($this->jenis_bayar == 'Bayar Nanti') {
                     if ($now->greaterThan($expirationTime)) {
                         // Hapus data jika waktu pembayaran sudah berakhir
                         Penyewaan::find($this->penyewaan_id)->delete();
@@ -99,9 +101,9 @@ class Pembayaran extends Model
 
     public function scopeFilterOrderBy($query, $order)
     {
-        if($order == null){
-            $query->orderBy('id','desc');
-        }else{
+        if ($order == null) {
+            $query->orderBy('id', 'desc');
+        } else {
             $query->when($order ?? null, function ($query) use ($order) {
                 $query->orderBy('id', $order);
             });
