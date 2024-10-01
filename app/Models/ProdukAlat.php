@@ -45,4 +45,14 @@ class ProdukAlat extends Model
             $query->orderBy('id', $order);
         });
     }
+
+    public function reduceStock($quantity)
+    {
+        if ($this->stok >= $quantity) {
+            $this->stok -= $quantity;
+            $this->save();
+        } else {
+            throw new \Exception("Stok tidak mencukupi.");
+        }
+    }
 }

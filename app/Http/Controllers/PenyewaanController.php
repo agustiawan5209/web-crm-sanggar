@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Request;
 use App\Http\Requests\StorePenyewaanRequest;
 use App\Http\Requests\UpdatePenyewaanRequest;
 use App\Http\Requests\PaylaterPenyewaanRequest;
+use App\Models\ProdukAlat;
 
 class PenyewaanController extends Controller
 {
@@ -105,6 +106,19 @@ class PenyewaanController extends Controller
     {
         // dd($request->quantity == null ? 1 : $request->quantity);
         $user = User::with(['customer'])->find(Auth::user()->id);
+
+        if($request->jenis == 'alat'){
+
+            $produk = ProdukAlat::find($request->produk['id']);
+
+            try {
+                // Mengurangi stok
+                $produk->reduceStock($request->quantity);
+
+            } catch (\Exception $e) {
+                return redirect()->route('produk.detail', ['slug'=> $produk->id, 'tipe'=> 'alat']);
+            }
+        }
         $penyewaan = Penyewaan::create([
             'customer_id' => $user->customer->id,
             'customer_user' => $user,
@@ -136,6 +150,19 @@ class PenyewaanController extends Controller
     {
         // dd(json_encode($request->produk));
         $user = User::with(['customer'])->find(Auth::user()->id);
+
+        if($request->jenis == 'alat'){
+
+            $produk = ProdukAlat::find($request->produk['id']);
+
+            try {
+                // Mengurangi stok
+                $produk->reduceStock($request->quantity);
+
+            } catch (\Exception $e) {
+                return redirect()->route('produk.detail', ['slug'=> $produk->id, 'tipe'=> 'alat']);
+            }
+        }
         $penyewaan = Penyewaan::create([
             'customer_id' => $user->customer->id,
             'customer_user' => $user,

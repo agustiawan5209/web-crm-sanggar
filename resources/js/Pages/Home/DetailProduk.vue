@@ -1,9 +1,23 @@
 <script setup>
-import { defineProps, ref } from 'vue';
-import { Link, Head } from '@inertiajs/vue3';
+import { defineProps, ref, inject, onMounted } from 'vue';
+import { Link, Head, usePage } from '@inertiajs/vue3';
 import HomeLayout from '@/Layouts/HomeLayout.vue';
 import Paket from '@/Components/Product/Paket.vue';
 import PaketAlat from '@/Components/Product/PaketAlat.vue';
+const swal = inject('$swal')
+const page = usePage();
+
+onMounted(() => {
+    if (page.props.message !== null) {
+        swal({
+            icon: "info",
+            title: 'Informasi',
+            text: page.props.message,
+            showConfirmButton: true,
+            timer: 2000
+        });
+    }
+})
 
 const props = defineProps({
     produk: {
@@ -44,7 +58,21 @@ const upgrades = ref({
 const quantity = ref(1);
 
 const increaseQuantity = () => {
-    quantity.value++;
+    if(props.tipe == 'alat' && props.produk.stok > 2){
+        console.log(props.produk.stok)
+        if(quantity.value < props.produk.stok){
+            quantity.value++;
+        }else{
+            swal({
+                icon: 'error',
+                title: 'Stok Produk Kurang',
+                text: 'Stok Produk Sisa = ' + props.produk.stok,
+            })
+        }
+    }
+    if(props.tipe == 'jasa'){
+        quantity.value++;
+    }
 };
 
 const decreaseQuantity = () => {

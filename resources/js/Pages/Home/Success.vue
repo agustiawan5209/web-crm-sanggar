@@ -3,6 +3,7 @@ import {Link, Head} from '@inertiajs/vue3';
 </script>
 
 <template>
+    <Head title="Success"/>
     <div>
         <!-- component -->
         <div class="bg-gray-100 h-screen">
