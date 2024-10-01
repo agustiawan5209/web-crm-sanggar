@@ -8,6 +8,9 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import InputError from '@/Components/InputError.vue';
 import Modal from '@/Components/Modal.vue';
+
+
+const swal = inject('$swal')
 const props = defineProps({
     search: {
         type: String,
@@ -149,6 +152,7 @@ function showPembayaranModal(item) {
 
 function closePembayaranModal() {
     UpdateStatusCustomer.value = false;
+
 }
 
 function submitStatus() {
@@ -158,6 +162,7 @@ function submitStatus() {
             console.log(err);
         },
         onSuccess: () => {
+            Form.reset()
             closePembayaranModal()
             swal({
                 icon: "info",

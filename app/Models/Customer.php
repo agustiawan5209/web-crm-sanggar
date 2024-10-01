@@ -46,19 +46,21 @@ class Customer extends Model
             get: fn() => $this->user()->first()->phone,
         );
     }
+
+
     public function statusPelanggan(): Attribute
     {
         $s = "0 = Pelanggan Baru, 1=Pelanggan Aktif, 2 = Pelanggan Lama";
 
         $status = $this->status;
         switch ($status) {
-            case '0' || 0:
+            case '0':
                 $value = "Pelanggan Baru";
                 break;
-            case '1' || 1:
+            case '1':
                 $value = "Pelanggan Aktif";
                 break;
-            case '2' || 2:
+            case '2':
                 $value = "Pelanggan Lama";
                 break;
 
