@@ -280,7 +280,7 @@ function loadMore(){
 
                         <div class="w-full mt-4" v-if="produk.data.length > 9">
                             <div href="#" @click="loadMore()" class="w-full cursor-pointer border-b border-gray-300 text-white">
-                                <span>Load More........</span>
+                                <span>Tampilkan Lagi........</span>
                             </div>
                         </div>
                     </div>
