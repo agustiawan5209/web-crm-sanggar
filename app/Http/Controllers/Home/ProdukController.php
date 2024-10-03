@@ -13,15 +13,17 @@ class ProdukController extends Controller
     public function produk_jasa(Request $request)
     {
         return Inertia::render('Home/Produk', [
-            'produk' => ProdukJasa::with(['image'])->paginate(10),
+            'produk' => ProdukJasa::with(['image'])->paginate($request->p),
             'tipe' => 'jasa',
+            'p'=> $request->p == null ? 10: $request->p,
         ]);
     }
     public function produk_alat(Request $request)
     {
         return Inertia::render('Home/Produk', [
-            'produk' => ProdukAlat::with(['image'])->paginate(10),
+            'produk' => ProdukAlat::with(['image'])->paginate($request->p),
             'tipe' => 'alat',
+            'p'=> $request->p == null ? 10: $request->p,
         ]);
     }
 

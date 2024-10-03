@@ -1,6 +1,6 @@
 <script setup>
 import { defineProps, ref } from 'vue';
-import { Link, Head } from '@inertiajs/vue3';
+import { Link, Head, useForm } from '@inertiajs/vue3';
 import HomeLayout from '@/Layouts/HomeLayout.vue';
 import Paket from '@/Components/Product/Paket.vue'
 import PaketAlat from '@/Components/Product/PaketAlat.vue'
@@ -14,7 +14,33 @@ const props = defineProps({
         type: String,
         default:'',
     },
+    p:{
+        type: Number,
+        default:10,
+    },
 })
+
+const Form = useForm({
+    p: props.p,
+})
+function loadMore(){
+    var router = '';
+    if(props.tipe == 'jasa'){
+        router = route('all.produk_jasa');
+    }else if(props.tipe == 'alat'){
+        router = route('all.produk_alat');
+
+    }
+
+    Form.p = Form.p +10;
+    Form.get((router), {
+        preserveState:true,
+        preserveScroll:true,
+        onError:(err)=>{
+            console.log(err);
+        }
+    })
+}
 </script>
 
 <template>
@@ -252,10 +278,10 @@ const props = defineProps({
                         <Paket v-if="tipe =='jasa'"  :tipe="tipe" :jasa="produk.data"></Paket>
                         <PaketAlat v-if="tipe =='alat'" :tipe="tipe" :alat="produk.data"></PaketAlat>
 
-                        <div class="w-full mt-4" v-if="produk.data.length > 10">
-                            <a href="#" class="w-full border-b border-gray-300 text-white">
+                        <div class="w-full mt-4" v-if="produk.data.length > 9">
+                            <div href="#" @click="loadMore()" class="w-full cursor-pointer border-b border-gray-300 text-white">
                                 <span>Load More........</span>
-                            </a>
+                            </div>
                         </div>
                     </div>
                 </div>
