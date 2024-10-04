@@ -141,7 +141,7 @@ class PenyewaanController extends Controller
             'status' => "PENDING",
         ]);
 
-        return redirect()->route('payment.success');
+        return redirect()->route('Customer.Pembayaran.index');
     }
     /**
      * Store a newly created resource in storage.
