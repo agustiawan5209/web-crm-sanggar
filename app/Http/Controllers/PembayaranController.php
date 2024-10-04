@@ -87,6 +87,12 @@ class PembayaranController extends Controller
     public function update(UpdatePembayaranRequest $request, Pembayaran $pembayaran)
     {
         $pembayaran = Pembayaran::find($request->slug);
+        if($request->status_bayar =='SELESAI'){
+            $pembayaran->update([
+                'jenis_bayar'=> 'Lunas',
+                'total'=> $pembayaran->sub_total,
+            ]);
+        }
         $pembayaran->update([
             'status'=> $request->status_bayar,
             'keterangan'=> $request->keterangan,

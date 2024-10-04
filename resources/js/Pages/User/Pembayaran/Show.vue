@@ -36,7 +36,7 @@ const props = defineProps({
 
 
 
-var harga = props.pembayaran.total;
+var harga = props.pembayaran.sub_total;
 const JumlahDp = ref(harga / 2);
 const Form = useForm({
     slug: props.pembayaran.penyewaan.id,

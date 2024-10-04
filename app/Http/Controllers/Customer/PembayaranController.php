@@ -93,9 +93,11 @@ class PembayaranController extends Controller
         $pembayaran->update([
             'status' => $request->status,
             'keterangan' => $request->keterangan,
+            'total'=> Request::input('jumlah_bayar'),
+            'sub_total'=> Request::input('total'),
         ]);
 
-        return redirect()->route('Penyewaan.show', ['slug' => $request->slug])->with('message', 'Data Pembayaran Berhasil Di Update!!');
+        return redirect()->route('Pembayaran.show', ['slug' => $request->slug])->with('message', 'Data Pembayaran Berhasil Di Update!!');
     }
 
     /**
