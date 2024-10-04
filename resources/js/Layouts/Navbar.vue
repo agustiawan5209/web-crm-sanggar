@@ -104,7 +104,7 @@ const toggleDropdownLaporan = () => {
                 <span class="ml-4">Transaksi</span>
             </NavLink>
         </li>
-        <li class="relative" v-if="roleToCheck('Admin')">
+        <li class="relative" v-if="roleToCheck('Admin') || roleToCheck('Bendahara')">
             <NavLink :href="route('Riwayat.index')" :active="route().current('Riwayat.index')">
                 <font-awesome-icon :icon="['fas', 'credit-card']" />
                 <span class="ml-4">Riwayat Penyewaan</span>

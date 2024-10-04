@@ -22,7 +22,7 @@ class DashboardController extends Controller
                 'alat'=> ProdukAlat::all()->count(),
             ],
             'transaksi'=> [
-                'pendapatan'=> 'Rp.'. number_format(Pembayaran::where('status', 'DITERIMA')->sum('total'), 0,2),
+                'pendapatan'=> 'Rp.'. number_format(Pembayaran::where('status', 'SELESAI')->sum('total'), 0,2),
             ]
         ]);
 
