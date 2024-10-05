@@ -91,7 +91,12 @@ class ProdukAlatController extends Controller
      */
     public function destroy(ProdukAlat $produkAlat)
     {
-        $produk = ProdukAlat::find(Request::input('slug'));
+        $produk = ProdukAlat::with(['image'])->find(Request::input('slug'));
+
+        $gambar = new GambarController;
+        foreach ($produk->image as $key => $value) {
+            $gambar->destroy($value->id);
+        }
         $produk->delete();
 
         return redirect()->route('Produk.Alat.index')->with('message', 'Data Produk Alat Berhasil Di Hapus!!');

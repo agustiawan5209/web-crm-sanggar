@@ -22,7 +22,7 @@ class InformationController extends Controller
         $tableName = 'informations'; // Ganti dengan nama tabel yang Anda inginkan
         // $columns = DB::getSchemaBuilder()->getColumnListing($tableName);
         $columns[] = 'id';
-        $columns[] = 'gambar';
+        $columns[] = 'file_video';
         $columns[] = 'title';
         $columns[] = 'description';
         // $columns[] = 'kadaluarsa';
@@ -32,7 +32,7 @@ class InformationController extends Controller
             'table_colums' => array_values(array_diff($columns, ['remember_token', 'password', 'email_verified_at', 'created_at', 'updated_at', 'user_id', 'deskripsi'])),
             'data' => Information::filter(Request::only('search', 'order'))->paginate(10),
             'can' => [
-                'add' => false,
+                'add' => true,
                 'edit' => false,
                 'show' => false,
                 'delete' => true,
@@ -54,14 +54,24 @@ class InformationController extends Controller
      */
     public function store(StoreInformationRequest $request)
     {
-        $photo = Request::file('image');
-        $name_photo = $photo->getClientOriginalName();
-        $random_name_photo = md5($name_photo) . '.' . $photo->getClientOriginalExtension();
+        // $photo = Request::file('image');
+        // $name_photo = $photo->getClientOriginalName();
+        // $random_name_photo = md5($name_photo) . '.' . $photo->getClientOriginalExtension();
+        // $data = $request->all();
+        // if ($request) {
+        //     $photo->storeAs('public/info', $random_name_photo);
+
+        //     $data['image'] = $random_name_photo;
+        // }
+
+        $video = $request->file('video');
+        $name_video = time() .'-'. $video->getClientOriginalName();
+        $random_name_video = $name_video;
         $data = $request->all();
         if ($request) {
-            $photo->storeAs('public/info', $random_name_photo);
+            $video->storeAs('public/info', $random_name_video);
 
-            $data['image'] = $random_name_photo;
+            $data['video'] = $random_name_video;
         }
         $informations = Information::create($data);
 
@@ -108,6 +118,9 @@ class InformationController extends Controller
         if (Storage::exists('public/info/'. $informations->image)){
             Storage::delete('public/info/'. $informations->image);
         }
+        if (Storage::exists('public/info/'. $informations->video)){
+            Storage::delete('public/info/'. $informations->video);
+        }
         $informations->delete();
 
         return redirect()->route('Information.index')->with('message', 'Data Information Berhasil Di Hapus!!');
@@ -117,7 +130,7 @@ class InformationController extends Controller
     // Get Data api
 
     public function getAllData(){
-        $informations = Information::all();
+        $informations = Information::latest()->first();
 
         return response()->json($informations);
     }

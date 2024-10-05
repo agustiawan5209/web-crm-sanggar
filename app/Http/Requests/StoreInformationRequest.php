@@ -22,7 +22,8 @@ class StoreInformationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image'=> 'required|image',
+            // 'image'=> 'required|image',
+            'video' => 'required|max:50000',
             'title'=> 'required|string|max:100',
             'description'=> 'required|string|max:1000'
         ];

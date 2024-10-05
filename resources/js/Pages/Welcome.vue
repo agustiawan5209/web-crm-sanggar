@@ -2,7 +2,7 @@
 import { Head, Link } from '@inertiajs/vue3';
 import HomeLayout from '@/Layouts/HomeLayout.vue';
 import Pricing from '@/Components/Product/Pricing.vue'
-import Carousel from '@/Components/Carousel.vue'
+import VideoBanner from '@/Components/VideoBanner.vue'
 import { defineProps } from 'vue';
 
 const props = defineProps({
@@ -18,7 +18,7 @@ const props = defineProps({
     <Head title="Welcome" />
     <HomeLayout class="w-full">
         <!-- start hero -->
-        <!-- <Carousel></Carousel> -->
+        <VideoBanner></VideoBanner>
         <div class="bg-gray-100 block">
             <div class="bg-white dark:bg-gray-800 flex relative z-20 items-center overflow-hidden">
                 <div class="container mx-auto px-6 flex relative py-16">

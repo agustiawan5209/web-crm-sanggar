@@ -12,18 +12,26 @@ class Information extends Model
 
     protected $fillable = [
         'image',
+        'video',
         'title',
         'description',
     ];
 
     protected $appends = [
         'gambar',
+        'file_video'
     ];
 
     public function gambar(): Attribute
     {
         return new Attribute(
             get: fn()=> asset('storage/info/'. $this->image),
+        );
+    }
+    public function fileVideo(): Attribute
+    {
+        return new Attribute(
+            get: fn()=> asset('storage/info/'. $this->video),
         );
     }
 

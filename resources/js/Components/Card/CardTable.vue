@@ -241,6 +241,12 @@ function truncateText(text) {
                                         <span v-else-if="col == 'gambar' || col =='image' ">
                                             <img :src="item[col]" class="w-64 object-scale-down" alt="">
                                         </span>
+                                        <span v-else-if="col == 'video' || col =='file_video' ">
+                                            <video width="320" height="240" controls>
+                                                <source :src="item[col]" type="video/mp4">
+                                                Your browser does not support the video tag.
+                                              </video>
+                                        </span>
                                         <span v-else-if="col == 'deskripsi' || col == 'keterangan'">
                                             <p v-html="truncateText(item[col])"></p>
                                         </span>

@@ -91,6 +91,10 @@ class ProdukJasaController extends Controller
     public function destroy(ProdukJasa $produkJasa)
     {
         $produk = ProdukJasa::find(Request::input('slug'));
+        $gambar = new GambarController;
+        foreach ($produk->image as $key => $value) {
+            $gambar->destroy($value->id);
+        }
         $produk->delete();
 
         return redirect()->route('Produk.Jasa.index')->with('message', 'Data Produk Jasa Berhasil Di Hapus!!');
