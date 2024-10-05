@@ -9,9 +9,9 @@
                     </path>
                 </svg>
                 <div class="text-center">
-                    <h3 class="md:text-2xl text-base text-gray-900 font-semibold text-center">Payment Done!</h3>
-                    <p class="text-gray-600 my-2">Thank you for completing your secure online payment.</p>
-                    <p> Have a great day! </p>
+                    <h3 class="md:text-2xl text-base text-gray-900 font-semibold text-center">Penyewaan Berhasil!</h3>
+                    <p class="text-gray-600 my-2">Terima kasih telah melakukan penyewaan.</p>
+                    <p> Semoga Hari anda menyenangkan! </p>
                     <div class="py-10 text-center">
                         <a href="#" class="px-12 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3">
                             GO BACK

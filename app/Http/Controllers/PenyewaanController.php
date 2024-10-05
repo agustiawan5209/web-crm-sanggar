@@ -140,8 +140,15 @@ class PenyewaanController extends Controller
 
             'status' => "PENDING",
         ]);
+        $laporan =new LaporanController();
 
-        return redirect()->route('Customer.Pembayaran.index');
+        $pdf = $laporan->struk($penyewaan->id);
+
+        $penyewaan->update(['struk'=> $pdf]);
+
+
+        return redirect()->route('payment.success', ['slug'=> $penyewaan->id]);
+
     }
     /**
      * Store a newly created resource in storage.
@@ -190,7 +197,13 @@ class PenyewaanController extends Controller
             'status' => "PENDING",
         ]);
 
-        return redirect()->route('payment.success');
+        $laporan =new LaporanController();
+
+        $pdf = $laporan->struk($penyewaan->id);
+
+        $penyewaan->update(['struk'=> $pdf]);
+
+        return redirect()->route('payment.success', ['slug'=> $penyewaan->id]);
     }
 
     /**

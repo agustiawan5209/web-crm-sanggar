@@ -14,6 +14,7 @@ class Penyewaan extends Model
     protected $table = 'penyewaans';
 
     protected $fillable = [
+        'struk',
         'customer_id',
         'customer_user',
         'jenis',
@@ -48,9 +49,18 @@ class Penyewaan extends Model
     protected $appends = [
         'kode_transaksi',
         'total_bayar',
-        'human_format'
+        'human_format',
+        'file_url',
+
     ];
 
+
+    public function fileUrl() : Attribute
+    {
+        return new Attribute(
+            get: fn()=> asset('storage/'. $this->struk),
+        );
+    }
     // Accessor untuk formatted created_at
     public function humanFormat() : Attribute
     {

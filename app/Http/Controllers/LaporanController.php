@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use PDF;
 use Inertia\Inertia;
 use App\Models\Penyewaan;
 use Illuminate\Support\Facades\Request;
-use PDF;
+use Illuminate\Support\Facades\Storage;
 
 class LaporanController extends Controller
 {
@@ -121,5 +122,18 @@ class LaporanController extends Controller
 
         // Unduh PDF
         return $pdf->download('penyewaan.pdf');
+    }
+
+
+    public function struk($id){
+        $data = Penyewaan::with(['pembayaran', 'customer'])->find($id);
+
+        // Load view untuk PDF dan pass data penyewaan
+        $pdf = PDF::loadView('pdf.struk', compact('data'))->setPaper('a4', 'landscape');;
+        $namaPDF = 'struk/'. $data->pembayaran->kode_transaksi . '.pdf';
+
+        Storage::put('public/' . $namaPDF, $pdf->download()->getOriginalContent());
+        // Unduh PDF
+        return $namaPDF;
     }
 }

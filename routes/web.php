@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Home\ProdukController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LaporanController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
@@ -40,3 +41,6 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 require __DIR__.'/customer.php';
 require __DIR__.'/admin.php';
+
+
+Route::get('/struk/{id}', [LaporanController::class, 'struk'])->name('Laporan.struk');

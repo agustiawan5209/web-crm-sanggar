@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('penyewaans', function (Blueprint $table) {
             $table->id();
+            $table->string('struk')->nullable();
             $table->foreignId('customer_id')->constrained('customers');
             $table->json('customer_user');
             $table->string('jenis');
