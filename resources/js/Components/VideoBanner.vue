@@ -1,9 +1,9 @@
 <template>
     <!-- Hero Section -->
-    <section v-if="items"
+    <section v-if="items && items.file_video"
         class="relative h-screen bg-gray-900 text-white flex items-center justify-center">
         <!-- Background Video -->
-        <video autoplay loop muted playsinline @canplaythrough="onVideoCanPlay" @error="onVideoError"
+        <video v-if="items.file_video" autoplay loop muted playsinline @canplay="onVideoCanPlay" @error="onVideoError"
             class="absolute inset-0 w-full h-full object-cover opacity-60">
             <source :src="items.file_video" type="video/mp4">
             Your browser does not support the video tag.
@@ -15,7 +15,7 @@
         <!-- Hero Content -->
         <div class="relative z-10 text-center max-w-2xl px-4">
             <h1 class="text-5xl md:text-7xl font-bold mb-6 animate-fade-in-up">
-                 <span class="text-yellow-400"> {{ items.title }} </span>
+                <span class="text-yellow-400"> {{ items.title }} </span>
             </h1>
             <p class="text-lg md:text-xl mb-8 animate-fade-in-up delay-200" v-html="items.description">
             </p>
@@ -25,7 +25,6 @@
             </Link>
         </div>
     </section>
-
 </template>
 
 <script setup>
@@ -36,20 +35,21 @@ import axios from 'axios';
 
 import 'vue3-carousel/dist/carousel.css'
 
-const items = ref([])
+const items = ref(null) // Awalnya null untuk memastikan ada data yang ditunggu
 const currentIndex = ref(0)
 
 onMounted(async () => {
     try {
         const response = await axios.get(route('information.all.data'))
-        items.value = response.data
+        items.value = response.data // Pastikan struktur data sesuai
     } catch (error) {
         console.error('Error fetching data:', error)
     }
 })
 
+// Fungsi video
 const onVideoCanPlay = (event) => {
-    event.target.play(); // Ensure autoplay works
+    event.target.play(); // Memastikan autoplay berjalan
 };
 const onVideoError = (event) => {
     console.error('Video failed to load:', event);

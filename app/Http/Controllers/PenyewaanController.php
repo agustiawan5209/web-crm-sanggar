@@ -34,6 +34,7 @@ class PenyewaanController extends Controller
         $columns[] = 'jumlah';
         $columns[] = 'tgl_pengambilan';
         $columns[] = 'tgl_pengembalian';
+        $columns[] = 'total_bayar';
         $columns[] = 'status';
 
         return Inertia::render('Admin/Penyewaan/Index', [
@@ -63,6 +64,7 @@ class PenyewaanController extends Controller
         $columns[] = 'produk';
         $columns[] = 'jumlah';
         $columns[] = 'tgl_pengambilan';
+        $columns[] = 'total_bayar';
         $columns[] = 'tgl_pengembalian';
         // $columns[] = 'status';
 
