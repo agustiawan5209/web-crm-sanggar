@@ -149,7 +149,7 @@ class PenyewaanController extends Controller
         $penyewaan->update(['struk'=> $pdf]);
 
 
-        return redirect()->route('payment.success', ['slug'=> $penyewaan->id]);
+        return redirect()->route('Customer.Pembayaran.index', ['slug'=> $penyewaan->id]);
 
     }
     /**
