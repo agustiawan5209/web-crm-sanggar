@@ -64,7 +64,7 @@ function roleToCheck(role) {
                                     class="px-4 py-2 bg-gray-200 rounded-full text-sm text-gray-700 hover:bg-indigo-700 hover:text-gray-200">12
                                     months</button></li>
                         </ul> -->
-                    <div class="w-full p-2 lg:w-1/4 md:w-1/2">
+                    <!-- <div class="w-full p-2 lg:w-1/4 md:w-1/2">
                         <Link :href="route('Penyewaan.index')"
                             class="flex flex-col px-6 py-10 overflow-hidden bg-white hover:bg-gradient-to-br hover:from-purple-400 hover:via-blue-400 hover:to-blue-500 rounded-xl shadow-lg duration-300 hover:shadow-2xl group">
                             <div class="flex flex-row justify-between items-center">
@@ -97,7 +97,7 @@ function roleToCheck(role) {
                                 </span>
                             </div>
                         </Link>
-                    </div>
+                    </div> -->
                     <!-- <div class="w-full p-2 lg:w-1/4 md:w-1/2">
                         <div
                             class="flex flex-col px-6 py-10 overflow-hidden bg-white hover:bg-gradient-to-br hover:from-purple-400 hover:via-blue-400 hover:to-blue-500 rounded-xl shadow-lg duration-300 hover:shadow-2xl group">
@@ -127,7 +127,7 @@ function roleToCheck(role) {
                             </div>
                         </div>
                     </div> -->
-                    <div class="w-full p-2 lg:w-1/4 md:w-1/2">
+                    <!-- <div class="w-full p-2 lg:w-1/4 md:w-1/2">
                         <div
                             class="flex flex-col px-6 py-10 overflow-hidden bg-white hover:bg-gradient-to-br hover:from-purple-400 hover:via-blue-400 hover:to-blue-500 rounded-xl shadow-lg duration-300 hover:shadow-2xl group">
                             <div class="flex flex-row justify-between items-center">
@@ -158,8 +158,8 @@ function roleToCheck(role) {
                                 </span>
                             </div>
                         </div>
-                    </div>
-                    <div class="w-full p-2 lg:w-1/4 md:w-1/2" v-if="roleToCheck('Bendahara')">
+                    </div> -->
+                    <!-- <div class="w-full p-2 lg:w-1/4 md:w-1/2" v-if="roleToCheck('Bendahara')">
                         <Link :href="route('Riwayat.index')"
                             class="flex flex-col px-6 py-10 overflow-hidden bg-white hover:bg-gradient-to-br hover:from-purple-400 hover:via-blue-400 hover:to-blue-500 rounded-xl shadow-lg duration-300 hover:shadow-2xl group">
                             <div class="flex flex-row justify-between items-center">
@@ -183,7 +183,7 @@ function roleToCheck(role) {
                                 </span>
                             </div>
                         </Link>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="relative w-full">
                     <h3 class=" text-xs md:text-base lg:text-lg font-semibold text-center">Kalender Jadwal Penyewaan</h3>
