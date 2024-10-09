@@ -31,6 +31,7 @@ class Pembayaran extends Model
         'sub_total_transaksi',
         'produk',
         'human_format',
+        'file_struk',
     ];
 
     // Accessor untuk formatted created_at
@@ -67,6 +68,12 @@ class Pembayaran extends Model
     {
         return new Attribute(
             get: fn() => "Rp." . number_format($this->total, 0, 2),
+        );
+    }
+    public function fileStruk(): Attribute
+    {
+        return new Attribute(
+            get: fn() => $this->penyewaan()->first()->struk,
         );
     }
     public function subTotalTransaksi(): Attribute

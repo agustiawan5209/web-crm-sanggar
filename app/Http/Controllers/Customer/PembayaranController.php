@@ -24,6 +24,7 @@ class PembayaranController extends Controller
         // $columns = DB::getSchemaBuilder()->getColumnListing($tableName);
         $columns[] = 'id';
         $columns[] = 'kode_transaksi';
+        $columns[] = 'file_struk';
         $columns[] = 'produk';
         $columns[] = 'jenis_bayar';
         $columns[] = 'tgl';

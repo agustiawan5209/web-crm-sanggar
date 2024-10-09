@@ -246,6 +246,9 @@ function truncateText(col) {
                                         <span v-else-if="col == 'deskripsi' || col == 'keterangan'">
                                             <p v-html="truncateText(item[col])"></p>
                                         </span>
+                                        <span v-else-if="col == 'struk' || col == 'file_struk'">
+                                            <a  target="_blank" :href="'/storage/'+ item[col]">{{item[col]}}</a>
+                                        </span>
                                         <span v-else-if="col == 'customer_id'">
                                             <ul>
                                                 <li>{{ item.customer.nama }}</li>
