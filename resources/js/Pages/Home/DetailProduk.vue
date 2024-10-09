@@ -55,23 +55,25 @@ const upgrades = ref({
     fancyMetals: false
 });
 
-const quantity = ref(1);
+const quantity = ref(0);
 
 const increaseQuantity = () => {
-    if(props.tipe == 'alat' && props.produk.stok > 2){
-        console.log(props.produk.stok)
-        if(quantity.value < props.produk.stok){
-            quantity.value++;
-        }else{
-            swal({
-                icon: 'error',
-                title: 'Stok Produk Kurang',
-                text: 'Stok Produk Sisa = ' + props.produk.stok,
-            })
+    if (props.produk.stok > 0) {
+        if (props.tipe == 'alat' && props.produk.stok > 2) {
+            console.log(props.produk.stok)
+            if (quantity.value < props.produk.stok) {
+                quantity.value++;
+            } else {
+                swal({
+                    icon: 'error',
+                    title: 'Stok Produk Kurang',
+                    text: 'Stok Produk Sisa = ' + props.produk.stok,
+                })
+            }
         }
-    }
-    if(props.tipe == 'jasa'){
-        quantity.value++;
+        if (props.tipe == 'jasa') {
+            quantity.value++;
+        }
     }
 };
 
@@ -109,10 +111,11 @@ const decreaseQuantity = () => {
                             <span class="text-gray-600 ml-2">(14 reviews)</span>
                         </div>
                         <div class="mb-4">
-                            <span class="block mb-1 font-medium" v-if="tipe=='alat'">Stok Produk:{{ produk.stok }}</span>
+                            <span class="block mb-1 font-medium" v-if="tipe == 'alat'">Stok Produk:{{ produk.stok
+                                }}</span>
 
                         </div>
-                        <div class="mb-4 flex items-center" v-if="tipe =='alat'">
+                        <div class="mb-4 flex items-center" v-if="tipe == 'alat'">
                             <button @click="decreaseQuantity"
                                 class="bg-gray-300 text-gray-700 px-2 py-1 rounded-l-lg hover:bg-gray-400 transition duration-300">-</button>
                             <input type="text" readonly v-model="quantity" min="1" :max="produk.stok"
@@ -121,8 +124,12 @@ const decreaseQuantity = () => {
                                 class="bg-gray-300 text-gray-700 px-2 py-1 rounded-r-lg hover:bg-gray-400 transition duration-300">+</button>
                         </div>
                     </div>
-                    <Link v-if="tipe == 'alat'" :href="route('payment.list.alat', {slug:produk.id, quantity: quantity})" class="bg-blue-600 text-center text-white px-4 py-2 rounded-lg mt-4 hover:bg-blue-700">Sewa Produk</Link>
-                    <Link v-if="tipe == 'jasa'" :href="route('payment.list', {slug:produk.id})" class="bg-blue-600 text-center text-white px-4 py-2 rounded-lg mt-4 hover:bg-blue-700">Sewa Produk</Link>
+                    <Link v-if="tipe == 'alat'" :href="route('payment.list.alat', { slug: produk.id, quantity: quantity })"
+                        class="bg-blue-600 text-center text-white px-4 py-2 rounded-lg mt-4 hover:bg-blue-700">Sewa
+                    Produk</Link>
+                    <Link v-if="tipe == 'jasa'" :href="route('payment.list', { slug: produk.id })"
+                        class="bg-blue-600 text-center text-white px-4 py-2 rounded-lg mt-4 hover:bg-blue-700">Sewa
+                    Produk</Link>
                 </div>
             </div>
         </div>
