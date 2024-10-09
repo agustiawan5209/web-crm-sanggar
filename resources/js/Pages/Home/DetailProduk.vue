@@ -124,12 +124,16 @@ const decreaseQuantity = () => {
                                 class="bg-gray-300 text-gray-700 px-2 py-1 rounded-r-lg hover:bg-gray-400 transition duration-300">+</button>
                         </div>
                     </div>
-                    <Link v-if="tipe == 'alat'" :href="route('payment.list.alat', { slug: produk.id, quantity: quantity })"
+                    <Link v-if=" produk.stok > 0&& tipe == 'alat'" :href="route('payment.list.alat', { slug: produk.id, quantity: quantity })"
                         class="bg-blue-600 text-center text-white px-4 py-2 rounded-lg mt-4 hover:bg-blue-700">Sewa
                     Produk</Link>
-                    <Link v-if="tipe == 'jasa'" :href="route('payment.list', { slug: produk.id })"
+                    <Link v-if=" produk.stok > 0&& tipe == 'jasa'" :href="route('payment.list', { slug: produk.id })"
                         class="bg-blue-600 text-center text-white px-4 py-2 rounded-lg mt-4 hover:bg-blue-700">Sewa
                     Produk</Link>
+
+                    <div class="bg-blue-600 text-center text-white opacity-15 px-4 py-2 rounded-lg mt-4 hover:bg-blue-700" v-else>
+                        Sewa Produk
+                    </div>
                 </div>
             </div>
         </div>
