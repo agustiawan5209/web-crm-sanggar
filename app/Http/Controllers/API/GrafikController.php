@@ -46,17 +46,17 @@ class GrafikController extends Controller
     }
     public function calendar(Request $request)
     {
-        $jadwal = Penyewaan::all();
+        $jadwal = Penyewaan::where('status','Dalam Penyewaan')->get();
 
         if ($request->exists('user_id')) {
             $user = User::with(['customer'])->find($request->user_id);
-            $jadwal = Penyewaan::where('customer_id', $user->customer->id)->get();
+            $jadwal = Penyewaan::where('customer_id', $user->customer->id)->where('status','Dalam Penyewaan')->get();
         }
         $data = [];
         $tanggal = [];
 
         foreach ($jadwal as $key => $value) {
-            $parsedDate = Carbon::parse($value->tanggal)->format('Y-m-d'); // Menggunakan parse untuk string tanggal
+            $parsedDate = Carbon::parse($value->created_at)->format('Y-m-d'); // Menggunakan parse untuk string tanggal
             $data[] = [
                 'tanggal' => $parsedDate,
                 'deskripsi' => $value->customer_user['name'],

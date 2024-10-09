@@ -142,7 +142,7 @@ function submitPenyewaanUpdate() {
                     <InputError :message="Form.errors.status" />
                 </div>
 
-                <div class="col-span-2">
+                <div class="col-span-2" v-if="penyewaan.jenis == 'alat'">
                     <label for="tgl_pengembalian" class="block text-sm font-medium text-gray-700 mb-2">Tanggal
                         Pengembalian</label>
                     <input type="date" v-model="Form.tgl_pengembalian" name="tgl_pengembalian" id="tgl_pengembalian"
