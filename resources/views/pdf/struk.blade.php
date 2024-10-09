@@ -69,6 +69,7 @@
     <div class="container">
         <h1>Struk Penyewaan Barang</h1>
         <h2>No. Invoice: #{{ $data->pembayaran->kode_transaksi }}</h2>
+        <h3>Tanggal Transaksi: #{{ $data->pembayaran->tgl }}</h3>
 
         <table>
             <tr>
