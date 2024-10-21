@@ -96,7 +96,7 @@
             </tr>
             <tr>
                 <th>Jenis Pembayaran</th>
-                <td>{{ $data->jenis_bayar }}</td>
+                <td>{{ $data->pembayaran->jenis_bayar }}</td>
             </tr>
             {{-- <tr>
                 <th>Total Pembayaran</th>

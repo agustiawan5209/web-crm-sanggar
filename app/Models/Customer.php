@@ -78,10 +78,10 @@ class Customer extends Model
     public function scopeFilter($query, $filter)
     {
         $query->when($filter['search'] ?? null, function ($query, $search) {
-            $query->where('no_telpon', 'like', '%' . $search . '%')
-                ->orWhere('alamat', 'like', '%' . $search . '%')
+            $query->where('alamat', 'like', '%' . $search . '%')
                 ->orWhereHas('user', function ($query) use ($search) {
                     $query->where('name', 'like', '%' . $search . '%');
+                    $query->orWhere('phone', 'like', '%' . $search . '%');
                 });
         })->when($filter['order'] ?? null, function ($query, $order) {
             $query->orderBy('id', $order);

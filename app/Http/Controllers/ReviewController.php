@@ -20,6 +20,7 @@ class ReviewController extends Controller
         // $columns = DB::getSchemaBuilder()->getColumnListing($tableName);
         $columns[] = 'id';
         $columns[] = 'nama_customer';
+        $columns[] = 'nama_produk';
         $columns[] = 'rating';
         $columns[] = 'comment';
         // $columns[] = 'status_pelanggan';
