@@ -82,6 +82,14 @@ const decreaseQuantity = () => {
         quantity.value--;
     }
 };
+
+function calculateAverageRating(reviews) {
+    if (reviews.length === 0) return 0;
+    const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
+    return (totalRating / reviews.length).toFixed(1); // Pembulatan ke 1 angka desimal
+}
+console.log(calculateAverageRating(props.produk.review))
+
 </script>
 
 <template>
@@ -107,8 +115,10 @@ const decreaseQuantity = () => {
                         <p class="text-gray-700 mb-4">{{ produk.rupiah }}</p>
                         <p class="text-gray-500 mb-4" v-html="produk.keterangan"></p>
                         <div class="flex items-center mb-4">
-                            <span class="text-yellow-400">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
-                            <span class="text-gray-600 ml-2">(14 reviews)</span>
+                            <span class="text-yellow-400">
+                                <template v-for="item in calculateAverageRating(produk.review)">&#9733;</template>
+                            </span>
+                            <span class="text-gray-600 ml-2">({{ produk.review.length }} reviews)</span>
                         </div>
                         <div class="mb-4">
                             <span class="block mb-1 font-medium" v-if="tipe == 'alat'">Stok Produk:{{ produk.stok
@@ -124,14 +134,17 @@ const decreaseQuantity = () => {
                                 class="bg-gray-300 text-gray-700 px-2 py-1 rounded-r-lg hover:bg-gray-400 transition duration-300">+</button>
                         </div>
                     </div>
-                    <Link v-if=" produk.stok > 0 && tipe == 'alat'" :href="route('payment.list.alat', { slug: produk.id, quantity: quantity })"
+                    <Link v-if="produk.stok > 0 && tipe == 'alat'"
+                        :href="route('payment.list.alat', { slug: produk.id, quantity: quantity })"
                         class="bg-blue-600 text-center text-white px-4 py-2 rounded-lg mt-4 hover:bg-blue-700">Sewa
                     Produk</Link>
-                    <Link v-else-if=" produk.stok > 0 && tipe == 'jasa'" :href="route('payment.list', { slug: produk.id })"
+                    <Link v-else-if="produk.stok > 0 && tipe == 'jasa'"
+                        :href="route('payment.list', { slug: produk.id })"
                         class="bg-blue-600 text-center text-white px-4 py-2 rounded-lg mt-4 hover:bg-blue-700">Sewa
                     Produk</Link>
 
-                    <div class="bg-blue-600 text-center text-white opacity-15 px-4 py-2 rounded-lg mt-4 hover:bg-blue-700" v-else>
+                    <div class="bg-blue-600 text-center text-white opacity-15 px-4 py-2 rounded-lg mt-4 hover:bg-blue-700"
+                        v-else>
                         Sewa Produk
                     </div>
                 </div>

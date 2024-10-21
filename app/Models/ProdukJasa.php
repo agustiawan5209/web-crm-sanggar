@@ -51,4 +51,8 @@ class ProdukJasa extends Model
             $query->orderBy('id', $order);
         });
     }
+
+    public function review(){
+        return $this->hasMany(Review::class,"produk_id","id");
+    }
 }

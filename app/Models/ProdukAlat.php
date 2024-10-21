@@ -27,12 +27,13 @@ class ProdukAlat extends Model
     public function rupiah(): Attribute
     {
         return new Attribute(
-            get: fn()=> "Rp.".number_format($this->harga, 0,2),
+            get: fn() => "Rp." . number_format($this->harga, 0, 2),
         );
     }
 
 
-    public function image(){
+    public function image()
+    {
         return $this->hasMany(Gambar::class, 'alat_id', 'id');
     }
     public function scopeFilter($query, $filter)
@@ -54,5 +55,11 @@ class ProdukAlat extends Model
         } else {
             throw new \Exception("Stok tidak mencukupi.");
         }
+    }
+
+
+    public function review()
+    {
+        return $this->hasMany(Review::class, "produk_id", "id");
     }
 }
