@@ -26,6 +26,7 @@ const rentItem = (id) => {
 function calculateAverageRating(reviews) {
     if (reviews.length === 0) return 0;
     const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
+    console.log(totalRating, reviews.length)
     return (totalRating / reviews.length).toFixed(1); // Pembulatan ke 1 angka desimal
 }
 </script>

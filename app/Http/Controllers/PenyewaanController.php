@@ -247,6 +247,7 @@ class PenyewaanController extends Controller
             'tgl_pengembalian' => $request->tgl_pengembalian,
         ]);
 
+
         return redirect()->route('Penyewaan.show', ['slug' => $request->slug])->with('message', 'Data Penyewaan Berhasil Di Update!!');
     }
 
