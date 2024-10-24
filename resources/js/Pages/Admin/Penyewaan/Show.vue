@@ -261,7 +261,7 @@ function submitPenyewaanUpdate() {
                                                     <p class="whitespace-nowrap">{{ penyewaan.status
                                                         }}</p>
                                                 </span>
-                                                <PrimaryButton @click="showPenyewaanModal()" type="button">Update
+                                                <PrimaryButton v-if="penyewaan.status != 'SELESAI'" @click="showPenyewaanModal()" type="button">Update
                                                     Status
                                                     Penyewaan</PrimaryButton>
                                             </div>

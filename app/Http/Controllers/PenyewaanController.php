@@ -246,7 +246,10 @@ class PenyewaanController extends Controller
             'keterangan' => $request->keterangan,
             'tgl_pengembalian' => $request->tgl_pengembalian,
         ]);
-
+        if($penyewaan->jenis == 'alat'){
+           $produk= ProdukAlat::find($penyewaan->produk_id['id']);
+            $produk->addStock($penyewaan->jumlah);
+        }
 
         return redirect()->route('Penyewaan.show', ['slug' => $request->slug])->with('message', 'Data Penyewaan Berhasil Di Update!!');
     }

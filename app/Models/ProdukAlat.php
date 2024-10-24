@@ -56,6 +56,11 @@ class ProdukAlat extends Model
             throw new \Exception("Stok tidak mencukupi.");
         }
     }
+    public function addStock($quantity)
+    {
+        $this->stok += $quantity;
+        $this->save();
+    }
 
 
     public function review()
