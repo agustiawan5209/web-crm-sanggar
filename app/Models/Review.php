@@ -24,6 +24,7 @@ class Review extends Model
 
     protected $casts = [
         'user' => "json",
+        'rating'=> 'integer'
     ];
 
 
