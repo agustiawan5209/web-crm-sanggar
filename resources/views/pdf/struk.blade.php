@@ -98,10 +98,10 @@
                 <th>Jenis Pembayaran</th>
                 <td>{{ $data->pembayaran->jenis_bayar }}</td>
             </tr>
-            {{-- <tr>
-                <th>Total Pembayaran</th>
-                <td>Rp {{ number_format($data->pembayaran->sub_total,0,2) }}</td>
-            </tr> --}}
+            <tr>
+                <th>Total Bayar</th>
+                <td>Rp {{ number_format($data->pembayaran->total,0,2) }}</td>
+            </tr>
         </table>
 
         <div class="total">
