@@ -103,6 +103,7 @@ Route::middleware(['auth', 'verified', 'role:Admin|Bendahara'])->group(function 
     Route::group(['prefix' => 'review', 'as' => "Review."], function () {
         Route::controller(ReviewController::class)->group(function () {
             Route::get('/', 'index')->name('index');
+            Route::delete('/delete', 'destroy')->name('destroy');
         });
     });
 
