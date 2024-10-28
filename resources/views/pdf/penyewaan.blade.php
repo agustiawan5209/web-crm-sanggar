@@ -63,7 +63,7 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $penyewaan->kode_transaksi }}</td>
-                        <td>{{ $penyewaan->customer_id }}</td>
+                        <td>{{ $penyewaan->customer_user['name'] }}</td>
                         <td>{{ $penyewaan->jenis }}</td>
                         <td>{{ $penyewaan->produk }}</td>
                         <td>{{ $penyewaan->jumlah }}</td>
