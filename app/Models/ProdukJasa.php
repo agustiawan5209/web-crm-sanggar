@@ -15,6 +15,7 @@ class ProdukJasa extends Model
     protected $fillable = [
         'nama',
         'harga',
+        'biaya_transportasi',
         'keterangan',
         'status'
     ];
@@ -26,6 +27,7 @@ class ProdukJasa extends Model
     protected $appends = [
         'rupiah',
         'harga_jasa',
+        'harga_transportasi',
 
     ];
 
@@ -39,6 +41,12 @@ class ProdukJasa extends Model
     {
         return new Attribute(
             get: fn()=> "Rp.".number_format($this->harga, 0,2),
+        );
+    }
+    public function hargaTransportasi(): Attribute
+    {
+        return new Attribute(
+            get: fn()=> "Rp.".number_format($this->biaya_transportasi, 0,2),
         );
     }
 

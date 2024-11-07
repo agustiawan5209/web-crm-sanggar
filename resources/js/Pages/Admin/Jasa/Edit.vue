@@ -21,6 +21,7 @@ const Form = useForm({
     slug: props.jasa.id,
     nama: props.jasa.nama,
     keterangan: props.jasa.keterangan,
+    biaya_transportasi: props.jasa.biaya_transportasi,
     harga: props.jasa.harga,
     status: props.jasa.status,
 })
@@ -66,6 +67,12 @@ function submit() {
                                 <TextInput id="harga" type="number" placeholder="Harga Sewa" v-model="Form.harga"
                                     class="w-full text-gray-900" />
                                 <InputError :message="Form.errors.harga" />
+                            </div>
+                            <div class="col-span-full ">
+                                <label for="biaya_transportasi" class="text-base">Biaya Transportasi</label>
+                                <TextInput id="biaya_transportasi" type="number" placeholder="Biaya Transportasi" v-model="Form.biaya_transportasi"
+                                    class="w-full text-gray-900" />
+                                <InputError :message="Form.errors.biaya_transportasi" />
                             </div>
                             <div class="col-span-full">
                                 <label for="status" class="text-base w-full">Status</label>

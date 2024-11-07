@@ -63,6 +63,11 @@ const props = defineProps({
                                         <td class="text-sm border-b text-gray-800"> {{ jasa.harga }} </td>
                                     </tr>
                                     <tr class="">
+                                        <td class="text-sm border-b py-2 font-bold capitalize">Harga Sewa</td>
+                                        <td>:</td>
+                                        <td class="text-sm border-b text-gray-800"> {{ jasa.harga_transportasi }} </td>
+                                    </tr>
+                                    <tr class="">
                                         <td class="text-sm border-b py-2 font-bold capitalize">keterangan</td>
                                         <td>:</td>
                                         <td class="text-sm border-b text-gray-800 text-left" v-html="jasa.keterangan"> </td>
