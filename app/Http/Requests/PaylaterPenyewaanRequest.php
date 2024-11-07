@@ -24,6 +24,8 @@ class PaylaterPenyewaanRequest extends FormRequest
         return [
             'jumlah_bayar'=> 'required|numeric',
             'quantity'=> 'nullable|numeric',
+            'lokasi'=> 'required|string|max:255',
+            'tgl_penyewaan'=> 'required|date',
         ];
     }
 }

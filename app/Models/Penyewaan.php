@@ -25,6 +25,9 @@ class Penyewaan extends Model
         'status',
         'jumlah',
         'tipe_bayar',
+        'tgl_penyewaan',
+        'lokasi',
+
     ];
 
     public function customer()
@@ -51,18 +54,8 @@ class Penyewaan extends Model
         'total_bayar',
         'human_format',
         'file_url',
-        'tgl_penyewaan'
     ];
 
-
-    public function tglPenyewaan() : Attribute
-    {
-        $tgl = Carbon::parse($this->created_at)->format('Y-m-d');
-        return new Attribute(
-            get: fn()=> $tgl,
-            set: null
-        );
-    }
     public function fileUrl() : Attribute
     {
         return new Attribute(

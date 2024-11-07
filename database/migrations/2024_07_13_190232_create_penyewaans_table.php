@@ -24,6 +24,10 @@ return new class extends Migration
             $table->integer('jumlah')->nullable();
             $table->string('status')->comment('Dalam Penyewaan, Di Kembalikan, DIBATALKAN, SELESAI');
             $table->string('tipe_bayar',20)->nullable();
+
+            $table->date('tgl_penyewaan')->nullable();
+            $table->string('lokasi')->nullable();
+
             $table->timestamps();
         });
     }

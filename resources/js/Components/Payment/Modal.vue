@@ -54,6 +54,8 @@ const Form = useForm({
     tgl_pengembalian: '',
     produk: props.produk,
     quantity: props.quantity,
+    tgl_penyewaan: '',
+    lokasi: ''
 })
 
 // Jumlah Bayar
@@ -119,7 +121,9 @@ function submit() {
 // Submit Penyewaan later
 function submitLater() {
     Form.post(route('Penyewaan.Store.later'), {
-        preserveState: true,
+        onSuccess: ()=>{
+            window.location.href = route('Customer.riwayat.penyewaan')
+        },
         onError: (err) => {
             console.log(err);
         }
@@ -152,12 +156,8 @@ const payLaterTrue = () => {
     payNow.value = false;
 
     if (props.jenisproduk == 'jasa') {
-        Form.post(route('Penyewaan.Store.later'), {
-            preserveState: true,
-            onError: (err) => {
-                console.log(err);
-            }
-        })
+        paylaterProduk();
+
     }
     if (props.jenisproduk == 'alat') {
         paylaterProduk();
@@ -227,6 +227,23 @@ function resetModal() {
                                             placeholder="000" :required="jenisproduk == 'alat'"
                                             class="w-full py-3 px-4 border border-gray-400 rounded-lg focus:outline-none focus:border-blue-500">
                                         <InputError :message="Form.errors.tgl_pengambilan" />
+
+                                    </div>
+                                    <div class="col-span-2">
+                                        <label for="tgl_penyewaan" class="block text-sm font-medium text-gray-700 mb-2">Tanggal
+                                            Penyewaan</label>
+                                        <input type="date" v-model="Form.tgl_penyewaan" name="tgl_penyewaan" id="tgl_penyewaan"
+                                            placeholder="date"
+                                            class="w-full py-3 px-4 border border-gray-400 rounded-lg focus:outline-none focus:border-blue-500">
+                                        <InputError :message="Form.errors.tgl_penyewaan" />
+
+                                    </div>
+                                    <div class="col-span-2">
+                                        <label for="lokasi" class="block text-sm font-medium text-gray-700 mb-2">Lokasi</label>
+                                        <input type="text" v-model="Form.lokasi" name="lokasi" id="lokasi"
+                                            placeholder=".............."
+                                            class="w-full py-3 px-4 border border-gray-400 rounded-lg focus:outline-none focus:border-blue-500">
+                                        <InputError :message="Form.errors.lokasi" />
 
                                     </div>
                                 </div>

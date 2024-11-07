@@ -130,6 +130,8 @@ class PenyewaanController extends Controller
             'jumlah'=> $request->quantity == null ? 1 : $request->quantity,
             'tgl_pengambilan' => $request->tgl_pengambilan,
             'tgl_pengembalian' => $request->tgl_pengembalian,
+            'tgl_penyewaan' => $request->tgl_penyewaan,
+            'lokasi' => $request->lokasi,
             'status' => "Dalam Penyewaan",
             'tipe_bayar'=> 'Bayar Nanti',
         ]);
@@ -181,6 +183,8 @@ class PenyewaanController extends Controller
             'jumlah'=> $request->quantity == null ? 1 : $request->quantity,
             'tgl_pengambilan' => $request->tgl_pengambilan,
             'tgl_pengembalian' => $request->tgl_pengembalian,
+            'tgl_penyewaan' => $request->tgl_penyewaan,
+            'lokasi' => $request->lokasi,
             'status' => "Dalam Penyewaan",
         ]);
         $photo = $request->bukti;

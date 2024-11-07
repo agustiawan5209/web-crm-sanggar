@@ -48,6 +48,8 @@ const Form = useForm({
     jenis: props.jenisproduk,
     jumlah_bayar: harga,
     bukti: '',
+    tgl_penyewaan: '',
+    lokasi: ''
 })
 
 
