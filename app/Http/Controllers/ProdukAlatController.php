@@ -22,6 +22,7 @@ class ProdukAlatController extends Controller
         $columns[]= 'alat_galeri';
         $columns[]= 'nama';
         $columns[]= 'harga';
+        $columns[]= 'harga_ongkir';
         $columns[]= 'stok';
         $columns[]= 'status';
 

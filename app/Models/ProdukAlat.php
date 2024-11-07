@@ -15,6 +15,7 @@ class ProdukAlat extends Model
     protected $fillable = [
         'nama',
         'harga',
+        'biaya_ongkir',
         'stok',
         'keterangan',
         'status'
@@ -22,12 +23,19 @@ class ProdukAlat extends Model
 
     protected $appends = [
         'rupiah',
+        'harga_ongkir',
     ];
 
     public function rupiah(): Attribute
     {
         return new Attribute(
             get: fn() => "Rp." . number_format($this->harga, 0, 2),
+        );
+    }
+    public function hargaOngkir(): Attribute
+    {
+        return new Attribute(
+            get: fn() => "Rp." . number_format($this->biaya_ongkir, 0, 2),
         );
     }
 

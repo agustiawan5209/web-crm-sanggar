@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama', 50);
             $table->decimal('harga', 10,2);
+            $table->decimal('biaya_ongkir', 10,2);
             $table->integer('stok')->default(10);
             $table->text('keterangan');
             $table->enum('status', ['0','1'])->comment('0 = tersedia, 1=tidak tersedia');

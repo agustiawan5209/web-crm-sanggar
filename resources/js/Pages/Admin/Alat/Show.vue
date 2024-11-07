@@ -63,6 +63,11 @@ const props = defineProps({
                                         <td class="text-sm border-b text-gray-800"> {{ alat.harga }} </td>
                                     </tr>
                                     <tr class="">
+                                        <td class="text-sm border-b py-2 font-bold capitalize">Biaya Ongkir</td>
+                                        <td>:</td>
+                                        <td class="text-sm border-b text-gray-800"> {{ alat.biaya_ongkir }} </td>
+                                    </tr>
+                                    <tr class="">
                                         <td class="text-sm border-b py-2 font-bold capitalize">Stok</td>
                                         <td>:</td>
                                         <td class="text-sm border-b text-gray-800"> {{ alat.stok }} </td>
