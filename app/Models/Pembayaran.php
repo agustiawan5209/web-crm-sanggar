@@ -74,6 +74,7 @@ class Pembayaran extends Model
     {
         return new Attribute(
             get: fn() => $this->penyewaan()->first()->struk,
+            set: null,
         );
     }
     public function subTotalTransaksi(): Attribute

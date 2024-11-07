@@ -53,8 +53,13 @@
                     <th>Jenis</th>
                     <th>Produk</th>
                     <th>Jumlah</th>
-                    <th>Tanggal Pengambilan</th>
-                    <th>Tanggal Pengembalian</th>
+                    @if ($jenis == 'jasa')
+                        <th>Tanggal Penyewaan</th>
+                    @endif
+                    @if ($jenis == 'alat')
+                        <th>Tanggal Pengambilan</th>
+                        <th>Tanggal Pengembalian</th>
+                    @endif
                     <th>Total Bayar</th>
                 </tr>
             </thead>
@@ -67,13 +72,23 @@
                         <td>{{ $penyewaan->jenis }}</td>
                         <td>{{ $penyewaan->produk }}</td>
                         <td>{{ $penyewaan->jumlah }}</td>
-                        <td>{{ $penyewaan->tgl_pengambilan }}</td>
-                        <td>{{ $penyewaan->tgl_pengembalian }}</td>
+                       @if ($jenis == 'jasa')
+                         <td>{{ $penyewaan->tgl_penyewaan }}</td>
+                       @endif
+                       @if ($jenis == 'alat')
+                         <td>{{ $penyewaan->tgl_pengambilan }}</td>
+                         <td>{{ $penyewaan->tgl_pengembalian }}</td>
+                       @endif
                         <td style="white-space: nowrap;">{{ "Rp. ". number_format($penyewaan->pembayaran->total, 0,2) }}</td>
                     </tr>
                 @endforeach
                 <tr>
-                    <td colspan="8">Total Pendapatan</td>
+                    @if ($jenis == 'jasa')
+                        <td colspan="7">Total Pendapatan</td>
+                    @endif
+                    @if ($jenis == 'alat')
+                        <td colspan="8">Total Pendapatan</td>
+                    @endif
                     <td style="white-space: nowrap;"> {{ $total_pendapatan }} </td>
                 </tr>
             </tbody>

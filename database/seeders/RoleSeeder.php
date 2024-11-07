@@ -15,20 +15,20 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        // $role = Role::create(['name' => 'Admin']);
+        $role = Role::create(['name' => 'Admin']);
         // $pengguna = Role::create(['name' => 'Customer']);
         $bendahara = Role::create(['name' => 'Bendahara']);
 
 
 
-        // $user = User::factory()->create([
-        //     'name' => 'admin',
-        //     'username' => 'admin',
-        //     'email' => 'admin@gmail.com',
-        //     'password' => bcrypt('12345678'),
-        // ]);
+        $user = User::factory()->create([
+            'name' => 'admin',
+            'username' => 'admin',
+            'email' => 'admin@gmail.com',
+            'password' => bcrypt('12345678'),
+        ]);
 
-        // $user->assignRole($role);
+        $user->assignRole($role);
 
         $user2 = User::factory()->create([
             'name' => 'bendahara',

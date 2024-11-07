@@ -60,8 +60,8 @@ class LaporanController extends Controller
         $columns[] = 'jenis';
         $columns[] = 'produk';
         $columns[] = 'jumlah';
-        $columns[] = 'tgl_pengambilan';
-        $columns[] = 'tgl_pengembalian';
+        $columns[] = 'tgl_penyewaan';
+        // $columns[] = 'tgl_pengembalian';
         $columns[] = 'status';
         $columns[] = 'total_bayar';
 
@@ -99,7 +99,7 @@ class LaporanController extends Controller
         $data = Penyewaan::where('jenis', Request::input('type'))->with(['pembayaran'])
             ->whereBetween('created_at', Request::only('start_date', 'end_date'))
             ->get();
-
+        $jenis = Request::input('type');
         $transaksi = [];
         foreach ($data as $key => $value) {
             $transaksi[$key] = $value->pembayaran->total;
@@ -118,7 +118,7 @@ class LaporanController extends Controller
         ];
 
         // Load view untuk PDF dan pass data penyewaan
-        $pdf = PDF::loadView('pdf.penyewaan', compact('data', 'columns', 'total_pendapatan'))->setPaper('a4', 'landscape');;
+        $pdf = PDF::loadView('pdf.penyewaan', compact('data', 'columns', 'total_pendapatan', 'jenis'))->setPaper('a4', 'landscape');;
 
         // Unduh PDF
         return $pdf->download('penyewaan.pdf');

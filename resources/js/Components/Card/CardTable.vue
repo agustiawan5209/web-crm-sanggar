@@ -277,6 +277,10 @@ function truncateText(text) {
                                             class="p-2 bg-orange-500 text-white rounded-lg w-1/2">
                                             <Link :href="route('Galeri.alat_index', { slug: item.id })">Galeri</Link>
                                         </span>
+                                        <span v-else-if="col == 'jumlah'"
+                                            class="p-2 bg-orange-500 text-white rounded-lg w-1/2">
+                                            {{ item[col] }}%
+                                        </span>
                                         <span v-else :class="col == 'tanggal' ? 'whitespace-nowrap' : ''">{{ item[col]
                                             }}</span>
                                     </td>

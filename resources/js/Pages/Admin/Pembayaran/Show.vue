@@ -134,6 +134,70 @@ function submitPembayaranUpdate() {
                             <div class="col-span-full  ">
                                 <ul class="flex flex-col space-y-20">
                                     <li class="flex gap-3 py-2 border-b">
+                                        <span class="text-2xl">Penyewaan</span>
+                                    </li>
+                                </ul>
+
+                                <table class="w-full table">
+                                    <colgroup>
+                                        <col class="md:w-36">
+                                        <col class="w-3">
+                                        <col>
+                                    </colgroup>
+                                    <tr class="">
+                                        <td class="text-sm border-b py-2 font-bold capitalize">Nama Produk</td>
+                                        <td>:</td>
+                                        <td class="text-sm border-b text-gray-800"> {{ pembayaran.penyewaan.produk }} </td>
+                                    </tr>
+                                    <tr class="">
+                                        <td class="text-sm border-b py-2 font-bold capitalize">Jenis</td>
+                                        <td>:</td>
+                                        <td class="text-sm border-b text-gray-800"> {{ pembayaran.penyewaan.jenis }}
+                                        </td>
+                                    </tr>
+                                    <tr class="">
+                                        <td class="text-sm border-b py-2 font-bold capitalize">Tanggal Pengambilan</td>
+                                        <td>:</td>
+                                        <td class="text-sm border-b text-gray-800"> {{ pembayaran.penyewaan.tgl_pengambilan }}
+                                        </td>
+                                    </tr>
+                                    <tr class="">
+                                        <td class="text-sm border-b py-2 font-bold capitalize">Tanggal Pengembalian/Selesai</td>
+                                        <td>:</td>
+                                        <td class="text-sm border-b text-gray-800"> {{ pembayaran.penyewaan.tgl_pengembalian }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-sm border-b py-2 font-bold capitalize">Status Penyewaan</td>
+                                        <td>:</td>
+                                        <td class="text-sm border-b text-gray-800">
+                                            <div class="cursor-pointer text-sm flex gap-4">
+                                                <span v-if="pembayaran.penyewaan.status == 'Dalam Penyewaan'"
+                                                    class="inline-flex items-center justify-center rounded-full bg-yellow-100 px-2.5 py-0.5 text-yellow-700">
+
+                                                    <p class="whitespace-nowrap">{{ pembayaran.penyewaan.status
+                                                        }}</p>
+                                                </span>
+                                                <span v-else-if="pembayaran.penyewaan.status == 'DIBATALKAN'"
+                                                    class="inline-flex items-center justify-center rounded-full bg-red-100 px-2.5 py-0.5 text-red-700">
+
+                                                    <p class="whitespace-nowrap">{{ pembayaran.penyewaan.status
+                                                        }}</p>
+                                                </span>
+                                                <span v-else
+                                                    class="inline-flex items-center justify-center rounded-full bg-green-100 px-2.5 py-0.5 text-green-700">
+
+                                                    <p class="whitespace-nowrap">{{ pembayaran.penyewaan.status
+                                                        }}</p>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-span-full  ">
+                                <ul class="flex flex-col space-y-20">
+                                    <li class="flex gap-3 py-2 border-b">
                                         <span class="text-2xl">Pembayaran</span>
                                     </li>
                                 </ul>

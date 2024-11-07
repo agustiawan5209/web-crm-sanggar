@@ -137,7 +137,6 @@ function submitPenyewaanUpdate() {
                         <option value="">-----</option>
                         <option value="Dalam Penyewaan">Dalam Penyewaan</option>
                         <option value="SELESAI">SELESAI (Di Kembalikan)</option>
-                        <option value="Di Batalkan">Di Batalkan</option>
                     </select>
                     <InputError :message="Form.errors.status" />
                 </div>
@@ -224,6 +223,12 @@ function submitPenyewaanUpdate() {
                                         <td class="text-sm border-b py-2 font-bold capitalize">Jenis</td>
                                         <td>:</td>
                                         <td class="text-sm border-b text-gray-800"> {{ penyewaan.jenis }}
+                                        </td>
+                                    </tr>
+                                    <tr class="">
+                                        <td class="text-sm border-b py-2 font-bold capitalize">Tanggal Penyewaan</td>
+                                        <td>:</td>
+                                        <td class="text-sm border-b text-gray-800"> {{ penyewaan.tgl_penyewaan }}
                                         </td>
                                     </tr>
                                     <tr class="">
