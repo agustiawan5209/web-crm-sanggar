@@ -72,8 +72,13 @@ class Pembayaran extends Model
     }
     public function fileStruk(): Attribute
     {
+        if($this->penyewaan()->first()){
+            $struk = $this->penyewaan()->first()->struk;
+        }else{
+            $struk = null;
+        }
         return new Attribute(
-            get: fn() => $this->penyewaan()->first()->struk,
+            get: fn() => $struk,
             set: null,
         );
     }
