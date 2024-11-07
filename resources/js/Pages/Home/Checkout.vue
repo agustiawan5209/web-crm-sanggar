@@ -12,6 +12,10 @@ const props = defineProps({
         type: Object,
         default: () => ({}),
     },
+    sewa: {
+        type: Object,
+        default: () => ({}),
+    },
     tipe: {
         type: String,
         default: 'jasa',
@@ -71,7 +75,7 @@ console.log(subTotal.value, HargaDiskon.value)
 <template>
 
     <Head title="Checkout" />
-    <ModalPayment :show="showModal" :produk="produk" :jenisproduk="tipe" :quantity="quantity" :diskon="HargaDiskon"
+    <ModalPayment :show="showModal" :sewa="sewa" :produk="produk" :jenisproduk="tipe" :quantity="quantity" :diskon="HargaDiskon"
         :subtotal="subTotal" maxWidth="2xl">
         <span class="absolute top-3 left-10 text-lg cursor-pointer" @click="showModal = false">X</span>
 

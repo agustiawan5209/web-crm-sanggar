@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Payment;
 
+use Carbon\Carbon;
 use Inertia\Inertia;
-use App\Models\ProdukJasa;
-use App\Http\Controllers\Controller;
 use App\Models\Penyewaan;
 use App\Models\ProdukAlat;
+use App\Models\ProdukJasa;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -66,9 +67,13 @@ class PembayaranController extends Controller
         if ($valid->fails()) {
             return redirect()->back()->withErrors($valid)->withInput();
         }
+        $Produk = ProdukJasa::with(['image'])->find(Request::input('slug'));
+        $penyewaan = Penyewaan::where('jenis','=', 'jasa')->where('status', '!=','Dalam Penyewaan')->get();
+
         return Inertia::render("Home/Checkout", [
-            'produk' => ProdukJasa::with(['image'])->find(Request::input('slug')),
+            'produk' => $Produk,
             'tipe' => 'jasa',
+            'sewa'=> $this->calendar('jasa'),
         ]);
     }
     /**
@@ -90,6 +95,8 @@ class PembayaranController extends Controller
             'produk' => ProdukAlat::with(['image'])->find(Request::input('slug')),
             'tipe' => 'alat',
             'quantity' => intval(Request::input('quantity')),
+            'sewa'=> $this->calendar('alat'),
+
         ]);
     }
 
@@ -100,5 +107,27 @@ class PembayaranController extends Controller
         return Inertia::render("Home/Success", [
             'penyewaan' => $penyewaan,
         ]);
+    }
+
+    public function calendar($type)
+    {
+        $jadwal = Penyewaan::where('jenis','=', $type)->where('status','Dalam Penyewaan')->get();
+
+        $data = [];
+        $tanggal = [];
+
+        foreach ($jadwal as $key => $value) {
+            $parsedDate = Carbon::parse($value->created_at)->format('Y-m-d'); // Menggunakan parse untuk string tanggal
+            $data[] = [
+                'tanggal' => $parsedDate,
+                'deskripsi' => "Penyewaan Sudah ada",
+            ];
+            $tanggal[] = $parsedDate;
+        }
+
+        return [
+            'data' => $data,
+            'tanggal' => array_values(array_unique($tanggal)),
+        ];
     }
 }

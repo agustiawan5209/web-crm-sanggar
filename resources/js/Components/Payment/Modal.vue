@@ -3,6 +3,7 @@ import { computed, onMounted, onUnmounted, watch, ref, inject } from 'vue';
 import { Link, Head, useForm, usePage } from '@inertiajs/vue3';
 import InputError from '../InputError.vue';
 import Modal from '../Modal.vue';
+import CalendarPayment from '../Card/CalendarPayment.vue';
 const swal = inject('$swal')
 
 const props = defineProps({
@@ -37,6 +38,10 @@ const props = defineProps({
     subtotal: {
         type: Number,
         default: 1,
+    },
+    sewa: {
+        type: [Array, Object],
+        default: ()=>({}),
     },
 });
 
@@ -208,9 +213,10 @@ function resetModal() {
                 <font-awesome-icon :icon="['fas', 'square-xmark']" class="text-read " />
                 kembali
             </button>
-            <div class="container mx-auto flex max-w-full flex-wrap justify-center rounded-lg bg-white px-5 py-10">
-                <!-- QR Code Number Account & Uploadfile -->
 
+            <div class="container mx-auto flex max-w-full flex-wrap justify-center rounded-lg bg-white px-5 py-10">
+                <CalendarPayment class="mt-10 mb-2" :sewa="sewa" />
+                <!-- QR Code Number Account & Uploadfile -->
                 <form @submit.prevent="submitLater" enctype="multipart/form-data" class="w-full flex flex-col">
 
                     <div class="w-full md:w-2/3 mx-auto p-2">
@@ -266,7 +272,10 @@ function resetModal() {
                 <font-awesome-icon :icon="['fas', 'square-xmark']" class="text-read " />
                 kembali
             </button>
+
             <div class="container mx-auto flex max-w-full flex-wrap justify-center rounded-lg bg-white px-5 py-10">
+                <CalendarPayment class="mt-10 mb-2" :sewa="sewa" />
+
                 <!-- QR Code Number Account & Uploadfile -->
                 <!-- Step Checkout -->
                 <div class="mt-8 max-w-sm md:mb-10 md:ml-10 ">
@@ -412,6 +421,23 @@ function resetModal() {
                                             placeholder="000" :required="jenisproduk == 'alat'"
                                             class="w-full py-3 px-4 border border-gray-400 rounded-lg focus:outline-none focus:border-blue-500">
                                         <InputError :message="Form.errors.tgl_pengambilan" />
+
+                                    </div>
+                                    <div class="col-span-2">
+                                        <label for="tgl_penyewaan" class="block text-sm font-medium text-gray-700 mb-2">Tanggal
+                                            Penyewaan</label>
+                                        <input type="date" v-model="Form.tgl_penyewaan" name="tgl_penyewaan" id="tgl_penyewaan"
+                                            placeholder="date"
+                                            class="w-full py-3 px-4 border border-gray-400 rounded-lg focus:outline-none focus:border-blue-500">
+                                        <InputError :message="Form.errors.tgl_penyewaan" />
+
+                                    </div>
+                                    <div class="col-span-2">
+                                        <label for="lokasi" class="block text-sm font-medium text-gray-700 mb-2">Lokasi</label>
+                                        <input type="text" v-model="Form.lokasi" name="lokasi" id="lokasi"
+                                            placeholder=".............."
+                                            class="w-full py-3 px-4 border border-gray-400 rounded-lg focus:outline-none focus:border-blue-500">
+                                        <InputError :message="Form.errors.lokasi" />
 
                                     </div>
                                 </div>
