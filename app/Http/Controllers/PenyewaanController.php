@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\User;
 use Inertia\Inertia;
 use App\Models\Penyewaan;
 use App\Models\Pembayaran;
+use App\Models\ProdukAlat;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use App\Http\Requests\StorePenyewaanRequest;
 use App\Http\Requests\UpdatePenyewaanRequest;
 use App\Http\Requests\PaylaterPenyewaanRequest;
-use App\Models\ProdukAlat;
 
 class PenyewaanController extends Controller
 {
@@ -41,9 +42,9 @@ class PenyewaanController extends Controller
             'search' =>  Request::input('search'),
             'table_colums' => array_values(array_diff($columns, ['remember_token', 'password', 'email_verified_at', 'created_at', 'updated_at', 'user_id', 'deskripsi'])),
             'data' => Penyewaan::with(['customer', 'customer.user', 'pembayaran'])
-            ->filter(Request::only('search', 'order'))
-            ->orderBy('id','desc')
-            ->paginate(10),
+                ->filter(Request::only('search', 'order'))
+                ->orderBy('id', 'desc')
+                ->paginate(10),
             'can' => [
                 'add' => false,
                 'edit' => false,
@@ -106,53 +107,54 @@ class PenyewaanController extends Controller
      */
     public function storepaylater(PaylaterPenyewaanRequest $request)
     {
-        // dd($request->quantity == null ? 1 : $request->quantity);
-        $user = User::with(['customer'])->find(Auth::user()->id);
+        try {
+            $user = User::with(['customer'])->find(Auth::user()->id);
 
-        if($request->jenis == 'alat'){
+            if ($request->jenis == 'alat') {
 
-            $produk = ProdukAlat::find($request->produk['id']);
+                $produk = ProdukAlat::find($request->produk['id']);
 
-            try {
-                // Mengurangi stok
-                $produk->reduceStock($request->quantity);
-
-            } catch (\Exception $e) {
-                return redirect()->route('produk.detail', ['slug'=> $produk->id, 'tipe'=> 'alat']);
+                try {
+                    // Mengurangi stok
+                    $produk->reduceStock($request->quantity);
+                } catch (\Exception $e) {
+                    return redirect()->route('produk.detail', ['slug' => $produk->id, 'tipe' => 'alat']);
+                }
             }
+            $penyewaan = Penyewaan::create([
+                'customer_id' => $user->customer->id,
+                'customer_user' => $user,
+                'jenis' => $request->jenis,
+                'produk_id' => $request->produk,
+                'produk' => $request->produk['nama'],
+                'jumlah' => $request->quantity == null ? 1 : $request->quantity,
+                'tgl_pengambilan' => $request->tgl_pengambilan,
+                'tgl_pengembalian' => $request->tgl_pengembalian,
+                'tgl_penyewaan' => $request->tgl_penyewaan,
+                'lokasi' => $request->lokasi,
+                'status' => "Dalam Penyewaan",
+                'tipe_bayar' => 'Bayar Nanti',
+            ]);
+            Pembayaran::create([
+                'kode_transaksi' => $this->generateKodeTransaksi(),
+                'penyewaan_id' => $penyewaan->id,
+                'total' => Request::input('jumlah_bayar'),
+                'sub_total' => Request::input('total'),
+                'jenis_bayar' => 'Bayar Nanti',
+
+                'status' => "PENDING",
+            ]);
+            $laporan = new LaporanController();
+
+            $pdf = $laporan->struk($penyewaan->id);
+
+            $penyewaan->update(['struk' => $pdf]);
+
+
+            return redirect()->route('Customer.Pembayaran.index', ['slug' => $penyewaan->id]);
+        } catch (Exception $e) {
+            return redirect()->route('Customer.Pembayaran.index', ['slug' => $penyewaan->id])->with('message', $e->getMessage());
         }
-        $penyewaan = Penyewaan::create([
-            'customer_id' => $user->customer->id,
-            'customer_user' => $user,
-            'jenis' => $request->jenis,
-            'produk_id' => $request->produk,
-            'produk' => $request->produk['nama'],
-            'jumlah'=> $request->quantity == null ? 1 : $request->quantity,
-            'tgl_pengambilan' => $request->tgl_pengambilan,
-            'tgl_pengembalian' => $request->tgl_pengembalian,
-            'tgl_penyewaan' => $request->tgl_penyewaan,
-            'lokasi' => $request->lokasi,
-            'status' => "Dalam Penyewaan",
-            'tipe_bayar'=> 'Bayar Nanti',
-        ]);
-        Pembayaran::create([
-            'kode_transaksi' => $this->generateKodeTransaksi(),
-            'penyewaan_id' => $penyewaan->id,
-            'total'=> Request::input('jumlah_bayar'),
-            'sub_total'=> Request::input('total'),
-            'jenis_bayar' => 'Bayar Nanti',
-
-            'status' => "PENDING",
-        ]);
-        $laporan =new LaporanController();
-
-        $pdf = $laporan->struk($penyewaan->id);
-
-        $penyewaan->update(['struk'=> $pdf]);
-
-
-        return redirect()->route('Customer.Pembayaran.index', ['slug'=> $penyewaan->id]);
-
     }
     /**
      * Store a newly created resource in storage.
@@ -162,16 +164,15 @@ class PenyewaanController extends Controller
         // dd(json_encode($request->produk));
         $user = User::with(['customer'])->find(Auth::user()->id);
 
-        if($request->jenis == 'alat'){
+        if ($request->jenis == 'alat') {
 
             $produk = ProdukAlat::find($request->produk['id']);
 
             try {
                 // Mengurangi stok
                 $produk->reduceStock($request->quantity);
-
             } catch (\Exception $e) {
-                return redirect()->route('produk.detail', ['slug'=> $produk->id, 'tipe'=> 'alat']);
+                return redirect()->route('produk.detail', ['slug' => $produk->id, 'tipe' => 'alat']);
             }
         }
         $penyewaan = Penyewaan::create([
@@ -180,7 +181,7 @@ class PenyewaanController extends Controller
             'jenis' => $request->jenis,
             'produk_id' => $request->produk,
             'produk' => $request->produk['nama'],
-            'jumlah'=> $request->quantity == null ? 1 : $request->quantity,
+            'jumlah' => $request->quantity == null ? 1 : $request->quantity,
             'tgl_pengambilan' => $request->tgl_pengambilan,
             'tgl_pengembalian' => $request->tgl_pengembalian,
             'tgl_penyewaan' => $request->tgl_penyewaan,
@@ -196,20 +197,20 @@ class PenyewaanController extends Controller
             'kode_transaksi' => $this->generateKodeTransaksi(),
             'bukti' => $random_name_photo,
             'penyewaan_id' => $penyewaan->id,
-            'total'=> Request::input('jumlah_bayar'),
-            'sub_total'=> Request::input('total'),
+            'total' => Request::input('jumlah_bayar'),
+            'sub_total' => Request::input('total'),
             'jenis_bayar' => $request->jenis_bayar,
             'tgl' => $request->tgl_pembayaran,
             'status' => "PENDING",
         ]);
 
-        $laporan =new LaporanController();
+        $laporan = new LaporanController();
 
         $pdf = $laporan->struk($penyewaan->id);
 
-        $penyewaan->update(['struk'=> $pdf]);
+        $penyewaan->update(['struk' => $pdf]);
 
-        return redirect()->route('payment.success', ['slug'=> $penyewaan->id]);
+        return redirect()->route('payment.success', ['slug' => $penyewaan->id]);
     }
 
     /**
@@ -250,8 +251,8 @@ class PenyewaanController extends Controller
             'keterangan' => $request->keterangan,
             'tgl_pengembalian' => $request->tgl_pengembalian,
         ]);
-        if($penyewaan->jenis == 'alat'){
-           $produk= ProdukAlat::find($penyewaan->produk_id['id']);
+        if ($penyewaan->jenis == 'alat') {
+            $produk = ProdukAlat::find($penyewaan->produk_id['id']);
             $produk->addStock($penyewaan->jumlah);
         }
 
