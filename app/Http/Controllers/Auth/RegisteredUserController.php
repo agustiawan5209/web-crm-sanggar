@@ -9,10 +9,12 @@ use App\Models\Customer;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
+use App\Mail\EmailNotification;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Auth\Events\Registered;
 use App\Providers\RouteServiceProvider;
@@ -42,6 +44,12 @@ class RegisteredUserController extends Controller
             "no_telpon" => "required|numeric|unique:users,phone",
             'username' => 'required|string|max:255|unique:users,username',
         ]);
+
+        $subject = "Pemberitahuan Pendaftaran";
+        $messageContent = "Selamat Datang Di Sistem Informasi Sanggar Seni Kawali.";
+
+        // Mail::to($request->email)->send(new EmailNotification(Auth::user(), 'sanggar-kawali.citratekno.com',$subject, $messageContent));
+
 
         // dd($request->all());
 
@@ -73,6 +81,7 @@ class RegisteredUserController extends Controller
         $customer->save();
 
         event(new Registered($user));
+
 
         Auth::login($user);
 

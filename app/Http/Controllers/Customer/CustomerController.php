@@ -3,13 +3,15 @@
 namespace App\Http\Controllers\Customer;
 
 use Inertia\Inertia;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Models\Pembayaran;
+use Inertia\Response;
 use App\Models\Penyewaan;
+use App\Models\Pembayaran;
+use Illuminate\Http\Request;
+use App\Mail\EmailNotification;
+use App\Http\Controllers\Controller;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Auth;
-use Inertia\Response;
+use Illuminate\Support\Facades\Mail;
 
 
 class CustomerController extends Controller
@@ -20,6 +22,11 @@ class CustomerController extends Controller
         $pembayaran = Pembayaran::whereHas('penyewaan', function ($query)  {
             $query->where('customer_id', Auth::user()->customer->id);
         });
+
+        $subject = "Pemberitahuan Pendaftaran";
+        $messageContent = "Selamat Datang Di Sistem Informasi Sanggar Seni Kawali.";
+
+        // Mail::to('wawan@citratekno.com')->send(new EmailNotification( Auth::user(), 'sanggar-kawali.citratekno.com',$subject, $messageContent));
         return Inertia::render('User/Dashboard', [
             'penyewaan'=>  [
                 'count'=> $penyewaan->count(),
