@@ -50,6 +50,7 @@ const closeModal = () => {
     showModal.value = false
 }
 var subTotal = props.produk.harga * props.quantity
+const totalHarga = ref(props.produk.harga * props.quantity)
 function formatRupiah(number) {
     return new Intl.NumberFormat('id-ID', {
         style: 'currency',
@@ -107,30 +108,30 @@ watch(JumlahDiskon, (newValue) => {
                         <div class="flex flex-col px-4 py-6 md:p-6 xl:p-8 w-full  bg-primary space-y-6">
                             <h3 class="text-xl text-white font-semibold leading-5 ">Total Penyewaan</h3>
                             <div
-                                class="flex justify-center items-center w-full space-y-4 flex-col border-gray-200 border-b pb-4">
-                                <div class="flex justify-between w-full">
-                                    <p class="text-base text-white leading-4">Subtotal</p>
-                                    <p class="text-base text-gray-300 leading-4">{{ produk.rupiah }}</p>
-                                </div>
-                                <div class="flex justify-between w-full">
-                                    <p class="text-base text-white leading-4">Jumlah Produk Yang Disewa</p>
-                                    <p class="text-base text-gray-300 leading-4">{{ quantity }}</p>
-                                </div>
-                                <div class="flex justify-between items-center w-full">
-                                    <p class="text-base text-white leading-4">Discount
-                                    </p>
-                                    <p class="text-base text-gray-300 leading-4">{{ formatRupiah(HargaDiskon) }}</p>
-                                </div>
-                                <!-- <div class="flex justify-between items-center w-full">
-                                    <p class="text-base text-white leading-4">Shipping</p>
-                                    <p class="text-base text-gray-300 leading-4">$8.00</p>
-                                </div> -->
+                            class="flex justify-center items-center w-full space-y-4 flex-col border-gray-200 border-b pb-4">
+                            <div class="flex justify-between w-full">
+                                <p class="text-base text-white leading-4">Harga Produk</p>
+                                <p class="text-base text-gray-300 leading-4">{{ produk.rupiah }}</p>
+                            </div>
+                            <div class="flex justify-between w-full">
+                                <p class="text-base text-white leading-4">Jumlah Produk Yang Disewa</p>
+                                <p class="text-base text-gray-300 leading-4">{{ quantity }}</p>
                             </div>
                             <div class="flex justify-between items-center w-full">
-                                <p class="text-base text-white font-semibold leading-4">Total</p>
-                                <p class="text-base text-gray-300 font-semibold leading-4">{{ formatRupiah(subTotal) }}
+                                <p class="text-base text-white leading-4">Discount
                                 </p>
+                                <p class="text-base text-gray-300 leading-4">{{ JumlahDiskon }}%</p>
                             </div>
+                            <div class="flex justify-between items-center w-full">
+                                <p class="text-base text-white leading-4">Potongan</p>
+                                <p class="text-base text-gray-300 leading-4">{{ formatRupiah(HargaDiskon) }}</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center w-full">
+                            <p class="text-base text-white font-semibold leading-4">Total</p>
+                            <p class="text-base text-gray-300 font-semibold leading-4"> <i class="text-sm line-through"> {{ formatRupiah(totalHarga) }} </i> {{ formatRupiah(subTotal) }}
+                            </p>
+                        </div>
                         </div>
                     </div>
                     <div class="flex w-full justify-center items-center md:justify-start md:items-start">

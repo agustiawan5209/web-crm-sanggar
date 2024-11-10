@@ -4,7 +4,7 @@ import HomeLayout from '@/Layouts/HomeLayout.vue';
 import Pricing from '@/Components/Product/Pricing.vue'
 import VideoBanner from '@/Components/VideoBanner.vue'
 import { defineProps } from 'vue';
-
+import DiscountBadge from '@/Components/DiscountBadge.vue';
 const props = defineProps({
     jasa: {
         type: Object,
@@ -24,25 +24,18 @@ const props = defineProps({
         <!-- start hero -->
         <VideoBanner></VideoBanner>
 
-
         <!-- Diskon -->
         <div class="container mx-auto">
             <ul class="list-item space-y-1">
                 <li v-for="(item,idx) in diskon" :key="item.id" id="informational-banner" tabindex="-1"
                 class=" z-50 flex flex-col justify-between w-full p-4 border-b border-gray-200 md:flex-row bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
                 <div class="mb-4 md:mb-0 md:me-4">
-                    <h2 class="mb-1 text-base font-semibold text-gray-900 dark:text-white">{{ item.nama }}</h2>
-                    <p class="flex items-center text-sm font-normal text-gray-500 dark:text-gray-400" v-html="item.keterangan"></p>
+                    <h2 class="mb-1 text-3xl font-semibold text-gray-900 dark:text-white">{{ item.nama }}</h2>
+                    <p class="flex items-center text-2xl font-normal text-gray-500 dark:text-gray-400" v-html="item.keterangan"></p>
                 </div>
                 <div class="flex items-center flex-shrink-0">
-                    <a href="#"
-                        class="inline-flex items-center justify-center px-3 py-2 me-2 text-lg font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                        {{ item.jumlah }}% <svg class="w-3 h-3 ms-2 rtl:rotate-180" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M1 5h12m0 0L9 1m4 4L9 9" />
-                        </svg>
-                    </a>
+                    <DiscountBadge :jumlah="item.jumlah" />
+
                 </div>
             </li>
             </ul>

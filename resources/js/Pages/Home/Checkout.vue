@@ -29,8 +29,6 @@ const JumlahDiskon = ref(0);
 const User = usePage().props.auth.user;
 
 
-
-
 const showModal = ref(false);
 
 const funModal = () => {
@@ -40,6 +38,7 @@ const closeModal = () => {
     showModal.value = false
 }
 const subTotal = ref(props.produk.harga * props.quantity)
+const totalHarga = ref(props.produk.harga * props.quantity);
 function formatRupiah(number) {
     return new Intl.NumberFormat('id-ID', {
         style: 'currency',
@@ -55,10 +54,11 @@ const HargaDiskon = ref(0);
 
 const getDiskon = async () => {
     try {
-        const response = await axios.get(route('Api.diskon.get_diskon', { jumlah: props.quantity, user_id: User.id }));
+        const response = await axios.get(route('Api.diskon.get_diskon', { jumlah: props.quantity, user_id: User.id, tipe: props.tipe }));
         if (response.status == 200) {
             JumlahDiskon.value = response.data;
             HargaDiskon.value = subTotal.value * (JumlahDiskon.value / 100);
+
             subTotal.value = subTotal.value - HargaDiskon.value;
         }
     } catch (err) {
@@ -117,7 +117,7 @@ console.log(subTotal.value, HargaDiskon.value)
                             <div
                                 class="flex justify-center items-center w-full space-y-4 flex-col border-gray-200 border-b pb-4">
                                 <div class="flex justify-between w-full">
-                                    <p class="text-base text-white leading-4">Subtotal</p>
+                                    <p class="text-base text-white leading-4">Harga Produk</p>
                                     <p class="text-base text-gray-300 leading-4">{{ produk.rupiah }}</p>
                                 </div>
                                 <div class="flex justify-between w-full">
@@ -127,16 +127,16 @@ console.log(subTotal.value, HargaDiskon.value)
                                 <div class="flex justify-between items-center w-full">
                                     <p class="text-base text-white leading-4">Discount
                                     </p>
+                                    <p class="text-base text-gray-300 leading-4">{{ JumlahDiskon }}%</p>
+                                </div>
+                                <div class="flex justify-between items-center w-full">
+                                    <p class="text-base text-white leading-4">Potongan</p>
                                     <p class="text-base text-gray-300 leading-4">{{ formatRupiah(HargaDiskon) }}</p>
                                 </div>
-                                <!-- <div class="flex justify-between items-center w-full">
-                                    <p class="text-base text-white leading-4">Shipping</p>
-                                    <p class="text-base text-gray-300 leading-4">$8.00</p>
-                                </div> -->
                             </div>
                             <div class="flex justify-between items-center w-full">
                                 <p class="text-base text-white font-semibold leading-4">Total</p>
-                                <p class="text-base text-gray-300 font-semibold leading-4">{{ formatRupiah(subTotal) }}
+                                <p class="text-base text-gray-300 font-semibold leading-4"> <i class="text-sm line-through"> {{ formatRupiah(totalHarga) }} </i> {{ formatRupiah(subTotal) }}
                                 </p>
                             </div>
                         </div>

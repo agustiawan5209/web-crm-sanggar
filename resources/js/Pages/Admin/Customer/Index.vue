@@ -2,7 +2,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, useForm, Link, usePage } from '@inertiajs/vue3';
 import { ref, watch, defineProps, inject, computed, onMounted } from 'vue';
-import Dropdown from '@/Components/Dropdown.vue';
+import dropdownTable from '@/Components/dropdownTable.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import InputLabel from '@/Components/InputLabel.vue';
@@ -314,7 +314,7 @@ const statusClass = (status)=>{
                                             v-if="cekAksi()">
                                             <!-- Settings Dropdown -->
                                             <div class="ml-3">
-                                                <Dropdown align="top" width="48">
+                                                <dropdownTable align="top" width="48">
                                                     <template #trigger>
                                                         <span class="inline-flex rounded-md">
                                                             <button type="button"
@@ -361,7 +361,7 @@ const statusClass = (status)=>{
                                                             Reset Password
                                                         </DropdownLink>
                                                     </template>
-                                                </Dropdown>
+                                                </dropdownTable>
                                             </div>
                                         </td>
                                     </tr>

@@ -41,7 +41,7 @@ class DiskonController extends Controller
                 $diskon[] = Diskon::find($value->diskon_id)->jumlah;
             }
         }
-        return response()->json(count($diskon) > 0 ?end($diskon):0, 200);
+        return response()->json(count($diskon) > 0 ? end($diskon):0, 200);
 
     }
 
