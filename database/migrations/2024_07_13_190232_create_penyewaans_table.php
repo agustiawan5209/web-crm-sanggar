@@ -27,7 +27,8 @@ return new class extends Migration
 
             $table->date('tgl_penyewaan')->nullable();
             $table->string('lokasi')->nullable();
-
+            $table->string('ongkir',50)->nullable();
+            $table->bigInteger('biaya_ongkir')->nullable();
             $table->timestamps();
         });
     }

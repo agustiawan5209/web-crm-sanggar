@@ -5,7 +5,13 @@ import InputError from '../InputError.vue';
 import Modal from '../Modal.vue';
 import CalendarPayment from '../Card/CalendarPayment.vue';
 const swal = inject('$swal')
-
+function formatRupiah(number) {
+    return new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        minimumFractionDigits: 0
+    }).format(number);
+}
 const props = defineProps({
     show: {
         type: Boolean,
@@ -41,7 +47,7 @@ const props = defineProps({
     },
     sewa: {
         type: [Array, Object],
-        default: ()=>({}),
+        default: () => ({}),
     },
 });
 
@@ -52,7 +58,7 @@ const Form = useForm({
     jenis_bayar: 'Lunas',
     jenis: props.jenisproduk,
     jumlah_bayar: harga,
-    total:  harga,
+    total: harga,
     bukti: '',
     tgl_pembayaran: '',
     tgl_pengambilan: '',
@@ -60,7 +66,9 @@ const Form = useForm({
     produk: props.produk,
     quantity: props.quantity,
     tgl_penyewaan: '',
-    lokasi: ''
+    lokasi: '',
+    ongkir: '',
+    biaya_ongkir: 0,
 })
 
 // Jumlah Bayar
@@ -113,27 +121,6 @@ function onFileChange(event) {
     imageUrl.value = URL.createObjectURL(file);
 }
 
-//
-// Submit Penyewaan
-function submit() {
-    Form.post(route('Penyewaan.Store'), {
-        preserveState: true,
-        onError: (err) => {
-            console.log(err);
-        }
-    })
-}
-// Submit Penyewaan later
-function submitLater() {
-    Form.post(route('Penyewaan.Store.later'), {
-        onSuccess: ()=>{
-            window.location.href = route('Customer.riwayat.penyewaan')
-        },
-        onError: (err) => {
-            console.log(err);
-        }
-    })
-}
 
 
 const modalPay = ref(true);
@@ -176,6 +163,55 @@ function resetModal() {
 
     typePayment.value = 0;
 }
+
+// Data Pengiriman
+const Ongkir = ref('');
+
+const addOngkir = (value) => {
+    Form.ongkir = value;
+    Form.biaya_ongkir = props.produk.biaya_ongkir
+    Form.total = harga + Number(props.produk.biaya_ongkir)
+}
+const deleteOngkir = (value) => {
+    Form.ongkir = value;
+    Form.biaya_ongkir = 0;
+    Form.total = harga;
+
+}
+
+
+watch(Ongkir, (value)=>{
+    if(value == 'Ambil Sendiri'){
+        deleteOngkir(value)
+    }
+    if(value == 'Kirim Ke Lokasi'){
+        addOngkir(value);
+    }
+})
+
+//
+// Submit Penyewaan
+function submit() {
+    Form.post(route('Penyewaan.Store'), {
+        preserveState: true,
+        onError: (err) => {
+            console.log(err);
+        }
+    })
+}
+// Submit Penyewaan later
+function submitLater() {
+    Form.post(route('Penyewaan.Store.later'), {
+        onSuccess: () => {
+            window.location.href = route('Customer.riwayat.penyewaan')
+        },
+        onError: (err) => {
+            console.log(err);
+        }
+    })
+}
+
+console.log(Form.jumlah_bayar)
 </script>
 
 <template>
@@ -209,7 +245,8 @@ function resetModal() {
         <!-- Bayar Nanti -->
         <section v-if="modalPay == false && payLater == true"
             class="body-font h-max bg-gray-100 text-gray-600 overflow-y-auto relative">
-            <button v-if="modalPay == false" type="button" class="absolute top-10 left-10 text-lg cursor-pointer" @click="resetModal()">
+            <button v-if="modalPay == false" type="button" class="absolute top-10 left-10 text-lg cursor-pointer"
+                @click="resetModal()">
                 <font-awesome-icon :icon="['fas', 'square-xmark']" class="text-read " />
                 kembali
             </button>
@@ -236,21 +273,50 @@ function resetModal() {
 
                                     </div>
                                     <div class="col-span-2" v-show="jenisproduk == 'jasa'">
-                                        <label for="tgl_penyewaan" class="block text-sm font-medium text-gray-700 mb-2">Tanggal
+                                        <label for="tgl_penyewaan"
+                                            class="block text-sm font-medium text-gray-700 mb-2">Tanggal
                                             Penyewaan</label>
-                                        <input type="date" v-model="Form.tgl_penyewaan" name="tgl_penyewaan" id="tgl_penyewaan"
-                                            placeholder="date"
+                                        <input type="date" v-model="Form.tgl_penyewaan" name="tgl_penyewaan"
+                                            id="tgl_penyewaan" placeholder="date"
                                             class="w-full py-3 px-4 border border-gray-400 rounded-lg focus:outline-none focus:border-blue-500">
                                         <InputError :message="Form.errors.tgl_penyewaan" />
 
                                     </div>
                                     <div class="col-span-2">
-                                        <label for="lokasi" class="block text-sm font-medium text-gray-700 mb-2">Lokasi</label>
+                                        <label for="lokasi"
+                                            class="block text-sm font-medium text-gray-700 mb-2">Lokasi</label>
                                         <input type="text" v-model="Form.lokasi" name="lokasi" id="lokasi"
                                             placeholder=".............."
                                             class="w-full py-3 px-4 border border-gray-400 rounded-lg focus:outline-none focus:border-blue-500">
                                         <InputError :message="Form.errors.lokasi" />
 
+                                    </div>
+                                    <div class="col-span-2" v-if="props.jenisproduk == 'alat'">
+                                        <label for="ongkir"
+                                            class="block text-sm font-medium text-gray-700 mb-2">Pengiriman</label>
+                                        <div
+                                            class="flex items-center ps-4 border border-gray-200 rounded">
+                                            <input checked id="AmbilSendiri" type="radio" value="Ambil Sendiri" name="bebanpengiriman" v-model="Ongkir"
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+                                            <label for="AmbilSendiri"
+                                                class="w-full py-4 ms-2 text-sm font-medium text-gray-900 ">Ambil Sendiri</label>
+                                        </div>
+                                        <div
+                                            class="flex items-center ps-4 border border-gray-200 rounded">
+                                            <input  id="kirimkelokasi" type="radio" value="Kirim Ke Lokasi"
+                                                name="bebanpengiriman" v-model="Ongkir"
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+                                            <label for="kirimkelokasi"
+                                                class="w-full py-4 ms-2 text-sm font-medium text-gray-900 ">Kirim Ke Lokasi: harga = {{produk.harga_ongkir}}</label>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-span-2">
+                                        <div class="flex justify-between items-center w-full">
+                                            <p class="text-base text-black font-semibold leading-4">Total</p>
+                                            <p class="text-base text-gray-800 font-semibold leading-4"> :{{ formatRupiah(Form.total) }}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="mt-8">
@@ -268,7 +334,8 @@ function resetModal() {
         <!-- Bayar Sekarang -->
         <section v-if="modalPay == false && payNow == true"
             class="body-font h-screen bg-gray-100 text-gray-600 overflow-y-auto relative">
-            <button v-if="modalPay == false" type="button" class="absolute top-10 left-10 text-lg cursor-pointer" @click="resetModal()">
+            <button v-if="modalPay == false" type="button" class="absolute top-10 left-10 text-lg cursor-pointer"
+                @click="resetModal()">
                 <font-awesome-icon :icon="['fas', 'square-xmark']" class="text-read " />
                 kembali
             </button>
@@ -376,7 +443,7 @@ function resetModal() {
                         <div class="bg-white rounded-lg shadow-lg p-6">
                             <h2 class="text-lg font-medium mb-6">Informasi Penyewaan</h2>
                             <div class="space-y-4">
-                                <div class="col-span-full" v-if="jenisproduk== 'jasa'">
+                                <div class="col-span-full" v-if="jenisproduk == 'jasa'">
                                     <label for="jenis_bayar" class="text-base w-full">Jenis Pembayaran</label>
                                     <div class="flex gap-7">
                                         <div class="flex items-center gap-4">
@@ -424,21 +491,50 @@ function resetModal() {
 
                                     </div>
                                     <div class="col-span-2" v-show="jenisproduk == 'jasa'">
-                                        <label for="tgl_penyewaan" class="block text-sm font-medium text-gray-700 mb-2">Tanggal
+                                        <label for="tgl_penyewaan"
+                                            class="block text-sm font-medium text-gray-700 mb-2">Tanggal
                                             Penyewaan</label>
-                                        <input type="date" v-model="Form.tgl_penyewaan" name="tgl_penyewaan" id="tgl_penyewaan"
-                                            placeholder="date"
+                                        <input type="date" v-model="Form.tgl_penyewaan" name="tgl_penyewaan"
+                                            id="tgl_penyewaan" placeholder="date"
                                             class="w-full py-3 px-4 border border-gray-400 rounded-lg focus:outline-none focus:border-blue-500">
                                         <InputError :message="Form.errors.tgl_penyewaan" />
 
                                     </div>
                                     <div class="col-span-2">
-                                        <label for="lokasi" class="block text-sm font-medium text-gray-700 mb-2">Lokasi</label>
+                                        <label for="lokasi"
+                                            class="block text-sm font-medium text-gray-700 mb-2">Lokasi</label>
                                         <input type="text" v-model="Form.lokasi" name="lokasi" id="lokasi"
                                             placeholder=".............."
                                             class="w-full py-3 px-4 border border-gray-400 rounded-lg focus:outline-none focus:border-blue-500">
                                         <InputError :message="Form.errors.lokasi" />
 
+                                    </div>
+                                    <div class="col-span-2" v-if="props.jenisproduk == 'alat'">
+                                        <label for="ongkir"
+                                            class="block text-sm font-medium text-gray-700 mb-2">Pengiriman</label>
+                                        <div
+                                            class="flex items-center ps-4 border border-gray-200 rounded">
+                                            <input checked id="AmbilSendiri" type="radio" value="Ambil Sendiri" name="bebanpengiriman" v-model="Ongkir"
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+                                            <label for="AmbilSendiri"
+                                                class="w-full py-4 ms-2 text-sm font-medium text-gray-900 ">Ambil Sendiri</label>
+                                        </div>
+                                        <div
+                                            class="flex items-center ps-4 border border-gray-200 rounded">
+                                            <input  id="kirimkelokasi" type="radio" value="Kirim Ke Lokasi"
+                                                name="bebanpengiriman" v-model="Ongkir"
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+                                            <label for="kirimkelokasi"
+                                                class="w-full py-4 ms-2 text-sm font-medium text-gray-900 ">Kirim Ke Lokasi: harga = {{produk.harga_ongkir}}</label>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-span-2">
+                                        <div class="flex justify-between items-center w-full">
+                                            <p class="text-base text-black font-semibold leading-4">Total</p>
+                                            <p class="text-base text-gray-800 font-semibold leading-4"> :{{ formatRupiah(Form.total) }}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="mt-8">

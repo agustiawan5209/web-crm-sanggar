@@ -135,6 +135,14 @@ function submit() {
         }
     })
 }
+
+function formatRupiah(number) {
+    return new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        minimumFractionDigits: 0
+    }).format(number);
+}
 </script>
 
 <template>
@@ -356,6 +364,13 @@ function submit() {
                                         <td class="text-sm border-b text-gray-800"> {{ pembayaran.penyewaan.jenis }}
                                         </td>
                                     </tr>
+                                    <tr class="" v-if="pembayaran.penyewaan.jenis == 'jasa'">
+                                        <td class="text-sm border-b py-2 font-bold capitalize">Tanggal Penyewaan</td>
+                                        <td>:</td>
+                                        <td class="text-sm border-b text-gray-800"> {{
+                                            pembayaran.penyewaan.tgl_penyewaan }}
+                                        </td>
+                                    </tr>
                                     <tr class="">
                                         <td class="text-sm border-b py-2 font-bold capitalize">Tanggal Pengambilan</td>
                                         <td>:</td>
@@ -369,6 +384,24 @@ function submit() {
                                         <td>:</td>
                                         <td class="text-sm border-b text-gray-800"> {{
                                             pembayaran.penyewaan.tgl_pengembalian }}
+                                        </td>
+                                    </tr>
+                                    <tr class="">
+                                        <td class="text-sm border-b py-2 font-bold capitalize">Pengiriman</td>
+                                        <td>:</td>
+                                        <td class="text-sm border-b text-gray-800"> {{ pembayaran.penyewaan.ongkir }}
+                                        </td>
+                                    </tr>
+                                    <tr class="" v-if="pembayaran.penyewaan.ongkir == 'Kirim Ke Lokasi'">
+                                        <td class="text-sm border-b py-2 font-bold capitalize">Biaya Pengiriman</td>
+                                        <td>:</td>
+                                        <td class="text-sm border-b text-gray-800"> {{ formatRupiah(pembayaran.penyewaan.biaya_ongkir) }}
+                                        </td>
+                                    </tr>
+                                    <tr class="">
+                                        <td class="text-sm border-b py-2 font-bold capitalize">Lokasi</td>
+                                        <td>:</td>
+                                        <td class="text-sm border-b text-gray-800"> {{ pembayaran.penyewaan.lokasi }}
                                         </td>
                                     </tr>
                                     <tr>

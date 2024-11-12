@@ -33,6 +33,7 @@ class PenyewaanController extends Controller
         $columns[] = 'jenis';
         $columns[] = 'produk';
         $columns[] = 'jumlah';
+        $columns[] = 'pengiriman';
         $columns[] = 'tgl_penyewaan';
         $columns[] = 'tgl_pengambilan';
         $columns[] = 'tgl_pengembalian';
@@ -65,6 +66,7 @@ class PenyewaanController extends Controller
         $columns[] = 'jenis';
         $columns[] = 'produk';
         $columns[] = 'jumlah';
+        $columns[] = 'pengiriman';
         $columns[] = 'tgl_penyewaan';
         $columns[] = 'tgl_pengambilan';
         $columns[] = 'total_bayar';
@@ -136,6 +138,8 @@ class PenyewaanController extends Controller
                 'lokasi' => $request->lokasi,
                 'status' => "Dalam Penyewaan",
                 'tipe_bayar' => 'Bayar Nanti',
+                'ongkir' => $request->ongkir,
+            'biaya_ongkir' => $request->biaya_ongkir,
             ]);
             Pembayaran::create([
                 'kode_transaksi' => $this->generateKodeTransaksi(),
@@ -188,6 +192,8 @@ class PenyewaanController extends Controller
             'tgl_pengembalian' => $request->tgl_pengembalian,
             'tgl_penyewaan' => $request->tgl_penyewaan,
             'lokasi' => $request->lokasi,
+            'ongkir' => $request->ongkir,
+            'biaya_ongkir' => $request->biaya_ongkir,
             'status' => "Dalam Penyewaan",
         ]);
         $photo = $request->bukti;

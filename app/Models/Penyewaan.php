@@ -27,6 +27,8 @@ class Penyewaan extends Model
         'tipe_bayar',
         'tgl_penyewaan',
         'lokasi',
+        'ongkir',
+        'biaya_ongkir',
 
     ];
 
@@ -47,6 +49,8 @@ class Penyewaan extends Model
     protected $casts = [
         'produk_id' => 'json',
         'customer_user' => 'json',
+        'jumlah'=> 'integer',
+        'biaya_ongkir'=> 'integer',
     ];
 
     protected $appends = [
@@ -54,8 +58,15 @@ class Penyewaan extends Model
         'total_bayar',
         'human_format',
         'file_url',
+        'pengiriman'
     ];
 
+    public function pengiriman() : Attribute
+    {
+        return new Attribute(
+            get: fn()=> $this->ongkir,
+        );
+    }
     public function fileUrl() : Attribute
     {
         return new Attribute(

@@ -30,7 +30,8 @@ class StorePenyewaanRequest extends FormRequest
             'tgl_pengambilan'=> 'nullable|date',
             'tgl_pengembalian'=> 'nullable|date',
             'lokasi'=> 'required|string|max:255',
-            'tgl_penyewaan'=> 'required|date',
+            'tgl_penyewaan'=> 'nullable|date',
+            'ongkir'=> 'required'
         ];
     }
 }
