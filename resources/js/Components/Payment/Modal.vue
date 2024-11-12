@@ -235,7 +235,7 @@ function resetModal() {
                                         <InputError :message="Form.errors.tgl_pengambilan" />
 
                                     </div>
-                                    <div class="col-span-2">
+                                    <div class="col-span-2" v-show="jenisproduk == 'jasa'">
                                         <label for="tgl_penyewaan" class="block text-sm font-medium text-gray-700 mb-2">Tanggal
                                             Penyewaan</label>
                                         <input type="date" v-model="Form.tgl_penyewaan" name="tgl_penyewaan" id="tgl_penyewaan"
@@ -423,7 +423,7 @@ function resetModal() {
                                         <InputError :message="Form.errors.tgl_pengambilan" />
 
                                     </div>
-                                    <div class="col-span-2">
+                                    <div class="col-span-2" v-show="jenisproduk == 'jasa'">
                                         <label for="tgl_penyewaan" class="block text-sm font-medium text-gray-700 mb-2">Tanggal
                                             Penyewaan</label>
                                         <input type="date" v-model="Form.tgl_penyewaan" name="tgl_penyewaan" id="tgl_penyewaan"

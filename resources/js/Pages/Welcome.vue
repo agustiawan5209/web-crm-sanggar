@@ -25,20 +25,32 @@ const props = defineProps({
         <VideoBanner></VideoBanner>
 
         <!-- Diskon -->
-        <div class="container mx-auto">
-            <ul class="list-item space-y-1">
-                <li v-for="(item,idx) in diskon" :key="item.id" id="informational-banner" tabindex="-1"
-                class=" z-50 flex flex-col justify-between w-full p-4 border-b border-gray-200 md:flex-row bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
-                <div class="mb-4 md:mb-0 md:me-4">
-                    <h2 class="mb-1 text-3xl font-semibold text-gray-900 dark:text-white">{{ item.nama }}</h2>
-                    <p class="flex items-center text-2xl font-normal text-gray-500 dark:text-gray-400" v-html="item.keterangan"></p>
-                </div>
-                <div class="flex items-center flex-shrink-0">
-                    <DiscountBadge :jumlah="item.jumlah" />
+        <div class="container mx-auto p-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
 
+
+                <div v-for="item in diskon" class="flex flex-col rounded-3xl  bg-gray-900 shadow-xl ring-1 ring-black/10">
+                    <div class="p-8 sm:p-10">
+                        <div class="flex">
+                            <h3 class="text-lg font-semibold leading-8 tracking-tight text-teal-400"
+                                id="tier-basic">{{item.nama}}</h3>
+                            <div class="items-center ml-2"></div>
+                        </div>
+                        <div
+                            class="my-4 flex items-baseline text-2xl tracking-tight text-gray-200 font-semibold">
+                           Potongan Hingga <b class="text-red-500 text-6xl">{{ item.jumlah }}%</b>
+                            <span
+                                class="text-lg font-semibold leading-8 tracking-normal text-gray-400"></span>
+                        </div>
+                        <p v-html="item.keterangan" class="text-white"></p>
+
+                        <!-- <p class="mt-6 text-base leading-7 text-gray-300">Great for getting
+                            started. Sign your first two documents
+                            for free.</p> -->
+                    </div>
                 </div>
-            </li>
-            </ul>
+
+            </div>
         </div>
 
         <!-- Produk -->
