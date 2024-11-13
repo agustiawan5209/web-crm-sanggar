@@ -64,6 +64,11 @@ class DiskonController extends Controller
                 'diskon_id'=> $diskon->id,
                 'min_frequency'=> $request->min_frequency,
             ]);
+        }else{
+            GetDiskon::create([
+                'diskon_id'=> $diskon->id,
+                'min_quantity'=> $request->min_quantity,
+            ]);
         }
 
         return redirect()->route('Diskon.index')->with('message', 'Data Diskon Berhasil Di tambah!!');
