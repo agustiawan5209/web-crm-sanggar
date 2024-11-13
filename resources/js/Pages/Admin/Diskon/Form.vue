@@ -92,8 +92,8 @@ function submit() {
                                 <InputError :message="Form.errors.min_quantity" />
                             </div>
                             <div class="col-span-full " v-if="Form.jenis == 'Keep'">
-                                <label for="Frekuensi" class="text-base">Frekuensi Penyewaan</label>
-                                <TextInput id="Frekuensi" type="number" placeholder="Frekuensi Penyewaan Dalam Sebulan" v-model="Form.min_frequency"
+                                <label for="Frekuensi" class="text-base">Paket Lengkap</label>
+                                <TextInput id="Frekuensi" type="number" placeholder="Paket Lengkap Dalam Sebulan" v-model="Form.min_frequency"
                                     class="w-full text-gray-900" />
                                 <InputError :message="Form.errors.min_frequency" />
                             </div>

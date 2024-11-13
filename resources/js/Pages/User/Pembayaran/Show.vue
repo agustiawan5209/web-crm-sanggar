@@ -392,7 +392,7 @@ function formatRupiah(number) {
                                         <td class="text-sm border-b text-gray-800"> {{ pembayaran.penyewaan.ongkir }}
                                         </td>
                                     </tr>
-                                    <tr class="" v-if="pembayaran.penyewaan.ongkir == 'Kirim Ke Lokasi'">
+                                    <tr class="">
                                         <td class="text-sm border-b py-2 font-bold capitalize">Biaya Pengiriman</td>
                                         <td>:</td>
                                         <td class="text-sm border-b text-gray-800"> {{ formatRupiah(pembayaran.penyewaan.biaya_ongkir) }}

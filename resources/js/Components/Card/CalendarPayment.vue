@@ -7,7 +7,6 @@ import axios from 'axios';
 
 
 const props = defineProps(['sewa'])
-console.log(props.sewa)
 const dates = ref(null);
 const Loaded = ref(false)
 const AttributeData = ref([{

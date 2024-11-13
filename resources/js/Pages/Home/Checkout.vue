@@ -52,6 +52,7 @@ const HargaDiskon = ref(0);
 //     subTotal = subTotal - HargaDiskon.value;
 // });
 
+const responseModal = ref(false);
 const getDiskon = async () => {
     try {
         const response = await axios.get(route('Api.diskon.get_diskon', { jumlah: props.quantity, user_id: User.id, tipe: props.tipe }));
@@ -60,6 +61,7 @@ const getDiskon = async () => {
             HargaDiskon.value = subTotal.value * (JumlahDiskon.value / 100);
 
             subTotal.value = subTotal.value - HargaDiskon.value;
+            responseModal.value = true
         }
     } catch (err) {
         console.error(err);
@@ -75,7 +77,7 @@ console.log(subTotal.value, HargaDiskon.value)
 <template>
 
     <Head title="Checkout" />
-    <ModalPayment :show="showModal" :sewa="sewa" :produk="produk" :jenisproduk="tipe" :quantity="quantity" :diskon="HargaDiskon"
+    <ModalPayment v-if="responseModal" :show="showModal" :sewa="sewa" :produk="produk" :jenisproduk="tipe" :quantity="quantity" :diskon="HargaDiskon"
         :subtotal="subTotal" maxWidth="2xl">
         <span class="absolute top-3 left-10 text-lg cursor-pointer" @click="showModal = false">X</span>
 

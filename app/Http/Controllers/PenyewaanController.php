@@ -139,7 +139,7 @@ class PenyewaanController extends Controller
                 'status' => "Dalam Penyewaan",
                 'tipe_bayar' => 'Bayar Nanti',
                 'ongkir' => $request->ongkir,
-            'biaya_ongkir' => $request->biaya_ongkir,
+                'biaya_ongkir' => $request->biaya_ongkir,
             ]);
             Pembayaran::create([
                 'kode_transaksi' => $this->generateKodeTransaksi(),
@@ -156,7 +156,6 @@ class PenyewaanController extends Controller
 
             $penyewaan->update(['struk' => $pdf]);
 
-
             return redirect()->route('Customer.Pembayaran.index', ['slug' => $penyewaan->id]);
         } catch (Exception $e) {
             return redirect()->route('Customer.Pembayaran.index', ['slug' => $penyewaan->id])->with('message', $e->getMessage());
@@ -167,58 +166,61 @@ class PenyewaanController extends Controller
      */
     public function store(StorePenyewaanRequest $request)
     {
-        // dd(json_encode($request->produk));
-        $user = User::with(['customer'])->find(Auth::user()->id);
+        try {
+            // dd(json_encode($request->produk));
+            $user = User::with(['customer'])->find(Auth::user()->id);
 
-        if ($request->jenis == 'alat') {
+            if ($request->jenis == 'alat') {
 
-            $produk = ProdukAlat::find($request->produk['id']);
-
-            try {
-                // Mengurangi stok
-                $produk->reduceStock($request->quantity);
-            } catch (\Exception $e) {
-                return redirect()->route('produk.detail', ['slug' => $produk->id, 'tipe' => 'alat']);
+                $produk = ProdukAlat::find($request->produk['id']);
+                try {
+                    // Mengurangi stok
+                    $produk->reduceStock($request->quantity);
+                } catch (\Exception $e) {
+                    return redirect()->route('produk.detail', ['slug' => $produk->id, 'tipe' => 'alat']);
+                }
             }
+            $penyewaan = Penyewaan::create([
+                'customer_id' => $user->customer->id,
+                'customer_user' => $user,
+                'jenis' => $request->jenis,
+                'produk_id' => $request->produk,
+                'produk' => $request->produk['nama'],
+                'jumlah' => $request->quantity == null ? 1 : $request->quantity,
+                'tgl_pengambilan' => $request->tgl_pengambilan,
+                'tgl_pengembalian' => $request->tgl_pengembalian,
+                'tgl_penyewaan' => $request->tgl_penyewaan,
+                'lokasi' => $request->lokasi,
+                'ongkir' => $request->ongkir,
+                'biaya_ongkir' => $request->biaya_ongkir,
+                'status' => "Dalam Penyewaan",
+            ]);
+            $photo = $request->bukti;
+            $name_photo = $photo->getClientOriginalName();
+            $random_name_photo = md5($name_photo);
+
+            $photo->storeAs('public/bukti_bayar', $random_name_photo);
+            Pembayaran::create([
+                'kode_transaksi' => $this->generateKodeTransaksi(),
+                'bukti' => $random_name_photo,
+                'penyewaan_id' => $penyewaan->id,
+                'total' => Request::input('jumlah_bayar'),
+                'sub_total' => Request::input('total'),
+                'jenis_bayar' => $request->jenis_bayar,
+                'tgl' => $request->tgl_pembayaran,
+                'status' => "PENDING",
+            ]);
+
+            $laporan = new LaporanController();
+
+            $pdf = $laporan->struk($penyewaan->id);
+
+            $penyewaan->update(['struk' => $pdf]);
+
+            return redirect()->route('payment.success', ['slug' => $penyewaan->id]);
+        } catch (Exception $e) {
+            return redirect()->route('payment.success', ['slug' => $penyewaan->id])->with('message', $e->getMessage());
         }
-        $penyewaan = Penyewaan::create([
-            'customer_id' => $user->customer->id,
-            'customer_user' => $user,
-            'jenis' => $request->jenis,
-            'produk_id' => $request->produk,
-            'produk' => $request->produk['nama'],
-            'jumlah' => $request->quantity == null ? 1 : $request->quantity,
-            'tgl_pengambilan' => $request->tgl_pengambilan,
-            'tgl_pengembalian' => $request->tgl_pengembalian,
-            'tgl_penyewaan' => $request->tgl_penyewaan,
-            'lokasi' => $request->lokasi,
-            'ongkir' => $request->ongkir,
-            'biaya_ongkir' => $request->biaya_ongkir,
-            'status' => "Dalam Penyewaan",
-        ]);
-        $photo = $request->bukti;
-        $name_photo = $photo->getClientOriginalName();
-        $random_name_photo = md5($name_photo);
-
-        $photo->storeAs('public/bukti_bayar', $random_name_photo);
-        Pembayaran::create([
-            'kode_transaksi' => $this->generateKodeTransaksi(),
-            'bukti' => $random_name_photo,
-            'penyewaan_id' => $penyewaan->id,
-            'total' => Request::input('jumlah_bayar'),
-            'sub_total' => Request::input('total'),
-            'jenis_bayar' => $request->jenis_bayar,
-            'tgl' => $request->tgl_pembayaran,
-            'status' => "PENDING",
-        ]);
-
-        $laporan = new LaporanController();
-
-        $pdf = $laporan->struk($penyewaan->id);
-
-        $penyewaan->update(['struk' => $pdf]);
-
-        return redirect()->route('payment.success', ['slug' => $penyewaan->id]);
     }
 
     /**

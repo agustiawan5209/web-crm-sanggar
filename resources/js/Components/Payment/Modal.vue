@@ -179,15 +179,26 @@ const deleteOngkir = (value) => {
 
 }
 
-
-watch(Ongkir, (value)=>{
-    if(value == 'Ambil Sendiri'){
+// Ongkir Alat
+watch(Ongkir, (value) => {
+    if (value == 'Ambil Sendiri') {
         deleteOngkir(value)
     }
-    if(value == 'Kirim Ke Lokasi'){
+    if (value == 'Kirim Ke Lokasi') {
         addOngkir(value);
     }
+    if (value == 'Luar Soppeng') {
+        Form.ongkir = value;
+        Form.biaya_ongkir = 500000
+        Form.total = harga + 500000
+    }
+    if (value == 'Sekitaran Soppeng') {
+        Form.ongkir = value;
+        Form.biaya_ongkir = 300000
+        Form.total = harga + 300000
+    }
 })
+
 
 //
 // Submit Penyewaan
@@ -294,27 +305,50 @@ console.log(Form.jumlah_bayar)
                                     <div class="col-span-2" v-if="props.jenisproduk == 'alat'">
                                         <label for="ongkir"
                                             class="block text-sm font-medium text-gray-700 mb-2">Pengiriman</label>
-                                        <div
-                                            class="flex items-center ps-4 border border-gray-200 rounded">
-                                            <input checked id="AmbilSendiri" type="radio" value="Ambil Sendiri" name="bebanpengiriman" v-model="Ongkir"
+                                        <div class="flex items-center ps-4 border border-gray-200 rounded">
+                                            <input id="AmbilSendiri" type="radio" value="Ambil Sendiri"
+                                                name="bebanpengiriman" v-model="Ongkir"
                                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
                                             <label for="AmbilSendiri"
-                                                class="w-full py-4 ms-2 text-sm font-medium text-gray-900 ">Ambil Sendiri</label>
+                                                class="w-full py-4 ms-2 text-sm font-medium text-gray-900 ">Ambil
+                                                Sendiri</label>
                                         </div>
-                                        <div
-                                            class="flex items-center ps-4 border border-gray-200 rounded">
-                                            <input  id="kirimkelokasi" type="radio" value="Kirim Ke Lokasi"
+                                        <div class="flex items-center ps-4 border border-gray-200 rounded">
+                                            <input id="kirimkelokasi" type="radio" value="Kirim Ke Lokasi"
                                                 name="bebanpengiriman" v-model="Ongkir"
                                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
                                             <label for="kirimkelokasi"
-                                                class="w-full py-4 ms-2 text-sm font-medium text-gray-900 ">Kirim Ke Lokasi: harga = {{produk.harga_ongkir}}</label>
+                                                class="w-full py-4 ms-2 text-sm font-medium text-gray-900 ">Kirim Ke
+                                                Lokasi: harga = {{ produk.harga_ongkir }}</label>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-span-2" v-if="props.jenisproduk == 'jasa'">
+                                        <label for="ongkir"
+                                            class="block text-sm font-medium text-gray-700 mb-2">Pengiriman</label>
+                                        <div class="flex items-center ps-4 border border-gray-200 rounded">
+                                            <input id="LuarSoppeng" type="radio" value="Luar Soppeng"
+                                                name="bebanpengiriman" v-model="Ongkir"
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+                                            <label for="LuarSoppeng"
+                                                class="w-full py-4 ms-2 text-sm font-medium text-gray-900 ">Luar
+                                                Soppeng</label>
+                                        </div>
+                                        <div class="flex items-center ps-4 border border-gray-200 rounded">
+                                            <input id="kirimkelokasi" type="radio" value="Sekitaran Soppeng"
+                                                name="bebanpengiriman" v-model="Ongkir"
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+                                            <label for="kirimkelokasi"
+                                                class="w-full py-4 ms-2 text-sm font-medium text-gray-900 ">Sekitaran
+                                                Soppeng</label>
                                         </div>
 
                                     </div>
                                     <div class="col-span-2">
                                         <div class="flex justify-between items-center w-full">
                                             <p class="text-base text-black font-semibold leading-4">Total</p>
-                                            <p class="text-base text-gray-800 font-semibold leading-4"> :{{ formatRupiah(Form.total) }}
+                                            <p class="text-base text-gray-800 font-semibold leading-4"> :{{
+                                                formatRupiah(Form.total) }}
                                             </p>
                                         </div>
                                     </div>
@@ -512,27 +546,50 @@ console.log(Form.jumlah_bayar)
                                     <div class="col-span-2" v-if="props.jenisproduk == 'alat'">
                                         <label for="ongkir"
                                             class="block text-sm font-medium text-gray-700 mb-2">Pengiriman</label>
-                                        <div
-                                            class="flex items-center ps-4 border border-gray-200 rounded">
-                                            <input checked id="AmbilSendiri" type="radio" value="Ambil Sendiri" name="bebanpengiriman" v-model="Ongkir"
+                                        <div class="flex items-center ps-4 border border-gray-200 rounded">
+                                            <input id="AmbilSendiri" type="radio" value="Ambil Sendiri"
+                                                name="bebanpengiriman" v-model="Ongkir"
                                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
                                             <label for="AmbilSendiri"
-                                                class="w-full py-4 ms-2 text-sm font-medium text-gray-900 ">Ambil Sendiri</label>
+                                                class="w-full py-4 ms-2 text-sm font-medium text-gray-900 ">Ambil
+                                                Sendiri</label>
                                         </div>
-                                        <div
-                                            class="flex items-center ps-4 border border-gray-200 rounded">
-                                            <input  id="kirimkelokasi" type="radio" value="Kirim Ke Lokasi"
+                                        <div class="flex items-center ps-4 border border-gray-200 rounded">
+                                            <input id="kirimkelokasi" type="radio" value="Kirim Ke Lokasi"
                                                 name="bebanpengiriman" v-model="Ongkir"
                                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
                                             <label for="kirimkelokasi"
-                                                class="w-full py-4 ms-2 text-sm font-medium text-gray-900 ">Kirim Ke Lokasi: harga = {{produk.harga_ongkir}}</label>
+                                                class="w-full py-4 ms-2 text-sm font-medium text-gray-900 ">Kirim Ke
+                                                Lokasi: harga = {{ produk.harga_ongkir }}</label>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-span-2" v-if="props.jenisproduk == 'jasa'">
+                                        <label for="ongkir"
+                                            class="block text-sm font-medium text-gray-700 mb-2">Pengiriman</label>
+                                        <div class="flex items-center ps-4 border border-gray-200 rounded">
+                                            <input id="LuarSoppeng" type="radio" value="Luar Soppeng"
+                                                name="bebanpengiriman" v-model="Ongkir"
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+                                            <label for="LuarSoppeng"
+                                                class="w-full py-4 ms-2 text-sm font-medium text-gray-900 ">Luar
+                                                Soppeng</label>
+                                        </div>
+                                        <div class="flex items-center ps-4 border border-gray-200 rounded">
+                                            <input id="kirimkelokasi" type="radio" value="Sekitaran Soppeng"
+                                                name="bebanpengiriman" v-model="Ongkir"
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+                                            <label for="kirimkelokasi"
+                                                class="w-full py-4 ms-2 text-sm font-medium text-gray-900 ">Sekitaran
+                                                Soppeng</label>
                                         </div>
 
                                     </div>
                                     <div class="col-span-2">
                                         <div class="flex justify-between items-center w-full">
                                             <p class="text-base text-black font-semibold leading-4">Total</p>
-                                            <p class="text-base text-gray-800 font-semibold leading-4"> :{{ formatRupiah(Form.total) }}
+                                            <p class="text-base text-gray-800 font-semibold leading-4"> :{{
+                                                formatRupiah(Form.total) }}
                                             </p>
                                         </div>
                                     </div>

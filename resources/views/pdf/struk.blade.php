@@ -42,7 +42,7 @@
             margin-top: 20px;
         }
         .container table th, .container table td {
-            padding: 10px;
+            padding: 3px;
             border: 1px solid #ddd;
             text-align: left;
         }
@@ -97,6 +97,14 @@
             <tr>
                 <th>Jenis Pembayaran</th>
                 <td>{{ $data->pembayaran->jenis_bayar }}</td>
+            </tr>
+            <tr>
+                <th>Pengiriman</th>
+                <td>{{ $data->ongkir }}</td>
+            </tr>
+            <tr>
+                <th>Harga Pengiriman</th>
+                <td>{{ $data->biaya_ongkir }}</td>
             </tr>
             <tr>
                 <th>Total Bayar</th>

@@ -25,13 +25,12 @@ class DiskonController extends Controller
             return response()->json('Error User Tidak DItemukan', 500);
         }
         $diskon = [];
-        if ($request->jumlah > 1) {
+        if ($request->jumlah > 0) {
             $getdiskon = GetDiskon::where('min_quantity', '<=', $request->jumlah)->get();
             foreach ($getdiskon as $key => $value) {
                 $diskon[] = Diskon::find($value->diskon_id)->jumlah;
             }
 
-        } else {
             $user = User::with(['customer'])->find($request->user_id);
             $customer_id = $user->customer->id;
             $penyewaan = Penyewaan::where('customer_id', $customer_id)->whereMonth('created_at', Carbon::now()->format('m'))->get();
@@ -41,8 +40,7 @@ class DiskonController extends Controller
                 $diskon[] = Diskon::find($value->diskon_id)->jumlah;
             }
         }
-        return response()->json(count($diskon) > 0 ? end($diskon):0, 200);
-
+        return response()->json(count($diskon) > 0 ? end($diskon) : 0, 200);
     }
 
     /**
