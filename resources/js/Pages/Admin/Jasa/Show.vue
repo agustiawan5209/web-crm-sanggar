@@ -62,11 +62,11 @@ const props = defineProps({
                                         <td>:</td>
                                         <td class="text-sm border-b text-gray-800"> {{ jasa.harga }} </td>
                                     </tr>
-                                    <tr class="">
+                                    <!-- <tr class="">
                                         <td class="text-sm border-b py-2 font-bold capitalize">Harga Sewa</td>
                                         <td>:</td>
                                         <td class="text-sm border-b text-gray-800"> {{ jasa.harga_transportasi }} </td>
-                                    </tr>
+                                    </tr> -->
                                     <tr class="">
                                         <td class="text-sm border-b py-2 font-bold capitalize">keterangan</td>
                                         <td>:</td>

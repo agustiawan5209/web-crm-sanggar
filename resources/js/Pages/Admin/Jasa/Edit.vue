@@ -68,12 +68,12 @@ function submit() {
                                     class="w-full text-gray-900" />
                                 <InputError :message="Form.errors.harga" />
                             </div>
-                            <div class="col-span-full ">
+                            <!-- <div class="col-span-full ">
                                 <label for="biaya_transportasi" class="text-base">Biaya Transportasi</label>
                                 <TextInput id="biaya_transportasi" type="number" placeholder="Biaya Transportasi" v-model="Form.biaya_transportasi"
                                     class="w-full text-gray-900" />
                                 <InputError :message="Form.errors.biaya_transportasi" />
-                            </div>
+                            </div> -->
                             <div class="col-span-full">
                                 <label for="status" class="text-base w-full">Status</label>
                                 <div class="flex items-center gap-4">
