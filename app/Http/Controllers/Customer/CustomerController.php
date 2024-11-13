@@ -26,7 +26,7 @@ class CustomerController extends Controller
         $subject = "Pemberitahuan Pendaftaran";
         $messageContent = "Selamat Datang Di Sistem Informasi Sanggar Seni Kawali.";
 
-        // Mail::to('wawan@citratekno.com')->send(new EmailNotification( Auth::user(), 'sanggar-kawali.citratekno.com',$subject, $messageContent));
+        // Mail::to('wawansolidrock3@gmail.com')->send(new EmailNotification( Auth::user(), 'sanggar-kawali.citratekno.com',$subject, $messageContent));
         return Inertia::render('User/Dashboard', [
             'penyewaan'=>  [
                 'count'=> $penyewaan->count(),
