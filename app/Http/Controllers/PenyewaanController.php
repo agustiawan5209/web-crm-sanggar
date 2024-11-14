@@ -34,6 +34,7 @@ class PenyewaanController extends Controller
         $columns[] = 'produk';
         $columns[] = 'jumlah';
         $columns[] = 'pengiriman';
+        $columns[] = 'lokasi';
         $columns[] = 'tgl_penyewaan';
         $columns[] = 'tgl_pengambilan';
         $columns[] = 'tgl_pengembalian';
@@ -67,6 +68,7 @@ class PenyewaanController extends Controller
         $columns[] = 'produk';
         $columns[] = 'jumlah';
         $columns[] = 'pengiriman';
+        $columns[] = 'lokasi';
         $columns[] = 'tgl_penyewaan';
         $columns[] = 'tgl_pengambilan';
         $columns[] = 'total_bayar';

@@ -240,7 +240,7 @@ console.log(Form.jumlah_bayar)
                 </h1>
 
                 <div class="inline-flex gap-4 rounded-md shadow-sm" role="group">
-                    <button type="button" @click="payLaterTrue()"
+                    <button type="button" @click="payLaterTrue()" v-if="jenisproduk == 'jasa'"
                         class="px-4 py-2 text-sm font-medium text-gray-900 bg-orange-200 border border-gray-200 rounded-md hover:bg-gray-100 hover:text-orange-700 focus:z-10 focus:ring-2 focus:ring-orange-700 focus:text-orange-700">
                         Bayar Nanti
                     </button>

@@ -81,6 +81,10 @@
                 <td>{{ $data->customer->no_telpon }}</td>
             </tr>
             <tr>
+                <th>No. Telpon Customer</th>
+                <td>{{ $data->customer->alamat }}</td>
+            </tr>
+            <tr>
                 <th>Nama Produk</th>
                 <td>{{ $data->produk }}</td>
             </tr>
@@ -90,14 +94,12 @@
                     <td>{{ $data->tgl_pengambilan }}</td>
                 </tr>
             @endif
-            <tr>
-                <th>Jumlah</th>
-                <td>{{ $data->jumlah }}</td>
-            </tr>
-            <tr>
-                <th>Jenis Pembayaran</th>
-                <td>{{ $data->pembayaran->jenis_bayar }}</td>
-            </tr>
+            @if ($data->jenis == 'jasa')
+                <tr>
+                    <th>Tanggal Penyewaan</th>
+                    <td>{{ $data->tgl_penyewaan }}</td>
+                </tr>
+            @endif
             <tr>
                 <th>Pengiriman</th>
                 <td>{{ $data->ongkir }}</td>
@@ -105,6 +107,22 @@
             <tr>
                 <th>Harga Pengiriman</th>
                 <td>{{ $data->biaya_ongkir }}</td>
+            </tr>
+            <tr>
+                <th>Lokasi</th>
+                <td>{{ $data->lokasi }}</td>
+            </tr>
+            <tr>
+                <th>Harga Pengiriman</th>
+                <td>{{ $data->biaya_ongkir }}</td>
+            </tr>
+            <tr>
+                <th>Jenis Pembayaran</th>
+                <td>{{ $data->pembayaran->jenis_bayar }}</td>
+            </tr>
+            <tr>
+                <th>Jumlah</th>
+                <td>{{ $data->jumlah }}</td>
             </tr>
             <tr>
                 <th>Total Bayar</th>
