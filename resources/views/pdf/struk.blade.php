@@ -81,7 +81,7 @@
                 <td>{{ $data->customer->no_telpon }}</td>
             </tr>
             <tr>
-                <th>No. Telpon Customer</th>
+                <th>Alamat Customer</th>
                 <td>{{ $data->customer->alamat }}</td>
             </tr>
             <tr>
@@ -111,10 +111,6 @@
             <tr>
                 <th>Lokasi</th>
                 <td>{{ $data->lokasi }}</td>
-            </tr>
-            <tr>
-                <th>Harga Pengiriman</th>
-                <td>{{ $data->biaya_ongkir }}</td>
             </tr>
             <tr>
                 <th>Jenis Pembayaran</th>
