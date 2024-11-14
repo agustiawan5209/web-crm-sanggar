@@ -34,6 +34,16 @@ const auth = usePage().props.auth;
                             fill="#0346F2" />
                     </svg>
                 </div>
+                <li
+                    class="font-medium border border-white rounded-md text-base p-3 cursor-pointer bg-primary text-white ">
+                  <Link  :href="route('all.produk_jasa')" class="flex gap-2">
+                    <span>Mulai Pesan</span> <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 14 10">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M1 5h12m0 0L9 1m4 4L9 9" />
+                    </svg>
+                </Link>
+                </li>
                 <li :class="route().current('all.produk_jasa') ? 'bg-white text-primary hover:bg-gray-200 ' : 'bg-primary text-white'"
                     class="font-medium border border-white rounded-md text-base p-3 cursor-pointer">
                     <Link :href="route('all.produk_jasa')">Jasa Tari & Pelatihan Tari</Link>
