@@ -37,8 +37,8 @@ const props = defineProps({
                             <div class="items-center ml-2"></div>
                         </div>
                         <div
-                            class="my-4 flex items-baseline text-2xl tracking-tight text-gray-200 font-semibold">
-                           Potongan Hingga <b class="text-red-500 text-6xl">{{ item.jumlah }}%</b>
+                            class="my-4 flex flex-col justify-center items-baseline text-2xl tracking-tight text-gray-200 font-semibold">
+                           <span>Potongan Hingga <b class="text-red-500 text-6xl">{{ item.jumlah }}%</b></span>
                             <span
                                 class="text-lg font-semibold leading-8 tracking-normal text-gray-400"></span>
                         </div>
