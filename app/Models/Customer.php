@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -86,5 +88,24 @@ class Customer extends Model
         })->when($filter['order'] ?? null, function ($query, $order) {
             $query->orderBy('id', $order);
         });
+    }
+
+    public function updateStatus()
+    {
+        $sixMonthsAgo = Carbon::now()->subMonths(6);
+
+        $sewaCount = $this->penyewaan()
+                            ->where('created_at', '>=', $sixMonthsAgo)
+                            ->count();
+
+        if ($sewaCount > 3) {
+            $this->status = '1';
+        } elseif ($this->penyewaan()->where('created_at', '<', $sixMonthsAgo)->exists()) {
+            $this->status = '2';
+        } else {
+            $this->status = '0';
+        }
+
+        $this->save();
     }
 }

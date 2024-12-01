@@ -27,7 +27,10 @@ class CustomerController extends Controller
         $columns[] = 'no_telpon';
         $columns[] = 'alamat';
         $columns[] = 'status_pelanggan';
-
+        $customers = Customer::all();
+        foreach ($customers as $customer) {
+            $customer->updateStatus();
+        }
         return Inertia::render('Admin/Customer/Index', [
             'search' =>  Request::input('search'),
             'table_colums' => array_values(array_diff($columns, ['remember_token', 'password', 'email_verified_at', 'created_at', 'updated_at', 'user_id', 'deskripsi'])),
