@@ -38,9 +38,9 @@ const props = defineProps({
                         </div>
                         <div
                             class="my-4 flex flex-col justify-center items-baseline text-2xl tracking-tight text-gray-200 font-semibold">
-                           <div>Potongan Hingga <b class="text-red-500 text-6xl">{{ item.jumlah }}%</b></div>
+                           <div>Potongan Hingga </div>
                             <div
-                                class="text-lg font-semibold leading-8 tracking-normal text-gray-400"></div>
+                                class="text-lg font-semibold leading-8 tracking-normal text-gray-400"><b class="text-red-500 text-6xl">{{ item.jumlah }}%</b></div>
                         </div>
                         <p v-html="item.keterangan" class="text-white"></p>
 
