@@ -25,20 +25,30 @@ class DiskonController extends Controller
             return response()->json('Error User Tidak DItemukan', 500);
         }
         $diskon = [];
-        if ($request->jumlah > 0) {
+        if ($request->jumlah > 1) {
             $getdiskon = GetDiskon::where('min_quantity', '<=', $request->jumlah)->get();
             foreach ($getdiskon as $key => $value) {
-                $diskon[] = Diskon::find($value->diskon_id)->jumlah;
+                $d = Diskon::find($value->diskon_id);
+                if($d->jumlah >= 10){
+                    $diskon[] = $d->jumlah;
+                }
             }
-
-            $user = User::with(['customer'])->find($request->user_id);
-            $customer_id = $user->customer->id;
-            $penyewaan = Penyewaan::where('customer_id', $customer_id)->whereMonth('created_at', Carbon::now()->format('m'))->get();
-
-            $keepDiskon = KeepDiskon::where('min_frequency', '<', $penyewaan->count())->get();
-            foreach ($keepDiskon as $key => $value) {
-                $diskon[] = Diskon::find($value->diskon_id)->jumlah;
+        }else{
+            $getdiskon = GetDiskon::where('min_quantity', '<=', $request->jumlah)->get();
+            foreach ($getdiskon as $key => $value) {
+                $d = Diskon::find($value->diskon_id);
+                if($d->jumlah >= 5){
+                    $diskon[] = $d->jumlah;
+                }
             }
+            // $user = User::with(['customer'])->find($request->user_id);
+            // $customer_id = $user->customer->id;
+            // $penyewaan = Penyewaan::where('customer_id', $customer_id)->whereMonth('created_at', Carbon::now()->format('m'))->get();
+
+            // $keepDiskon = KeepDiskon::where('min_frequency', '<', $penyewaan->count())->get();
+            // foreach ($keepDiskon as $key => $value) {
+            //     $diskon[] = Diskon::find($value->diskon_id)->jumlah;
+            // }
         }
         return response()->json(count($diskon) > 0 ? end($diskon) : 0, 200);
     }
