@@ -56,7 +56,7 @@ class GrafikController extends Controller
         $tanggal = [];
 
         foreach ($jadwal as $key => $value) {
-            $parsedDate = Carbon::parse($value->created_at)->format('Y-m-d'); // Menggunakan parse untuk string tanggal
+            $parsedDate = Carbon::parse($value->tgl_penyewaan)->format('Y-m-d'); // Menggunakan parse untuk string tanggal
             $data[] = [
                 'tanggal' => $parsedDate,
                 'deskripsi' => $value->customer_user['name'],
