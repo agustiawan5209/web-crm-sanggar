@@ -222,7 +222,13 @@ function submitLater() {
     })
 }
 
-console.log(Form.jumlah_bayar)
+const tanggal = ()=>{
+    let tgl = new Date();
+    tgl.setDate(tgl.getDate()+1);
+    return tgl.toISOString().split("T")[0];
+};
+
+const HariIni = tanggal();
 </script>
 
 <template>
@@ -510,7 +516,7 @@ console.log(Form.jumlah_bayar)
                                             class="block text-sm font-medium text-gray-700 mb-2">Tanggal
                                             Pembayaran</label>
                                         <input type="date" v-model="Form.tgl_pembayaran" id="tgl_pembayaran"
-                                            placeholder="MM / YY"
+                                            placeholder="MM / YY" :min="HariIni"
                                             class="w-full py-3 px-4 border border-gray-400 rounded-lg focus:outline-none focus:border-blue-500">
                                         <InputError :message="Form.errors.tgl_pembayaran" />
 

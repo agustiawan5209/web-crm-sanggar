@@ -56,6 +56,7 @@ const responseModal = ref(false);
 const getDiskon = async () => {
     try {
         const response = await axios.get(route('Api.diskon.get_diskon', { jumlah: props.quantity, user_id: User.id, tipe: props.tipe }));
+        console.log(response.data);
         if (response.status == 200) {
             JumlahDiskon.value = response.data;
             HargaDiskon.value = subTotal.value * (JumlahDiskon.value / 100);
@@ -71,7 +72,7 @@ const getDiskon = async () => {
 onMounted(async () => {
     await getDiskon();
 })
-console.log(subTotal.value, HargaDiskon.value)
+
 </script>
 
 <template>

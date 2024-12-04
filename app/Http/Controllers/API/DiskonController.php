@@ -25,25 +25,27 @@ class DiskonController extends Controller
             return response()->json('Error User Tidak DItemukan', 500);
         }
         $diskon = [];
+        $user = User::with(['customer'])->find($request->user_id);
+
+        $customer_id = $user->customer->id;
+        $penyewaan = Penyewaan::where('customer_id', $customer_id)->whereMonth('created_at', Carbon::now()->format('m'))->get();
         if ($request->jumlah > 1) {
-            $getdiskon = GetDiskon::where('min_quantity', '<=', $request->jumlah)->get();
-            foreach ($getdiskon as $key => $value) {
-                $d = Diskon::find($value->diskon_id);
-                if($d->jumlah >= 10){
-                    $diskon[] = $d->jumlah;
-                }
-            }
-        }else{
-            $getdiskon = GetDiskon::where('min_quantity', '<=', $request->jumlah)->get();
+            $getdiskon = GetDiskon::where('min_quantity', '<=',$penyewaan->count())->get();
             foreach ($getdiskon as $key => $value) {
                 $d = Diskon::find($value->diskon_id);
                 if($d->jumlah >= 5){
                     $diskon[] = $d->jumlah;
                 }
             }
-            // $user = User::with(['customer'])->find($request->user_id);
-            // $customer_id = $user->customer->id;
-            // $penyewaan = Penyewaan::where('customer_id', $customer_id)->whereMonth('created_at', Carbon::now()->format('m'))->get();
+        }else{
+            $getdiskon = GetDiskon::where('min_quantity', '<=',$penyewaan->count())->get();
+            foreach ($getdiskon as $key => $value) {
+                $d = Diskon::find($value->diskon_id);
+                if($d->jumlah >= 10){
+                    $diskon[] = $d->jumlah;
+                }
+            }
+
 
             // $keepDiskon = KeepDiskon::where('min_frequency', '<', $penyewaan->count())->get();
             // foreach ($keepDiskon as $key => $value) {
