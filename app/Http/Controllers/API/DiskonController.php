@@ -30,7 +30,7 @@ class DiskonController extends Controller
         $customer_id = $user->customer->id;
         if ($request->jumlah > 1) {
             $penyewaan = Penyewaan::where('customer_id', $customer_id)->whereMonth('created_at', Carbon::now()->format('m'))->get();
-            $getdiskon = GetDiskon::where('min_quantity', '<=',$penyewaan->count())->get();
+            $getdiskon = GetDiskon::where('min_quantity', '>=',$penyewaan->count())->get();
             foreach ($getdiskon as $key => $value) {
                 $d = Diskon::find($value->diskon_id);
                 if($d->jumlah >= 5){
@@ -39,7 +39,7 @@ class DiskonController extends Controller
             }
         }else{
             $penyewaan = Penyewaan::where('customer_id', $customer_id)->get();
-            $getdiskon = GetDiskon::where('min_quantity', '<=',$penyewaan->count())->get();
+            $getdiskon = GetDiskon::where('min_quantity', '>=',$penyewaan->count())->get();
             foreach ($getdiskon as $key => $value) {
                 $d = Diskon::find($value->diskon_id);
                 if($d->jumlah >= 10){
