@@ -28,8 +28,8 @@ class DiskonController extends Controller
         $user = User::with(['customer'])->find($request->user_id);
 
         $customer_id = $user->customer->id;
-        $penyewaan = Penyewaan::where('customer_id', $customer_id)->whereMonth('created_at', Carbon::now()->format('m'))->get();
         if ($request->jumlah > 1) {
+            $penyewaan = Penyewaan::where('customer_id', $customer_id)->whereMonth('created_at', Carbon::now()->format('m'))->get();
             $getdiskon = GetDiskon::where('min_quantity', '<=',$penyewaan->count())->get();
             foreach ($getdiskon as $key => $value) {
                 $d = Diskon::find($value->diskon_id);
@@ -38,6 +38,7 @@ class DiskonController extends Controller
                 }
             }
         }else{
+            $penyewaan = Penyewaan::where('customer_id', $customer_id)->get();
             $getdiskon = GetDiskon::where('min_quantity', '<=',$penyewaan->count())->get();
             foreach ($getdiskon as $key => $value) {
                 $d = Diskon::find($value->diskon_id);
