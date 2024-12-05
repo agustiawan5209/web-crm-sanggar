@@ -33,7 +33,7 @@ class DiskonController extends Controller
             $getdiskon = GetDiskon::where('min_quantity', '>=',$penyewaan->count())->get();
             foreach ($getdiskon as $key => $value) {
                 $d = Diskon::find($value->diskon_id);
-                if($d->jumlah >= 5 && $request->produk >= 5000000){
+                if($request->produk >= 5000000){
                     $diskon[] = $d->jumlah;
                 }
             }
