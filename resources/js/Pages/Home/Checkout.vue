@@ -55,7 +55,7 @@ const HargaDiskon = ref(0);
 const responseModal = ref(false);
 const getDiskon = async () => {
     try {
-        const response = await axios.get(route('Api.diskon.get_diskon', { jumlah: props.quantity, user_id: User.id, tipe: props.tipe }));
+        const response = await axios.get(route('Api.diskon.get_diskon', { jumlah: props.quantity, user_id: User.id, tipe: props.tipe, produk: props.produk.harga }));
         console.log(response.data);
         if (response.status == 200) {
             JumlahDiskon.value = response.data;
