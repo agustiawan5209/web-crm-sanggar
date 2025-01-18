@@ -8,7 +8,7 @@ use App\Http\Controllers\Payment\PembayaranController;
 use App\Http\Controllers\PenyewaanController;
 use App\Http\Controllers\ReviewController;
 
-Route::middleware(['auth', 'verified', 'role:Customer'])->group(function () {
+Route::middleware(['auth', 'verified', 'role:Customer', 'throttle:10,1'])->group(function () {
     // Dashboard User
     Route::group(['prefix' => 'user', 'as' => 'Customer.'], function () {
         Route::controller(CustomerController::class)->group(function () {

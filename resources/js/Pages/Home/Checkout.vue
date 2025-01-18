@@ -3,6 +3,7 @@ import { Link, Head, useForm, usePage } from '@inertiajs/vue3';
 import { ref, defineProps, onMounted, watch } from 'vue';
 import HomeLayout from '@/Layouts/HomeLayout.vue';
 import ModalPayment from '@/Components/Payment/Modal.vue'
+import Modal from '@/Components/Modal.vue';
 import axios from 'axios';
 const dateNow = new Date().toLocaleDateString();
 const TimeNow = new Date().toLocaleTimeString();
@@ -27,8 +28,7 @@ const props = defineProps({
 })
 const JumlahDiskon = ref(0);
 const User = usePage().props.auth.user;
-
-
+const Orders = usePage().props.auth.order;
 const showModal = ref(false);
 
 const funModal = () => {
@@ -73,6 +73,8 @@ onMounted(async () => {
     await getDiskon();
 })
 
+
+const modalShowOrder = ref(false);
 </script>
 
 <template>
@@ -83,6 +85,40 @@ onMounted(async () => {
         <span class="absolute top-3 left-10 text-lg cursor-pointer" @click="showModal = false">X</span>
 
     </ModalPayment>
+
+    <Modal :show="modalShowOrder" maxWidth="2xl">
+        <div id="modal" class="relative p-6 bg-white rounded-lg shadow-lg">
+            <button @click="modalShowOrder = false" id="closeModalButtonTop" class="close-button">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-700 hover:text-gray-900" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <div class="flex justify-center flex-col space-x-2">
+                <div class="flex justify-start items-start flex-col space-y-2">
+                    <p class="text-base text-black font-semibold leading-4 text-left">Nama Pengguna: {{ User.name }}
+                    </p>
+                    <p class="text-base text-black font-semibold leading-4 text-left">Tanggal Pendaftaran: {{ User.created_at }}
+                    </p>
+                </div>
+               <table v-if="Orders.length > 0" class="table-auto">
+               <thead>
+                <tr>
+                    <th class="border-2 border-gray-500">Produk</th>
+                    <th class="border-2 border-gray-500">Tanggal</th>
+                </tr>
+               </thead>
+                <tbody>
+                    <tr v-for="item in Orders">
+                        <td class="border-2 px-3 py-1 border-gray-500">{{ item.produk }}</td>
+                        <td class="border-2 px-3 py-1 border-gray-500">{{ item.tgl_penyewaan }}</td>
+
+                    </tr>
+                </tbody>
+               </table>
+            </div>
+          </div>
+    </Modal>
     <HomeLayout>
         <div class="py-14 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
             <div class="flex justify-start item-start space-y-2 flex-col">
@@ -157,7 +193,7 @@ onMounted(async () => {
                                 <div class="flex justify-start items-start flex-col space-y-2">
                                     <p class="text-base text-white font-semibold leading-4 text-left">{{ User.name }}
                                     </p>
-                                    <p class="text-sm text-gray-300 leading-5 ">10 Previous Orders</p>
+                                    <p @click="modalShowOrder = true" class="text-sm cursor-pointer text-gray-300 leading-5 ">{{ Orders.length }} pesanan sebelumnya</p>
                                 </div>
                             </div>
 

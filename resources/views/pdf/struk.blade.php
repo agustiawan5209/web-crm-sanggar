@@ -113,7 +113,7 @@
                 <td>{{ $data->lokasi }}</td>
             </tr>
             <tr>
-                <th>Jenis Pembayaran</th>
+                <th>Status</th>
                 <td>{{ $data->pembayaran->jenis_bayar }}</td>
             </tr>
             <tr>

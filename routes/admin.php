@@ -12,7 +12,7 @@ use App\Http\Controllers\ProdukAlatController;
 use App\Http\Controllers\ProdukJasaController;
 use App\Http\Controllers\ReviewController;
 
-Route::middleware(['auth', 'verified', 'role:Admin|Bendahara'])->group(function () {
+Route::middleware(['auth', 'verified', 'role:Admin|Bendahara', 'throttle:10,1'])->group(function () {
 
 
     // Router Pegawai
